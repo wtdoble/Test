@@ -27,11 +27,9 @@ steps:
     inlineScript: |
       az --version
       az account show
-
-- script: 
-    az aks create \
-        --resource-group wtd-test \
-        --name myapp \
-        --node-count 1 \
-        --enable-addons monitoring \
-        --generate-ssh-keys  
+      az aks create \
+          --resource-group wtd-test \
+          --name myapp \
+          --node-count 1 \
+          --enable-addons monitoring \
+          --generate-ssh-keys

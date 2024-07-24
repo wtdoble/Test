@@ -274,7 +274,7 @@
                 ],
                 "azureMonitorProfile": {
                   "metrics": {
-                    "enabled": false,
+                    "enabled": true,
                     "kubeStateMetrics": {
                       "metricLabelsAllowlist": "[parameters('metricLabelsAllowlist')]",
                       "metricAnnotationsAllowList": "[parameters('metricAnnotationsAllowList')]"

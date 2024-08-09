@@ -27,6 +27,7 @@ func TestTest(t *testing.T) {
 var _ = BeforeSuite(func() {
 	var err error
 	K8sClient, Cfg, err = utils.SetupKubernetesClient()
+	fmt.Println(err)
 	Expect(err).NotTo(HaveOccurred())
 })
 

@@ -25,5 +25,5 @@ steps:
     #customCommand: # string. Required when command == custom. Custom command. 
     #arguments: # string. Arguments. 
   # Advanced
-    workingDirectory: '.\wtdTest'  # string. Working directory.
+    workingDirectory: '.\ginkgo-e2e\wtdTest'  # string. Working directory.
           

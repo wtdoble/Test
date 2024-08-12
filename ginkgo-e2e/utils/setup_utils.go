@@ -25,6 +25,9 @@ import (
  */
 func SetupKubernetesClient() (*kubernetes.Clientset, *rest.Config, error) {
 	var kubeconfig *string
+
+	fmt.Println("SetupKubernetesClient")
+
 	if home := homedir.HomeDir(); home != "" {
 		kubeconfig = flag.String("kubeconfig", filepath.Join(home, ".kube", "config"), "(optional) absolute path to the kubeconfig file")
 	} else {
@@ -32,10 +35,17 @@ func SetupKubernetesClient() (*kubernetes.Clientset, *rest.Config, error) {
 	}
 	flag.Parse()
 
-	fmt.Println(kubeconfig)
+	fmt.Println("kubeconfig")
+	fmt.Println(*kubeconfig)
 
 	cfg, err := clientcmd.BuildConfigFromFlags("", *kubeconfig)
+
+	fmt.Println("BuildConfigFromFlags cfg")
+	fmt.Println(cfg)
+
+	fmt.Println("BuildConfigFromFlags err")
 	fmt.Println(err)
+
 	if err != nil {
 		cfg, err = rest.InClusterConfig()
 		if err != nil {

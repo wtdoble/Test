@@ -27,8 +27,11 @@ func TestTest(t *testing.T) {
 var _ = BeforeSuite(func() {
 	var err error
 	K8sClient, Cfg, err = utils.SetupKubernetesClient()
+
+	fmt.Println("BeforeSuite")
 	fmt.Println(Cfg)
 	fmt.Println(err)
+
 	Expect(err).NotTo(HaveOccurred())
 })
 
@@ -82,21 +85,21 @@ var _ = Describe("Test", func() {
 
 		var lines []string = strings.Split(stdout, "\n")
 		fmt.Println(len(lines))
-		for i, line := range lines {
-			fmt.Println(fmt.Sprintf("#line: %d, %s ***\r\n\r\n", i, line))
+		// // for i, line := range lines {
+		// // 	fmt.Println(fmt.Sprintf("#line: %d, %s ***\r\n\r\n", i, line))
 
-			//var l []string = strings.Split(line, " \t")
-			var l []string = strings.Fields(line)
-			fmt.Println(len(l))
-			if len(l) >= 2 {
-				//abc := mdsdInfoConfigLine{dt: l[0], message: l[1]}
-				//fmt.Println(abc.dt)
+		// // 	//var l []string = strings.Split(line, " \t")
+		// // 	var l []string = strings.Fields(line)
+		// // 	fmt.Println(len(l))
+		// // 	if len(l) >= 2 {
+		// // 		//abc := mdsdInfoConfigLine{dt: l[0], message: l[1]}
+		// // 		//fmt.Println(abc.dt)
 
-				fmt.Println(fmt.Sprintf("dt: %s, status: %s", l[0], l[1]))
-				fmt.Println(fmt.Sprintf("the rest: %s", strings.Join(l[2:], "%")))
+		// // 		fmt.Println(fmt.Sprintf("dt: %s, status: %s", l[0], l[1]))
+		// // 		fmt.Println(fmt.Sprintf("the rest: %s", strings.Join(l[2:], "%")))
 
-			}
-		}
+		// // 	}
+		// // }
 		//fmt.Println(fmt.Sprintf("stderr: %s", stderr))
 		fmt.Println(err)
 		// Expect(_ = err).NotTo(HaveOccurred())

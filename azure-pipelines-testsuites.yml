@@ -9,7 +9,7 @@ trigger:
 pool:
   vmImage: windows-latest
 
-variables:
+ariables:
   KUBERNETES_SERVICE_HOST: 'wtdaks9-vze7soa3.hcp.westus2.azmk8s.io'
   KUBERNETES_SERVICE_PORT: '9376'
 

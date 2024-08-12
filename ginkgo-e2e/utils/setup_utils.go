@@ -3,6 +3,7 @@ package utils
 import (
 	"encoding/json"
 	"flag"
+	"fmt"
 	"path/filepath"
 
 	"k8s.io/client-go/rest"
@@ -31,7 +32,10 @@ func SetupKubernetesClient() (*kubernetes.Clientset, *rest.Config, error) {
   }
   flag.Parse()
 
+  fmt.Println(kubeconfig)
+
   cfg, err := clientcmd.BuildConfigFromFlags("", *kubeconfig)
+  	fmt.Println(err)
   if err != nil {
     cfg, err = rest.InClusterConfig()
     if err != nil {

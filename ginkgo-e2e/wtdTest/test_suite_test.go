@@ -52,7 +52,7 @@ var _ = Describe("Test", func() {
 
 	BeforeEach(func() {
 		cmd = []string{}
-		podName = "ama-metrics-bdddc945f-jn5vz" // "ama-metrics-bdddc945f-92gtw"
+		podName = "ama-metrics-57c4f5c898-twwn7"
 		namespace = "kube-system"
 		containerName = "prometheus-collector"
 		// controllerLabelName = "rsName"

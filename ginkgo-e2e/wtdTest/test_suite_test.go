@@ -134,6 +134,11 @@ var _ = Describe("Test", func() {
 			}
 		}
 
+		fmt.Println("Error test")
+		fmt.Println("Err test")
+		fmt.Println("Warning test")
+		fmt.Println("Warn test")
+
 		// Expect(_ = err).NotTo(HaveOccurred())
 		// Expect(apiResponse.Data).NotTo(BeNil())
 

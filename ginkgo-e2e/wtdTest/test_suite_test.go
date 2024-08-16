@@ -19,6 +19,11 @@ var (
 	//PrometheusQueryClient v1.API
 )
 
+const namespace = "kube-system"
+const containerName = "prometheus-collector"
+const controllerLabelName = "rsName"
+const controllerLabelValue = "ama-metrics"
+
 func TestTest(t *testing.T) {
 	RegisterFailHandler(Fail)
 	RunSpecs(t, "Test Suite")
@@ -42,22 +47,27 @@ var _ = AfterSuite(func() {
 var _ = Describe("Test", func() {
 
 	var cmd []string
-	var podName string
-	var namespace string
-	var containerName string
-	// var controllerLabelName string
-	// var controllerLabelValue string
+	var podName string = ""
 	// var isLinux bool
 	// var apiResponse utils.APIResponse
 
 	BeforeEach(func() {
 		cmd = []string{}
-		podName = "ama-metrics-57c4f5c898-twwn7"
-		namespace = "kube-system"
-		containerName = "prometheus-collector"
-		// controllerLabelName = "rsName"
-		// controllerLabelValue = "ama-metrics"
+		////podName = "ama-metrics-57c4f5c898-twwn7"
 		// isLinux = true
+
+		v1Pod, err := utils.GetPodsWithLabel(K8sClient, namespace, controllerLabelName, controllerLabelValue)
+		Expect(err).To(BeNil())
+		//fmt.Println(err)
+
+		fmt.Printf("pod array length: %d\r\n", len(v1Pod))
+		for _, p := range v1Pod {
+			fmt.Println(p.Name)
+		}
+
+		if len(v1Pod) > 0 {
+			podName = v1Pod[0].Name
+		}
 	})
 
 	type mdsdInfoConfigLine struct {
@@ -69,7 +79,7 @@ var _ = Describe("Test", func() {
 		dt, status, message string
 	}
 
-	It("test", func() {
+	It("MetricsExtensionConsoleDebugLog Test", func() {
 		//err := utils.QueryPromUIFromPod(K8sClient, Cfg, namespace, controllerLabelName, controllerLabelValue, containerName, "/api/v1/scrape_pools", isLinux, &apiResponse)
 
 		//cmd = []string{"ls", "/etc/mdsd.d/config-cache/metricsextension"}
@@ -78,30 +88,36 @@ var _ = Describe("Test", func() {
 		///MetricsExtensionConsoleDebugLogs.log
 
 		//cmd = []string{"cat", "/opt/microsoft/linuxmonagent/mdsd.info"}
+
+		Expect(podName).NotTo(BeEmpty())
 		cmd = []string{"cat", "/MetricsExtensionConsoleDebugLog.log"}
 
-		stdout, _, err := utils.ExecCmd(K8sClient, Cfg, podName, containerName, namespace, cmd)
+		stdout, stderr, err := utils.ExecCmd(K8sClient, Cfg, podName, containerName, namespace, cmd)
+		Expect(err).To(BeNil())
 		////fmt.Println(fmt.Sprintf("stdout: %s", stdout))
+
+		fmt.Printf("stderr: %s", stderr)
+		//fmt.Println(err)
 
 		var lines []string = strings.Split(stdout, "\n")
 		fmt.Println(len(lines))
-		// // for i, line := range lines {
-		// // 	fmt.Println(fmt.Sprintf("#line: %d, %s ***\r\n\r\n", i, line))
+		//for line = lines[0, 10] {
+		for i := 0; i < 10; i++ {
+			line := lines[i]
+			fmt.Println(fmt.Sprintf("#line: %d, %s ***\r\n\r\n", i, line))
 
-		// // 	//var l []string = strings.Split(line, " \t")
-		// // 	var l []string = strings.Fields(line)
-		// // 	fmt.Println(len(l))
-		// // 	if len(l) >= 2 {
-		// // 		//abc := mdsdInfoConfigLine{dt: l[0], message: l[1]}
-		// // 		//fmt.Println(abc.dt)
+			//var l []string = strings.Split(line, " \t")
+			var l []string = strings.Fields(line)
+			fmt.Println(len(l))
+			if len(l) >= 2 {
+				//abc := mdsdInfoConfigLine{dt: l[0], message: l[1]}
+				//fmt.Println(abc.dt)
 
-		// // 		fmt.Println(fmt.Sprintf("dt: %s, status: %s", l[0], l[1]))
-		// // 		fmt.Println(fmt.Sprintf("the rest: %s", strings.Join(l[2:], "%")))
+				fmt.Println(fmt.Sprintf("dt: %s, status: %s", l[0], l[1]))
+				fmt.Println(fmt.Sprintf("the rest: %s", strings.Join(l[2:], "%")))
+			}
+		}
 
-		// // 	}
-		// // }
-		//fmt.Println(fmt.Sprintf("stderr: %s", stderr))
-		fmt.Println(err)
 		// Expect(_ = err).NotTo(HaveOccurred())
 		// Expect(apiResponse.Data).NotTo(BeNil())
 
@@ -110,5 +126,4 @@ var _ = Describe("Test", func() {
 		// //fmt.Println(apiResponse)
 		// fmt.Println(targetsResult)
 	})
-
 })

@@ -7,7 +7,6 @@ import (
 
 	"prometheus-collector/otelcollector/test/utils"
 
-	"github.com/fatih/color"
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
 	"k8s.io/client-go/kubernetes"
@@ -17,7 +16,6 @@ import (
 var (
 	K8sClient *kubernetes.Clientset
 	Cfg       *rest.Config
-	//PrometheusQueryClient v1.API
 )
 
 const namespace = "kube-system"
@@ -34,9 +32,9 @@ var _ = BeforeSuite(func() {
 	var err error
 	K8sClient, Cfg, err = utils.SetupKubernetesClient()
 
-	fmt.Println("BeforeSuite")
-	fmt.Println(Cfg)
-	fmt.Println(err)
+	// fmt.Println("BeforeSuite")
+	// fmt.Println(Cfg)
+	// fmt.Println(err)
 
 	Expect(err).NotTo(HaveOccurred())
 })
@@ -49,17 +47,13 @@ var _ = Describe("Test", func() {
 
 	var cmd []string
 	var podName string = ""
-	// var isLinux bool
 	// var apiResponse utils.APIResponse
 
 	BeforeEach(func() {
 		cmd = []string{}
-		////podName = "ama-metrics-57c4f5c898-twwn7"
-		// isLinux = true
 
 		v1Pod, err := utils.GetPodsWithLabel(K8sClient, namespace, controllerLabelName, controllerLabelValue)
 		Expect(err).To(BeNil())
-		//fmt.Println(err)
 
 		fmt.Printf("pod array length: %d\r\n", len(v1Pod))
 		for _, p := range v1Pod {
@@ -78,27 +72,56 @@ var _ = Describe("Test", func() {
 		data   string
 	}
 
-	type metricExtConsole struct {
-		dt, status, message string
-	}
+	// type metricExtConsole struct {
+	// 	dt, status, message string
+	// }
 
-	It("/opt/microsoft/linuxmonagent/mdsd.info Test", func() {
-		// /opt/microsoft/linuxmonagent/mdsd.warn
-		// /opt/microsoft/linuxmonagent/mdsd.info
+	type LineProcessor func(string) (bool, string)
 
-		Expect(podName).NotTo(BeEmpty())
-		cmd = []string{"cat", "/opt/microsoft/linuxmonagent/mdsd.info"}
+	// func mdsdInfoLineProcessor(line string) (bool, string) {
+	// 	line = strings.Trim(line, " ")
+	// 	return len(line) > 0, line
+	// }
 
-		stdout, _, err := utils.ExecCmd(K8sClient, Cfg, podName, containerName, namespace, cmd)
-		Expect(err).To(BeNil())
+	DescribeTable("Show contents of specified /opt/microsoft/linuxmonagent/ files",
+		func(fileName string, proc LineProcessor) {
+			Expect(podName).NotTo(BeEmpty())
+			Expect(fileName).NotTo(BeEmpty())
 
-		var lines []string = strings.Split(stdout, "\n")
-		fmt.Println(len(lines))
+			fullFileName := fmt.Sprintf("/opt/microsoft/linuxmonagent/%s", fileName)
+			fmt.Printf("Examining %s\r\n", fullFileName)
+			cmd = []string{"cat", fullFileName}
+			stdout, _, err := utils.ExecCmd(K8sClient, Cfg, podName, containerName, namespace, cmd)
+			Expect(err).To(BeNil())
 
-		for i, line := range lines {
-			fmt.Printf("line #%d: %s\r\n", i, line)
-		}
-	})
+			var lines []string = strings.Split(stdout, "\n")
+
+			for _, rawLine := range lines {
+				//fmt.Printf("raw line #%d: %s\r\n", i, rawLine)
+				nonEmpty, formattedLine := proc(rawLine)
+				if nonEmpty {
+					//fmt.Printf("line #%d: %s\r\n", i, formattedLine)
+					fmt.Printf("%s\r\n", formattedLine)
+				} else {
+					fmt.Println("<empty line>")
+				}
+			}
+		},
+		// func(fileName string, proc LineProcessor) string {
+		// 	return fmt.Sprintf("Examining /opt/microsoft/linuxmonagent/%s", fileName)
+		// },
+
+		// Entry("Examine the contents of mdsd.info", "mdsd.info"),
+		// Entry("Examine the contents of mdsd.err", "mdsd.err"),
+		Entry(nil, "mdsd.info", func(line string) (bool, string) {
+			line = strings.Trim(line, " ")
+			return len(line) > 0, line
+		}),
+		Entry(nil, "mdsd.err", func(line string) (bool, string) {
+			line = strings.Trim(line, " ")
+			return len(line) > 0, line
+		}),
+	)
 
 	It("/MetricsExtensionConsoleDebugLog Test", func() {
 		//err := utils.QueryPromUIFromPod(K8sClient, Cfg, namespace, controllerLabelName, controllerLabelValue, containerName, "/api/v1/scrape_pools", isLinux, &apiResponse)
@@ -109,15 +132,11 @@ var _ = Describe("Test", func() {
 		Expect(podName).NotTo(BeEmpty())
 		cmd = []string{"cat", "/MetricsExtensionConsoleDebugLog.log"}
 
-		stdout, stderr, err := utils.ExecCmd(K8sClient, Cfg, podName, containerName, namespace, cmd)
+		stdout, _, err := utils.ExecCmd(K8sClient, Cfg, podName, containerName, namespace, cmd)
 		Expect(err).To(BeNil())
 		////fmt.Println(fmt.Sprintf("stdout: %s", stdout))
 
-		fmt.Printf("stderr: %s", stderr)
-		//fmt.Println(err)
-
 		var lines []string = strings.Split(stdout, "\n")
-		fmt.Println(len(lines))
 		//for line = lines[0, 10] {
 		for i := 0; i < 10; i++ {
 			line := lines[i]
@@ -134,20 +153,5 @@ var _ = Describe("Test", func() {
 				// fmt.Println(fmt.Sprintf("the rest: %s", strings.Join(l[2:], "%")))
 			}
 		}
-
-		color.RedString("This is a test red string")
-
-		//fmt.Println("Error test")
-		// fmt.Println("Err test")
-		// fmt.Println("Warning test")
-		// fmt.Println("Warn test")
-
-		// Expect(_ = err).NotTo(HaveOccurred())
-		// Expect(apiResponse.Data).NotTo(BeNil())
-
-		// var targetsResult v1.TargetsResult
-		// json.Unmarshal([]byte(apiResponse.Data), &targetsResult)
-		// //fmt.Println(apiResponse)
-		// fmt.Println(targetsResult)
 	})
 })

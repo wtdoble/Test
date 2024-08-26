@@ -15,3 +15,8 @@ az aks get-credentials --resource-group wtd-test --name wtdaks9
 ..\..\kubectl config get-contexts
 
 helm install bitnami/prometheus --generate-name
+
+go mod init prometheus-collector/otelcollector/test/regionTests
+ginkgo bootstrap
+go get github.com/onsi/ginkgo/v2    
+go get prometheus-collector/otelcollector/test/utils

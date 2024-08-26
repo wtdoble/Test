@@ -72,9 +72,12 @@ var _ = Describe("Test", func() {
 		data   string
 	}
 
-	// type metricExtConsole struct {
-	// 	dt, status, message string
-	// }
+	type metricExtConsoleLine struct {
+		line   string
+		dt     string
+		status string
+		data   string
+	}
 
 	type LineProcessor func(string) (bool, string)
 
@@ -83,14 +86,14 @@ var _ = Describe("Test", func() {
 	// 	return len(line) > 0, line
 	// }
 
-	DescribeTable("Show contents of specified /opt/microsoft/linuxmonagent/ files",
+	DescribeTable("/opt/microsoft/linuxmonagent/ files Test",
 		func(fileName string, proc LineProcessor) {
 			Expect(podName).NotTo(BeEmpty())
 			Expect(fileName).NotTo(BeEmpty())
 
-			fullFileName := fmt.Sprintf("/opt/microsoft/linuxmonagent/%s", fileName)
-			fmt.Printf("Examining %s\r\n", fullFileName)
-			cmd = []string{"cat", fullFileName}
+			//fullFileName := fmt.Sprintf("/opt/microsoft/linuxmonagent/%s", fileName)
+			fmt.Printf("Examining %s\r\n", fileName)
+			cmd = []string{"cat", fileName}
 			stdout, _, err := utils.ExecCmd(K8sClient, Cfg, podName, containerName, namespace, cmd)
 			Expect(err).To(BeNil())
 
@@ -111,47 +114,52 @@ var _ = Describe("Test", func() {
 		// 	return fmt.Sprintf("Examining /opt/microsoft/linuxmonagent/%s", fileName)
 		// },
 
-		// Entry("Examine the contents of mdsd.info", "mdsd.info"),
-		// Entry("Examine the contents of mdsd.err", "mdsd.err"),
-		Entry(nil, "mdsd.info", func(line string) (bool, string) {
+		// Entry("Examine the contents of mdsd.info"),
+		Entry(nil, "/opt/microsoft/linuxmonagent/mdsd.info", func(line string) (bool, string) {
 			line = strings.Trim(line, " ")
 			return len(line) > 0, line
 		}),
-		Entry(nil, "mdsd.err", func(line string) (bool, string) {
+		// Entry("Examine the contents of mdsd.err"),
+		Entry(nil, "/opt/microsoft/linuxmonagent/mdsd.err", func(line string) (bool, string) {
 			line = strings.Trim(line, " ")
+			return len(line) > 0, line
+		}),
+		Entry(nil, "/MetricsExtensionConsoleDebugLog.log", func(line string) (bool, string) {
+			line = strings.Trim(line, " ")
+
+			var fields []string = strings.Fields(line)
+			if len(fields) > 2 {
+				metricExt := metricExtConsoleLine{line: line, dt: fields[0], status: fields[1], data: fields[2]}
+				fmt.Println(metricExt.status)
+			}
+
 			return len(line) > 0, line
 		}),
 	)
 
-	It("/MetricsExtensionConsoleDebugLog Test", func() {
-		//err := utils.QueryPromUIFromPod(K8sClient, Cfg, namespace, controllerLabelName, controllerLabelValue, containerName, "/api/v1/scrape_pools", isLinux, &apiResponse)
+	// It("/MetricsExtensionConsoleDebugLog Test", func() {
+	// 	Expect(podName).NotTo(BeEmpty())
 
-		//cmd = []string{"ls", "/etc/mdsd.d/config-cache/metricsextension"}
-		// /MetricsExtensionConsoleDebugLogs.log
+	// 	cmd = []string{"cat", "/MetricsExtensionConsoleDebugLog.log"}
 
-		Expect(podName).NotTo(BeEmpty())
-		cmd = []string{"cat", "/MetricsExtensionConsoleDebugLog.log"}
+	// 	stdout, _, err := utils.ExecCmd(K8sClient, Cfg, podName, containerName, namespace, cmd)
+	// 	Expect(err).To(BeNil())
 
-		stdout, _, err := utils.ExecCmd(K8sClient, Cfg, podName, containerName, namespace, cmd)
-		Expect(err).To(BeNil())
-		////fmt.Println(fmt.Sprintf("stdout: %s", stdout))
+	// 	var lines []string = strings.Split(stdout, "\n")
+	// 	//for line = lines[0, 10] {
+	// 	for i := 0; i < 10; i++ {
+	// 		line := lines[i]
+	// 		fmt.Printf("#line: %d, %s ***\r\n", i, line)
 
-		var lines []string = strings.Split(stdout, "\n")
-		//for line = lines[0, 10] {
-		for i := 0; i < 10; i++ {
-			line := lines[i]
-			fmt.Printf("#line: %d, %s ***\r\n", i, line)
+	// 		var l []string = strings.Fields(line)
+	// 		fmt.Println(len(l))
+	// 		if len(l) >= 2 {
+	// 			abc := mdsdInfoConfigLine{line: line, dt: l[0], status: l[1], data: l[2]}
+	// 			fmt.Println(abc.status)
 
-			//var l []string = strings.Split(line, " \t")
-			var l []string = strings.Fields(line)
-			fmt.Println(len(l))
-			if len(l) >= 2 {
-				abc := mdsdInfoConfigLine{line: line, dt: l[0], status: l[1], data: l[2]}
-				fmt.Println(abc.status)
-
-				// fmt.Println(fmt.Sprintf("dt: %s, status: %s", l[0], l[1]))
-				// fmt.Println(fmt.Sprintf("the rest: %s", strings.Join(l[2:], "%")))
-			}
-		}
-	})
+	// 			// fmt.Println(fmt.Sprintf("dt: %s, status: %s", l[0], l[1]))
+	// 			// fmt.Println(fmt.Sprintf("the rest: %s", strings.Join(l[2:], "%")))
+	// 		}
+	// 	}
+	// })
 })

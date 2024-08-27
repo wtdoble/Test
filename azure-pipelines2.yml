@@ -31,5 +31,5 @@ steps:
           --resource-group ${env:RESOURCE-GROUP} `
           --name  ${env:DEPLOYMENT-NAME} `
           --template-file ".\ci-cd-cluster.json" `
-          --parameters ".\ci-cd-cluster.parameters.json"
+          --parameters ${env:PARAMETERS}
           

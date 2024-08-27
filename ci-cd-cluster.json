@@ -4,7 +4,7 @@
   "parameters": {
     "azureMonitorWorkspaceLocation": {
       "type": "string",
-      "defaultValue": "eastus",
+      "defaultValue": "westus2",
       "allowedValues": [
         "eastus2euap",
         "northcentralus",
@@ -67,7 +67,7 @@
     },
     "clusterLocation": {
       "type": "string",
-      "defaultValue": "eastus",
+      "defaultValue": "westus2",
       "metadata": {
         "description": "The location of the Managed Cluster resource."
       }

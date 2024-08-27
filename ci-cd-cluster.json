@@ -703,7 +703,7 @@
       "apiVersion": "2023-03-01",
       "location": "[parameters('azureMonitorWorkspaceLocation')]",
       "properties": {
-          "description": "[Concat('Rule group for cluster', parameters('clusterName'), 'in the workspace', variables('azureMonitorWorkspaceName')]",
+          "description": "[Concat('Rule group for cluster', parameters('clusterName'), 'in the workspace', variables('azureMonitorWorkspaceName'))]",
           "scopes": [
               "[resourceId('microsoft.monitor/accounts/', variables('azureMonitorWorkspaceName'))]",
               "[resourceId('Microsoft.ContainerService/managedClusters', parameters('clusterName'))]"

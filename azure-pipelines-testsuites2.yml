@@ -14,6 +14,26 @@ pool:
 #   KUBERNETES_SERVICE_PORT: '9376'
 
 steps:
+# - task: Go@0
+#   displayName: "go test"
+#   inputs:
+#     command: 'custom' # 'get' | 'build' | 'test' | 'custom'. Required. Command. Default: get.
+#     #customCommand: # string. Required when command == custom. Custom command. 
+#     #arguments: # string. Arguments. 
+#   # Advanced
+#     workingDirectory: '.\ginkgo-e2e\wtdTest'  # string. Working directory.
+
+- task: Go@0
+  displayName: "go get gomega"
+  inputs:
+    command: 'get' # 'get' | 'build' | 'test' | 'custom'. Required. Command. Default: get.
+    #customCommand: # string. Required when command == custom. Custom command. 
+    arguments: github.com/onsi/gomega     # string. Arguments. 
+  # Advanced
+    ##workingDirectory: '.\ginkgo-e2e\wtdTest'  # string. Working directory.
+
+##go get github.com/onsi/gomega
+
 - task: AzureCLI@2
   displayName: Azure CLI
   inputs:

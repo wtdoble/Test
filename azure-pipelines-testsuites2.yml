@@ -26,7 +26,7 @@ steps:
 - task: Go@0
   displayName: "go install ginkgo"
   inputs:
-    command: 'get' # 'get' | 'build' | 'test' | 'custom'. Required. Command. Default: get.
+    command: 'install' # 'get' | 'build' | 'test' | 'custom'. Required. Command. Default: get.
     #customCommand: # string. Required when command == custom. Custom command. 
     arguments: github.com/onsi/ginkgo/v2/ginkgo     # string. Arguments. 
   # Advanced

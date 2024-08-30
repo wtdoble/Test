@@ -16,6 +16,10 @@ az aks get-credentials --resource-group wtd-test --name wtdaks9
 
 helm install bitnami/prometheus --generate-name
 
+github.com/onsi/ginkgo/v2
+go install github.com/onsi/ginkgo/v2/ginkgo
+go get github.com/onsi/gomega
+
 go mod init prometheus-collector/otelcollector/test/regionTests
 ginkgo bootstrap
 go get github.com/onsi/ginkgo/v2    

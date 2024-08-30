@@ -28,7 +28,7 @@ steps:
   inputs:
     command: 'install' # 'get' | 'build' | 'test' | 'custom'. Required. Command. Default: get.
     #customCommand: # string. Required when command == custom. Custom command. 
-    arguments: github.com/onsi/ginkgo/v2/ginkgo     # string. Arguments. 
+    arguments: github.com/onsi/ginkgo/v2/ginkgo@latest # string. Arguments. 
   # Advanced
     ##workingDirectory: '.\ginkgo-e2e\wtdTest'  # string. Working directory.
 

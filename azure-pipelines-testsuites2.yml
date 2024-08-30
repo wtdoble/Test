@@ -24,11 +24,11 @@ steps:
 #     workingDirectory: '.\ginkgo-e2e\wtdTest'  # string. Working directory.
 
 - task: Go@0
-  displayName: "go get gomega"
+  displayName: "go install ginkgo"
   inputs:
     command: 'get' # 'get' | 'build' | 'test' | 'custom'. Required. Command. Default: get.
     #customCommand: # string. Required when command == custom. Custom command. 
-    arguments: github.com/onsi/gomega     # string. Arguments. 
+    arguments: github.com/onsi/ginkgo/v2/ginkgo     # string. Arguments. 
   # Advanced
     ##workingDirectory: '.\ginkgo-e2e\wtdTest'  # string. Working directory.
 

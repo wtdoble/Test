@@ -42,21 +42,21 @@ steps:
     scriptLocation: inlineScript
     inlineScript: az aks get-credentials --resource-group ${env:RESOURCE-GROUP} --name ${env:CLUSTER-NAME}
 
-- task: AzureCLI@2
-  displayName: "Run ginkgo on test suite"
-  inputs:
-    azureSubscription: $(AZURESUBSCRIPTION)
-    scriptType: ps
-    scriptLocation: inlineScript
-    inlineScript: ginkgo
-    workingDirectory: '.\ginkgo-e2e\wtdTest'
-
-# - task: Go@0
+# - task: AzureCLI@2
 #   displayName: "Run ginkgo on test suite"
 #   inputs:
-#     command: 'test' # 'get' | 'build' | 'test' | 'custom'. Required. Command. Default: get.
-#     #customCommand: # string. Required when command == custom. Custom command. 
-#     #arguments: # string. Arguments. 
-#   # Advanced
-#     workingDirectory: '.\ginkgo-e2e\wtdTest'  # string. Working directory.
+#     azureSubscription: $(AZURESUBSCRIPTION)
+#     scriptType: ps
+#     scriptLocation: inlineScript
+#     inlineScript: ginkgo
+#     workingDirectory: '.\ginkgo-e2e\wtdTest'
+
+- task: Go@0
+  displayName: "Run ginkgo on test suite"
+  inputs:
+    command: 'custom' # 'get' | 'build' | 'test' | 'custom'. Required. Command. Default: get.
+    customCommand: ginkgo  # string. Required when command == custom. Custom command. 
+    #arguments: # string. Arguments. 
+  # Advanced
+    workingDirectory: '.\ginkgo-e2e\wtdTest'  # string. Working directory.
           

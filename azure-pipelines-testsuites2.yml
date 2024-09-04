@@ -58,6 +58,9 @@ steps:
     echo PATH
     echo %path%
     echo
+    echo USERPROFILE
+    echo %USERPROFILE%
+    echo
     cd .\ginkgo-e2e\wtdTest
     pwd
     %gopath%\bin\ginkgo    

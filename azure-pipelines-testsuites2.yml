@@ -52,10 +52,15 @@ steps:
 #     workingDirectory: '.\ginkgo-e2e\wtdTest'
 
 - script: |
+    echo GOPATH
     echo %gopath%
+    echo
+    echo PATH
     echo %path%
+    echo
     cd .\ginkgo-e2e\wtdTest
-    %gopath%\ginkgo    
+    pwd
+    %gopath%\bin\ginkgo    
   displayName: 'DEBUG'
   
 

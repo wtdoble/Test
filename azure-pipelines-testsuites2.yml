@@ -63,7 +63,9 @@ steps:
     echo
     cd .\ginkgo-e2e\wtdTest
     pwd
-    %gopath%\bin\ginkgo    
+    dir %userprofile%\
+    dir %userprofile%\go
+    dir %userprofile%\go\bin\
   displayName: 'DEBUG'
   
 

@@ -66,6 +66,8 @@ steps:
     dir %userprofile%\
     dir %userprofile%\go
     dir %userprofile%\go\bin\
+    echo RUN GINKGO
+    %userprofile%\go\bin\ginkgo.exe
   displayName: 'DEBUG'
   
 

@@ -24,3 +24,7 @@ go mod init prometheus-collector/otelcollector/test/regionTests
 ginkgo bootstrap
 go get github.com/onsi/ginkgo/v2    
 go get prometheus-collector/otelcollector/test/utils
+//go get github.com/prometheus/prometheus/web/api/v1
+go get github.com/prometheus/client_golang/api/prometheus/v1
+go get k8s.io/client-go/tools/clientcmd@v0.30.3
+

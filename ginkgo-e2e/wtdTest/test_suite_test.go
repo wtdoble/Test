@@ -75,8 +75,9 @@ var _ = Describe("Files Test", func() {
 	const mdsdInfoFileName = "/opt/microsoft/linuxmonagent/mdsd.info"
 	const mdsdWarnFileName = "/opt/microsoft/linuxmonagent/mdsd.warn"
 	const metricsExtDebugLogFileName = "/MetricsExtensionConsoleDebugLog.log"
+	const ERROR = "error"
+	const WARN = "warn"
 
-	// // var cmd []string
 	var podName string = ""
 	// var apiResponse utils.APIResponse
 
@@ -101,9 +102,6 @@ var _ = Describe("Files Test", func() {
 		status string
 		data   string
 	}
-
-	// type LineProcessor func(string) (bool, string)
-	// type TestEvaluator func([]string) bool
 
 	It("/opt/microsoft/linuxmonagent/mdsd.err Test", func() {
 
@@ -132,36 +130,10 @@ var _ = Describe("Files Test", func() {
 				metricExt := metricExtConsoleLine{line: line, dt: fields[0], status: fields[1], data: fields[2]}
 				//fmt.Println(metricExt.status)
 				status := strings.ToLower(metricExt.status)
-				if strings.Contains(status, "error") || strings.Contains(status, "warn") {
+				if strings.Contains(status, ERROR) || strings.Contains(status, WARN) {
 					fmt.Println(line)
 				}
 			}
 		}
 	})
-
-	// It("/MetricsExtensionConsoleDebugLog Test", func() {
-	// 	Expect(podName).NotTo(BeEmpty())
-
-	// 	cmd = []string{"cat", "/MetricsExtensionConsoleDebugLog.log"}
-
-	// 	stdout, _, err := utils.ExecCmd(K8sClient, Cfg, podName, containerName, namespace, cmd)
-	// 	Expect(err).To(BeNil())
-
-	// 	var lines []string = strings.Split(stdout, "\n")
-	// 	//for line = lines[0, 10] {
-	// 	for i := 0; i < 10; i++ {
-	// 		line := lines[i]
-	// 		fmt.Printf("#line: %d, %s ***\r\n", i, line)
-
-	// 		var l []string = strings.Fields(line)
-	// 		fmt.Println(len(l))
-	// 		if len(l) >= 2 {
-	// 			abc := mdsdInfoConfigLine{line: line, dt: l[0], status: l[1], data: l[2]}
-	// 			fmt.Println(abc.status)
-
-	// 			// fmt.Println(fmt.Sprintf("dt: %s, status: %s", l[0], l[1]))
-	// 			// fmt.Println(fmt.Sprintf("the rest: %s", strings.Join(l[2:], "%")))
-	// 		}
-	// 	}
-	// })
 })

@@ -63,20 +63,20 @@ steps:
     echo
     cd .\ginkgo-e2e\wtdTest
     pwd
-    dir %userprofile%\
-    dir %userprofile%\go
-    dir %userprofile%\go\bin\
-    echo RUN GINKGO
+    REM dir %userprofile%\
+    REM dir %userprofile%\go
+    REM dir %userprofile%\go\bin\
+    REM echo RUN GINKGO
     %userprofile%\go\bin\ginkgo.exe
-  displayName: 'DEBUG'
+  displayName: 'Run RegionsTest test suite'
   
 
-# - task: Go@0
-#   displayName: "Run ginkgo on test suite"
-#   inputs:
-#     command: 'custom' # 'get' | 'build' | 'test' | 'custom'. Required. Command. Default: get.
-#     customCommand: ginkgo  # string. Required when command == custom. Custom command. 
-#     #arguments: # string. Arguments. 
-#   # Advanced
-#     workingDirectory: '.\ginkgo-e2e\wtdTest'  # string. Working directory.
+- task: Go@0
+  displayName: "Run QueryMetrics test suite"
+  inputs:
+    command: 'test' # 'get' | 'build' | 'test' | 'custom'. Required. Command. Default: get.
+    #customCommand:   # string. Required when command == custom. Custom command. 
+    #arguments: # string. Arguments. 
+  # Advanced
+    workingDirectory: '.\ginkgo-e2e\querymetrics'  # string. Working directory.
           

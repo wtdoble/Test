@@ -42,14 +42,21 @@ steps:
     scriptLocation: inlineScript
     inlineScript: az aks get-credentials --resource-group ${env:RESOURCE-GROUP} --name ${env:CLUSTER-NAME}
 
-# - task: AzureCLI@2
-#   displayName: "Run ginkgo on test suite"
-#   inputs:
-#     azureSubscription: $(AZURESUBSCRIPTION)
-#     scriptType: ps
-#     scriptLocation: inlineScript
-#     inlineScript: ginkgo
-#     workingDirectory: '.\ginkgo-e2e\wtdTest'
+- task: AzureCLI@2
+  displayName: "Set AMW_QUERY_ENDPOINT env variable"
+  inputs:
+    azureSubscription: $(AZURESUBSCRIPTION)
+    scriptType: ps
+    scriptLocation: inlineScript
+    inlineScript: |
+      Connect-AzAccount -subscription "84ca48fe-c942-42e5-b492-d56681d058fa"
+      $token = Get-AzAccessToken
+      $resp = Invoke-WebRequest -Uri 'https://management.azure.com/subscriptions/84ca48fe-c942-42e5-b492-d56681d058fa/resourceGroups/wtd-test/providers/microsoft.monitor/accounts/wtdAks9-amw?api-version=2023-04-03' -Headers @{"Authorization" = "Bearer $($token.Token)"}
+      [console]::writeline($resp.Content)
+      $j = ConvertFrom-Json -InputObject $resp.Content 
+      [console]::writeline("Query endpoint: $($j.properties.metrics.prometheusQueryEndpoint)")
+      [Environment]::SetEnvironmentVariable("AMW_QUERY_ENDPOINT", $j.properties.metrics.prometheusQueryEndpoint)
+    workingDirectory: '.\ginkgo-e2e\wtdTest'
 
 - script: |
     echo GOPATH

@@ -49,7 +49,7 @@ steps:
     scriptType: ps
     scriptLocation: inlineScript
     inlineScript: |
-      install-module az-accounts
+      install-module az.accounts
       Connect-AzAccount
       $token = Get-AzAccessToken
       $resp = Invoke-WebRequest -Uri 'https://management.azure.com/subscriptions/84ca48fe-c942-42e5-b492-d56681d058fa/resourceGroups/wtd-test/providers/microsoft.monitor/accounts/wtdAks9-amw?api-version=2023-04-03' -Headers @{"Authorization" = "Bearer $($token.Token)"}

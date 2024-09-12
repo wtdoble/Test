@@ -58,16 +58,14 @@ steps:
       $rule = $j[0].rules[0].record
       $rule
       echo "##vso[task.setvariable variable=myVar]$($rule)"
-      [Environment]::SetEnvironmentVariable("MYVAR") = $rule
+      ##[Environment]::SetEnvironmentVariable("MYVAR", $rule)
 
-      # install-module az.accounts
-      # Connect-AzAccount
-      # $token = Get-AzAccessToken
-      # $resp = Invoke-WebRequest -Uri 'https://management.azure.com/subscriptions/84ca48fe-c942-42e5-b492-d56681d058fa/resourceGroups/wtd-test/providers/microsoft.monitor/accounts/wtdAks9-amw?api-version=2023-04-03' -Headers @{"Authorization" = "Bearer $($token.Token)"}
-      # [console]::writeline($resp.Content)
-      # $j = ConvertFrom-Json -InputObject $resp.Content 
-      # [console]::writeline("Query endpoint: $($j.properties.metrics.prometheusQueryEndpoint)")
-      # [Environment]::SetEnvironmentVariable("AMW_QUERY_ENDPOINT", $j.properties.metrics.prometheusQueryEndpoint)
+      $o = az resource show --resource-type "microsoft.monitor/accounts" -g wtd-test -n wtdaks9-amw
+      $s = [string]::Join("", $o)                                                                                                      
+      $s                                                                                                                               
+      $j = convertfrom-json -InputObject $s
+      $j.properties.metrics.prometheusQueryEndpoint
+      [Environment]::SetEnvironmentVariable("AMW_QUERY_ENDPOINT", $j.properties.metrics.prometheusQueryEndpoint)
     
     workingDirectory: '.\ginkgo-e2e\wtdTest'
 

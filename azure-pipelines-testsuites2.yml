@@ -56,7 +56,9 @@ steps:
       $s                                                                                                                               
       $j = convertfrom-json -InputObject $s  
       $rule = $j[0].rules[0].record
+      $rule
       echo "##vso[task.setvariable variable=myVar]$($rule)"
+      [Environment]::SetEnvironmentVariable("MYVAR") = $rule
 
       # install-module az.accounts
       # Connect-AzAccount
@@ -86,8 +88,10 @@ steps:
     REM dir %userprofile%\go\bin\
     echo MYVAR
     echo $(myVar)
+    echo ENV MYVAR
+    echo %MYVAR%
     echo RUN GINKGO
-    %userprofile%\go\bin\ginkgo.exe -- -myArg $(myVar)
+    %userprofile%\go\bin\ginkgo.exe -- -myArg $myVar
   displayName: 'Run RegionsTest test suite'
   
 

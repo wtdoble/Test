@@ -49,14 +49,24 @@ steps:
     scriptType: ps
     scriptLocation: inlineScript
     inlineScript: |
-      install-module az.accounts
-      Connect-AzAccount
-      $token = Get-AzAccessToken
-      $resp = Invoke-WebRequest -Uri 'https://management.azure.com/subscriptions/84ca48fe-c942-42e5-b492-d56681d058fa/resourceGroups/wtd-test/providers/microsoft.monitor/accounts/wtdAks9-amw?api-version=2023-04-03' -Headers @{"Authorization" = "Bearer $($token.Token)"}
-      [console]::writeline($resp.Content)
-      $j = ConvertFrom-Json -InputObject $resp.Content 
-      [console]::writeline("Query endpoint: $($j.properties.metrics.prometheusQueryEndpoint)")
-      [Environment]::SetEnvironmentVariable("AMW_QUERY_ENDPOINT", $j.properties.metrics.prometheusQueryEndpoint)
+      az extension add --name alertsmanagement --allow-preview true                                                                    
+      az alerts-management prometheus-rule-group list -g wtd-test                                                                      
+      $o = az alerts-management prometheus-rule-group list -g wtd-test                                                                 
+      $s = [string]::Join("", $o)                                                                                                      
+      $s                                                                                                                               
+      $j = convertfrom-json -InputObject $s  
+      $rule = $j[0].rules[0].record
+      echo "##vso[task.setvariable variable=myVar]$($rule)"
+
+      # install-module az.accounts
+      # Connect-AzAccount
+      # $token = Get-AzAccessToken
+      # $resp = Invoke-WebRequest -Uri 'https://management.azure.com/subscriptions/84ca48fe-c942-42e5-b492-d56681d058fa/resourceGroups/wtd-test/providers/microsoft.monitor/accounts/wtdAks9-amw?api-version=2023-04-03' -Headers @{"Authorization" = "Bearer $($token.Token)"}
+      # [console]::writeline($resp.Content)
+      # $j = ConvertFrom-Json -InputObject $resp.Content 
+      # [console]::writeline("Query endpoint: $($j.properties.metrics.prometheusQueryEndpoint)")
+      # [Environment]::SetEnvironmentVariable("AMW_QUERY_ENDPOINT", $j.properties.metrics.prometheusQueryEndpoint)
+    
     workingDirectory: '.\ginkgo-e2e\wtdTest'
 
 - script: |
@@ -74,8 +84,10 @@ steps:
     REM dir %userprofile%\
     REM dir %userprofile%\go
     REM dir %userprofile%\go\bin\
-    REM echo RUN GINKGO
-    %userprofile%\go\bin\ginkgo.exe
+    echo MYVAR
+    echo $(myVar)
+    echo RUN GINKGO
+    %userprofile%\go\bin\ginkgo.exe -- -myArg $(myVar)
   displayName: 'Run RegionsTest test suite'
   
 

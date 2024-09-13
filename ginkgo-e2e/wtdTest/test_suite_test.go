@@ -1,6 +1,7 @@
 package test_test
 
 import (
+	"flag"
 	"fmt"
 	"strings"
 	"testing"
@@ -9,13 +10,16 @@ import (
 
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
+	v1 "github.com/prometheus/client_golang/api/prometheus/v1"
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/rest"
 )
 
 var (
-	K8sClient *kubernetes.Clientset
-	Cfg       *rest.Config
+	K8sClient             *kubernetes.Clientset
+	Cfg                   *rest.Config
+	PrometheusQueryClient v1.API
+	myArg                 string
 )
 
 const namespace = "kube-system"
@@ -28,15 +32,51 @@ func TestTest(t *testing.T) {
 	RunSpecs(t, "Test Suite")
 }
 
+func init() {
+	flag.StringVar(&myArg, "myArg", "", "Description of the usage for myArg")
+}
+
 var _ = BeforeSuite(func() {
 	var err error
 	K8sClient, Cfg, err = utils.SetupKubernetesClient()
-
-	// fmt.Println("BeforeSuite")
-	// fmt.Println(Cfg)
-	// fmt.Println(err)
-
 	Expect(err).NotTo(HaveOccurred())
+
+	//https://wtdaks9-amw-gjexfkctfvb6c5gr.westus2.prometheus.monitor.azure.com
+	amwQueryEndpoint := "https://wtdaks9-amw-gjexfkctfvb6c5gr.westus2.prometheus.monitor.azure.com"
+	//os.Getenv("AMW_QUERY_ENDPOINT")
+	Expect(amwQueryEndpoint).NotTo(BeEmpty())
+
+	PrometheusQueryClient, err = utils.CreatePrometheusAPIClient(
+		amwQueryEndpoint,
+	)
+	Expect(err).NotTo(HaveOccurred())
+	Expect(PrometheusQueryClient).NotTo(BeNil())
+
+	fmt.Printf("myArg: %s", myArg)
+
+	fmt.Println("CHECKING ALERTS")
+	//var a v1.AlertsResult
+	warnings, result, err := utils.InstantQuery(PrometheusQueryClient, "alerts")
+	//a, err = utils.InstantQuery(PrometheusQueryClient, "alerts") //Alerts(context.Background())
+	//fmt.Println(a)
+	fmt.Println(warnings)
+	fmt.Println(result)
+	fmt.Println(err)
+	Expect(err).NotTo(HaveOccurred())
+
+	fmt.Println("CHECKING RULES")
+	//var a v1.AlertsResult
+	warnings2, result2, err := utils.InstantQuery(PrometheusQueryClient, "node_namespace_pod_container:container_cpu_usage_seconds_total:sum_irate")
+	//a, err = utils.InstantQuery(PrometheusQueryClient, "alerts") //Alerts(context.Background())
+	//fmt.Println(a)
+	fmt.Println(warnings2)
+	fmt.Println(result2)
+	fmt.Println(err)
+	// var r v1.RulesResult
+	// r, err = PrometheusQueryClient.Rules(context.Background())
+	fmt.Println(err)
+	Expect(err).NotTo(HaveOccurred())
+	//fmt.Println(r)
 })
 
 var _ = AfterSuite(func() {
@@ -135,5 +175,16 @@ var _ = Describe("Files Test", func() {
 				}
 			}
 		}
+	})
+
+	It("metrics", func() {
+		var query string
+		query = "up"
+
+		warnings, result, err := utils.InstantQuery(PrometheusQueryClient, query)
+		Expect(err).NotTo(HaveOccurred())
+		Expect(warnings).To(BeEmpty())
+
+		fmt.Println(result)
 	})
 })

@@ -89,7 +89,8 @@ steps:
     echo ENV MYVAR
     echo %MYVAR%
     echo RUN GINKGO
-    %userprofile%\go\bin\ginkgo.exe -- -myArg=%myVar%
+    echo "%userprofile%\go\bin\ginkgo.exe -- -myArg=%MYVAR%"
+    %userprofile%\go\bin\ginkgo.exe -- -myArg="instance:node_num_cpu:sum"
   displayName: 'Run RegionsTest test suite'
   
 

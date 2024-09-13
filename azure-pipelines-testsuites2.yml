@@ -67,6 +67,8 @@ steps:
       $j.properties.metrics.prometheusQueryEndpoint
       [Environment]::SetEnvironmentVariable("AMW_QUERY_ENDPOINT", $j.properties.metrics.prometheusQueryEndpoint)
     
+      %userprofile%\go\bin\ginkgo.exe -- -myArg="instance:node_num_cpu:sum"
+
     workingDirectory: '.\ginkgo-e2e\wtdTest'
 
 - script: |

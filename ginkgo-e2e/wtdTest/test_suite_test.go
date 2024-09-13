@@ -3,6 +3,7 @@ package test_test
 import (
 	"flag"
 	"fmt"
+	"os"
 	"strings"
 	"testing"
 
@@ -43,12 +44,10 @@ var _ = BeforeSuite(func() {
 
 	//https://wtdaks9-amw-gjexfkctfvb6c5gr.westus2.prometheus.monitor.azure.com
 	amwQueryEndpoint := "https://wtdaks9-amw-gjexfkctfvb6c5gr.westus2.prometheus.monitor.azure.com"
-	//os.Getenv("AMW_QUERY_ENDPOINT")
+	fmt.Printf("env: %s", os.Getenv("AMW_QUERY_ENDPOINT"))
 	Expect(amwQueryEndpoint).NotTo(BeEmpty())
 
-	PrometheusQueryClient, err = utils.CreatePrometheusAPIClient(
-		amwQueryEndpoint,
-	)
+	PrometheusQueryClient, err = utils.CreatePrometheusAPIClient(amwQueryEndpoint)
 	Expect(err).NotTo(HaveOccurred())
 	Expect(PrometheusQueryClient).NotTo(BeNil())
 

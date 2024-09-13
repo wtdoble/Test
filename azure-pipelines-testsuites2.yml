@@ -50,60 +50,63 @@ steps:
     scriptLocation: inlineScript
     inlineScript: |
       az extension add --name alertsmanagement --allow-preview true                                                                    
-      az alerts-management prometheus-rule-group list -g wtd-test                                                                      
-      $o = az alerts-management prometheus-rule-group list -g wtd-test                                                                 
+      az alerts-management prometheus-rule-group list -g ${env:RESOURCE-GROUP}
+
+      $o = az alerts-management prometheus-rule-group list -g ${env:RESOURCE-GROUP}                                                                
       $s = [string]::Join("", $o)                                                                                                      
       $s                                                                                                                               
       $j = convertfrom-json -InputObject $s  
       $rule = $j[0].rules[0].record
       $rule
-      echo "##vso[task.setvariable variable=myVar]$($rule)"
-      ##[Environment]::SetEnvironmentVariable("MYVAR", $rule)
 
-      $o = az resource show --resource-type "microsoft.monitor/accounts" -g wtd-test -n wtdaks9-amw
+      echo "##vso[task.setvariable variable=varRULE]$($rule)"
+      [Environment]::SetEnvironmentVariable("envRULE", $rule)
+
+      $o = az resource show --resource-type "microsoft.monitor/accounts" -g ${env:RESOURCE-GROUP}  -n wtdaks9-amw
       $s = [string]::Join("", $o)                                                                                                      
       $s                                                                                                                               
       $j = convertfrom-json -InputObject $s
       $j.properties.metrics.prometheusQueryEndpoint
       [Environment]::SetEnvironmentVariable("AMW_QUERY_ENDPOINT", $j.properties.metrics.prometheusQueryEndpoint)
     
-      $cmd = "$([Environment]::GetEnvironmentVariable('userprofile'))\go\bin\ginkgo.exe -- -myArg=instance:node_num_cpu:sum"           
+      # Run Ginkgo
+      $cmd = "$([Environment]::GetEnvironmentVariable('userprofile'))\go\bin\ginkgo.exe -- -myArg=$([Environment]::GetEnvironmentVariable('envRULE'))"
       $cmd                                                                                                                             
       Invoke-Expression -Command $cmd 
       
     workingDirectory: '.\ginkgo-e2e\wtdTest'
 
-- script: |
-    echo GOPATH
-    echo %gopath%
-    echo
-    echo PATH
-    echo %path%
-    echo
-    echo USERPROFILE
-    echo %USERPROFILE%
-    echo
-    cd .\ginkgo-e2e\wtdTest
-    pwd
-    REM dir %userprofile%\
-    REM dir %userprofile%\go
-    REM dir %userprofile%\go\bin\
-    echo MYVAR
-    echo $(myVar)
-    echo ENV MYVAR
-    echo %MYVAR%
-    echo RUN GINKGO
-    echo "%userprofile%\go\bin\ginkgo.exe -- -myArg=%MYVAR%"
-    %userprofile%\go\bin\ginkgo.exe -- -myArg="instance:node_num_cpu:sum"
-  displayName: 'Run RegionsTest test suite'
+# - script: |
+#     echo GOPATH
+#     echo %gopath%
+#     echo
+#     echo PATH
+#     echo %path%
+#     echo
+#     echo USERPROFILE
+#     echo %USERPROFILE%
+#     echo
+#     cd .\ginkgo-e2e\wtdTest
+#     pwd
+#     REM dir %userprofile%\
+#     REM dir %userprofile%\go
+#     REM dir %userprofile%\go\bin\
+#     echo MYVAR
+#     echo $(myVar)
+#     echo ENV MYVAR
+#     echo %MYVAR%
+#     echo RUN GINKGO
+#     echo "%userprofile%\go\bin\ginkgo.exe -- -myArg=%MYVAR%"
+#     %userprofile%\go\bin\ginkgo.exe -- -myArg="instance:node_num_cpu:sum"
+#   displayName: 'Run RegionsTest test suite'
   
 
-- task: Go@0
-  displayName: "Run QueryMetrics test suite"
-  inputs:
-    command: 'test' # 'get' | 'build' | 'test' | 'custom'. Required. Command. Default: get.
-    #customCommand:   # string. Required when command == custom. Custom command. 
-    #arguments: # string. Arguments. 
-  # Advanced
-    workingDirectory: '.\ginkgo-e2e\querymetrics'  # string. Working directory.
+# - task: Go@0
+#   displayName: "Run QueryMetrics test suite"
+#   inputs:
+#     command: 'test' # 'get' | 'build' | 'test' | 'custom'. Required. Command. Default: get.
+#     #customCommand:   # string. Required when command == custom. Custom command. 
+#     #arguments: # string. Arguments. 
+#   # Advanced
+#     workingDirectory: '.\ginkgo-e2e\querymetrics'  # string. Working directory.
           

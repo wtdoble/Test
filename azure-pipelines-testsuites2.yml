@@ -9,9 +9,9 @@ trigger:
 pool:
   vmImage: windows-latest
 
-# variables:
-#   KUBERNETES_SERVICE_HOST: 'wtdaks9-vze7soa3.hcp.westus2.azmk8s.io'
-#   KUBERNETES_SERVICE_PORT: '9376'
+variables:
+  RULE: ""
+  AMW_QUERY_ENDPOINT: ""
 
 steps:
 # - task: Go@0
@@ -43,7 +43,7 @@ steps:
     inlineScript: az aks get-credentials --resource-group ${env:RESOURCE-GROUP} --name ${env:CLUSTER-NAME}
 
 - task: AzureCLI@2
-  displayName: "Set env variables"
+  displayName: "Initialize variables"
   inputs:
     azureSubscription: $(AZURESUBSCRIPTION)
     scriptType: ps
@@ -58,6 +58,7 @@ steps:
       $j = convertfrom-json -InputObject $s  
       $rule = $j[0].rules[0].record
       $rule
+      $(RULE) = $rule
 
       echo "##vso[task.setvariable variable=varRULE]$($rule)"
       [Environment]::SetEnvironmentVariable("envRULE", $rule)
@@ -67,7 +68,8 @@ steps:
       $s                                                                                                                               
       $j = convertfrom-json -InputObject $s
       $j.properties.metrics.prometheusQueryEndpoint
-      [Environment]::SetEnvironmentVariable("AMW_QUERY_ENDPOINT", $j.properties.metrics.prometheusQueryEndpoint)
+      ##[Environment]::SetEnvironmentVariable("AMW_QUERY_ENDPOINT", $j.properties.metrics.prometheusQueryEndpoint)
+      $(AMW_QUERY_ENDPOINT) = $j.properties.metrics.prometheusQueryEndpoint
       
     workingDirectory: '.\ginkgo-e2e\wtdTest'
 
@@ -79,8 +81,9 @@ steps:
     scriptLocation: inlineScript
     inlineScript: |
       # Run Ginkgo
-      $cmd = "$([Environment]::GetEnvironmentVariable('userprofile'))\go\bin\ginkgo.exe -- -myArg=$([Environment]::GetEnvironmentVariable('envRULE'))"
-      $cmd                                                                                                                             
+      $cmd = "$([Environment]::GetEnvironmentVariable('userprofile'))\go\bin\ginkgo.exe -- -myArg=$(RULE)"
+      $cmd    
+      [Environment]::SetEnvironmentVariable("AMW_QUERY_ENDPOINT", $(AMW_QUERY_ENDPOINT))                                                                                                                         
       Invoke-Expression -Command $cmd 
       
     workingDirectory: '.\ginkgo-e2e\wtdTest'
@@ -95,6 +98,7 @@ steps:
       # Run Ginkgo
       $cmd = "$([Environment]::GetEnvironmentVariable('userprofile'))\go\bin\ginkgo.exe"
       $cmd                                                                                                                             
+      [Environment]::SetEnvironmentVariable("AMW_QUERY_ENDPOINT", $(AMW_QUERY_ENDPOINT))                                                                                                                         
       Invoke-Expression -Command $cmd 
       
     workingDirectory: '.\ginkgo-e2e\querymetrics'

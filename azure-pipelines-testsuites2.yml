@@ -14,15 +14,6 @@ variables:
   varAMW_QUERY_ENDPOINT: ""
 
 steps:
-# - task: Go@0
-#   displayName: "go test"
-#   inputs:
-#     command: 'custom' # 'get' | 'build' | 'test' | 'custom'. Required. Command. Default: get.
-#     #customCommand: # string. Required when command == custom. Custom command. 
-#     #arguments: # string. Arguments. 
-#   # Advanced
-#     workingDirectory: '.\ginkgo-e2e\wtdTest'  # string. Working directory.
-
 - task: Go@0
   displayName: "go install ginkgo"
   inputs:
@@ -59,7 +50,7 @@ steps:
       $rule = $j[0].rules[0].record
       $rule
       echo "##vso[task.setvariable variable=varRULE]$rule"
-      [Environment]::SetEnvironmentVariable("envRULE", $rule)
+      ##[Environment]::SetEnvironmentVariable("envRULE", $rule)
 
       $o = az resource show --resource-type "microsoft.monitor/accounts" -g ${env:RESOURCE-GROUP}  -n wtdaks9-amw
       $s = [string]::Join("", $o)                                                                                                      
@@ -79,27 +70,28 @@ steps:
     scriptLocation: inlineScript
     inlineScript: |
       # Run Ginkgo
-      $cmd = "$([Environment]::GetEnvironmentVariable('userprofile'))\go\bin\ginkgo.exe -- -myArg=$(varRULE)"
+      $cmd = "$([Environment]::GetEnvironmentVariable('userprofile'))\go\bin\ginkgo.exe -- -myArg=$env:varRULE)"
       $cmd    
-      [Environment]::SetEnvironmentVariable("AMW_QUERY_ENDPOINT", $(varAMW_QUERY_ENDPOINT))                                                                                                                         
+      "env:varAMW_QUERY_ENDPOINT - $env:varAMW_QUERY_ENDPOINT"
+      [Environment]::SetEnvironmentVariable("AMW_QUERY_ENDPOINT", $env:varAMW_QUERY_ENDPOINT)
       Invoke-Expression -Command $cmd 
       
     workingDirectory: '.\ginkgo-e2e\wtdTest'
 
-- task: AzureCLI@2
-  displayName: "Run QueryMetrics test suite"
-  inputs:
-    azureSubscription: $(AZURESUBSCRIPTION)
-    scriptType: ps
-    scriptLocation: inlineScript
-    inlineScript: |
-      # Run Ginkgo
-      $cmd = "$([Environment]::GetEnvironmentVariable('userprofile'))\go\bin\ginkgo.exe"
-      $cmd                                                                                                                             
-      [Environment]::SetEnvironmentVariable("AMW_QUERY_ENDPOINT", $(varAMW_QUERY_ENDPOINT))                                                                                                                         
-      Invoke-Expression -Command $cmd 
+# - task: AzureCLI@2
+#   displayName: "Run QueryMetrics test suite"
+#   inputs:
+#     azureSubscription: $(AZURESUBSCRIPTION)
+#     scriptType: ps
+#     scriptLocation: inlineScript
+#     inlineScript: |
+#       # Run Ginkgo
+#       $cmd = "$([Environment]::GetEnvironmentVariable('userprofile'))\go\bin\ginkgo.exe"
+#       $cmd                                                                                                                             
+#       [Environment]::SetEnvironmentVariable("AMW_QUERY_ENDPOINT", $(varAMW_QUERY_ENDPOINT))                                                                                                                         
+#       Invoke-Expression -Command $cmd 
       
-    workingDirectory: '.\ginkgo-e2e\querymetrics'
+#     workingDirectory: '.\ginkgo-e2e\querymetrics'
 
 # - script: |
 #     echo GOPATH

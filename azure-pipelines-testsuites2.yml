@@ -56,8 +56,9 @@ steps:
       $s = [string]::Join("", $o)                                                                                                      
       $s                                                                                                                               
       $j = convertfrom-json -InputObject $s
-      $j.properties.metrics.prometheusQueryEndpoint
-      echo "##vso[task.setvariable variable=varAMW_QUERY_ENDPOINT]$j.properties.metrics.prometheusQueryEndpoint"
+      $endPoint = $j.properties.metrics.prometheusQueryEndpoint
+      $endPoint
+      echo "##vso[task.setvariable variable=varAMW_QUERY_ENDPOINT]$endPoint"
       ##[Environment]::SetEnvironmentVariable("AMW_QUERY_ENDPOINT", $j.properties.metrics.prometheusQueryEndpoint)
       
     workingDirectory: '.\ginkgo-e2e\wtdTest'
@@ -70,7 +71,7 @@ steps:
     scriptLocation: inlineScript
     inlineScript: |
       # Run Ginkgo
-      $cmd = "$([Environment]::GetEnvironmentVariable('userprofile'))\go\bin\ginkgo.exe -- -myArg=$env:varRULE)"
+      $cmd = "$([Environment]::GetEnvironmentVariable('userprofile'))\go\bin\ginkgo.exe -- -myArg=$env:varRULE"
       $cmd    
       "env:varAMW_QUERY_ENDPOINT - $env:varAMW_QUERY_ENDPOINT"
       [Environment]::SetEnvironmentVariable("AMW_QUERY_ENDPOINT", $env:varAMW_QUERY_ENDPOINT)

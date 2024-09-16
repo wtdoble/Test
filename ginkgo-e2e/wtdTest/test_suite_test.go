@@ -42,9 +42,9 @@ var _ = BeforeSuite(func() {
 	K8sClient, Cfg, err = utils.SetupKubernetesClient()
 	Expect(err).NotTo(HaveOccurred())
 
-	//https://wtdaks9-amw-gjexfkctfvb6c5gr.westus2.prometheus.monitor.azure.com
-	amwQueryEndpoint := "https://wtdaks9-amw-gjexfkctfvb6c5gr.westus2.prometheus.monitor.azure.com"
-	fmt.Printf("env: %s", os.Getenv("AMW_QUERY_ENDPOINT"))
+	//amwQueryEndpoint := "https://wtdaks9-amw-gjexfkctfvb6c5gr.westus2.prometheus.monitor.azure.com"
+	amwQueryEndpoint := os.Getenv("AMW_QUERY_ENDPOINT")
+	fmt.Printf("env: %s\r\n", amwQueryEndpoint)
 	Expect(amwQueryEndpoint).NotTo(BeEmpty())
 
 	PrometheusQueryClient, err = utils.CreatePrometheusAPIClient(amwQueryEndpoint)

@@ -68,11 +68,6 @@ steps:
       $j = convertfrom-json -InputObject $s
       $j.properties.metrics.prometheusQueryEndpoint
       [Environment]::SetEnvironmentVariable("AMW_QUERY_ENDPOINT", $j.properties.metrics.prometheusQueryEndpoint)
-    
-      # # # Run Ginkgo
-      # # $cmd = "$([Environment]::GetEnvironmentVariable('userprofile'))\go\bin\ginkgo.exe -- -myArg=$([Environment]::GetEnvironmentVariable('envRULE'))"
-      # # $cmd                                                                                                                             
-      # # Invoke-Expression -Command $cmd 
       
     workingDirectory: '.\ginkgo-e2e\wtdTest'
 
@@ -127,14 +122,4 @@ steps:
 #     echo "%userprofile%\go\bin\ginkgo.exe -- -myArg=%MYVAR%"
 #     %userprofile%\go\bin\ginkgo.exe -- -myArg="instance:node_num_cpu:sum"
 #   displayName: 'Run RegionsTest test suite'
-  
-
-# - task: Go@0
-#   displayName: "Run QueryMetrics test suite"
-#   inputs:
-#     command: 'test' # 'get' | 'build' | 'test' | 'custom'. Required. Command. Default: get.
-#     #customCommand:   # string. Required when command == custom. Custom command. 
-#     #arguments: # string. Arguments. 
-#   # Advanced
-#     workingDirectory: '.\ginkgo-e2e\querymetrics'  # string. Working directory.
           

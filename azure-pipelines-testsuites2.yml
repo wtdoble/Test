@@ -45,7 +45,7 @@ steps:
 
       $o = az alerts-management prometheus-rule-group list -g ${env:RESOURCE-GROUP}                                                                
       $s = [string]::Join("", $o)                                                                                                      
-      $s                                                                                                                               
+      "prometheus-rule-group - $s"
       $j = convertfrom-json -InputObject $s  
       $rule = $j[0].rules[0].record
       $rule
@@ -54,13 +54,12 @@ steps:
 
       $o = az resource show --resource-type "microsoft.monitor/accounts" -g ${env:RESOURCE-GROUP}  -n wtdaks9-amw
       $s = [string]::Join("", $o)                                                                                                      
-      $s                                                                                                                               
+      "microsoft.monitor/accounts - $s"
       $j = convertfrom-json -InputObject $s
       $endPoint = $j.properties.metrics.prometheusQueryEndpoint
       $endPoint
       echo "##vso[task.setvariable variable=varAMW_QUERY_ENDPOINT]$endPoint"
-      ##[Environment]::SetEnvironmentVariable("AMW_QUERY_ENDPOINT", $j.properties.metrics.prometheusQueryEndpoint)
-      
+      [Environment]::SetEnvironmentVariable("AMW_QUERY_ENDPOINT", $endPoint)
     workingDirectory: '.\ginkgo-e2e\wtdTest'
 
 - task: AzureCLI@2
@@ -72,49 +71,24 @@ steps:
     inlineScript: |
       # Run Ginkgo
       $cmd = "$([Environment]::GetEnvironmentVariable('userprofile'))\go\bin\ginkgo.exe -- -myArg=$env:varRULE"
-      $cmd    
+      "cmd - $cmd"
       "env:varAMW_QUERY_ENDPOINT - $env:varAMW_QUERY_ENDPOINT"
       [Environment]::SetEnvironmentVariable("AMW_QUERY_ENDPOINT", $env:varAMW_QUERY_ENDPOINT)
       Invoke-Expression -Command $cmd 
-      
     workingDirectory: '.\ginkgo-e2e\wtdTest'
 
-# - task: AzureCLI@2
-#   displayName: "Run QueryMetrics test suite"
-#   inputs:
-#     azureSubscription: $(AZURESUBSCRIPTION)
-#     scriptType: ps
-#     scriptLocation: inlineScript
-#     inlineScript: |
-#       # Run Ginkgo
-#       $cmd = "$([Environment]::GetEnvironmentVariable('userprofile'))\go\bin\ginkgo.exe"
-#       $cmd                                                                                                                             
-#       [Environment]::SetEnvironmentVariable("AMW_QUERY_ENDPOINT", $(varAMW_QUERY_ENDPOINT))                                                                                                                         
-#       Invoke-Expression -Command $cmd 
-      
-#     workingDirectory: '.\ginkgo-e2e\querymetrics'
-
-# - script: |
-#     echo GOPATH
-#     echo %gopath%
-#     echo
-#     echo PATH
-#     echo %path%
-#     echo
-#     echo USERPROFILE
-#     echo %USERPROFILE%
-#     echo
-#     cd .\ginkgo-e2e\wtdTest
-#     pwd
-#     REM dir %userprofile%\
-#     REM dir %userprofile%\go
-#     REM dir %userprofile%\go\bin\
-#     echo MYVAR
-#     echo $(myVar)
-#     echo ENV MYVAR
-#     echo %MYVAR%
-#     echo RUN GINKGO
-#     echo "%userprofile%\go\bin\ginkgo.exe -- -myArg=%MYVAR%"
-#     %userprofile%\go\bin\ginkgo.exe -- -myArg="instance:node_num_cpu:sum"
-#   displayName: 'Run RegionsTest test suite'
-          
+- task: AzureCLI@2
+  displayName: "Run QueryMetrics test suite"
+  inputs:
+    azureSubscription: $(AZURESUBSCRIPTION)
+    scriptType: ps
+    scriptLocation: inlineScript
+    inlineScript: |
+      # Run Ginkgo
+      $cmd = "$([Environment]::GetEnvironmentVariable('userprofile'))\go\bin\ginkgo.exe"
+      "cmd - $cmd"
+      "env:varAMW_QUERY_ENDPOINT - $env:varAMW_QUERY_ENDPOINT"                                                                               
+      [Environment]::SetEnvironmentVariable("AMW_QUERY_ENDPOINT", $env:varAMW_QUERY_ENDPOINT)
+      Invoke-Expression -Command $cmd 
+    workingDirectory: '.\ginkgo-e2e\querymetrics'
+         

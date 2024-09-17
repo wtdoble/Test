@@ -3,7 +3,6 @@ package utils
 import (
 	"encoding/json"
 	"flag"
-	"fmt"
 	"path/filepath"
 
 	"k8s.io/client-go/rest"
@@ -26,7 +25,7 @@ import (
 func SetupKubernetesClient() (*kubernetes.Clientset, *rest.Config, error) {
 	var kubeconfig *string
 
-	fmt.Println("SetupKubernetesClient")
+	//WTD fmt.Println("SetupKubernetesClient")
 
 	if home := homedir.HomeDir(); home != "" {
 		kubeconfig = flag.String("kubeconfig", filepath.Join(home, ".kube", "config"), "(optional) absolute path to the kubeconfig file")
@@ -35,16 +34,16 @@ func SetupKubernetesClient() (*kubernetes.Clientset, *rest.Config, error) {
 	}
 	flag.Parse()
 
-	fmt.Println("kubeconfig")
-	fmt.Println(*kubeconfig)
+	//WTD fmt.Println("kubeconfig")
+	//WTD fmt.Println(*kubeconfig)
 
 	cfg, err := clientcmd.BuildConfigFromFlags("", *kubeconfig)
 
-	fmt.Println("BuildConfigFromFlags cfg")
-	fmt.Println(cfg)
+	//WTD fmt.Println("BuildConfigFromFlags cfg")
+	//WTD fmt.Println(cfg)
 
-	fmt.Println("BuildConfigFromFlags err")
-	fmt.Println(err)
+	//WTD fmt.Println("BuildConfigFromFlags err")
+	//WTD fmt.Println(err)
 
 	if err != nil {
 		cfg, err = rest.InClusterConfig()

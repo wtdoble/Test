@@ -28,3 +28,10 @@ go get prometheus-collector/otelcollector/test/utils
 go get github.com/prometheus/client_golang/api/prometheus/v1
 go get k8s.io/client-go/tools/clientcmd@v0.30.3
 
+go get github.com/Azure/azure-sdk-for-go/sdk/monitor/azquery
+go get github.com/Azure/azure-sdk-for-go/sdk/azcore
+go get github.com/Azure/azure-sdk-for-go/sdk/azidentity
+go get github.com/Azure/azure-sdk-for-go/sdk/internal
+
+
+ginkgo -- -parmRuleName=<recording rule name>

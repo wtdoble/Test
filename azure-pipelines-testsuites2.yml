@@ -11,6 +11,7 @@ pool:
 
 variables:
   varRULE: ""
+  varAMW_RESOURCE_ID: ""
   varAMW_QUERY_ENDPOINT: ""
 
 steps:
@@ -59,7 +60,10 @@ steps:
       $j = convertfrom-json -InputObject $s
       $endPoint = $j.properties.metrics.prometheusQueryEndpoint
       $endPoint
+      $resourceId = $j.id
+      $resourceId
       echo "##vso[task.setvariable variable=varAMW_QUERY_ENDPOINT]$endPoint"
+      echo "##vso[task.setvariable variable=varAMW_RESOURCE_ID]$resourceId"
       [Environment]::SetEnvironmentVariable("AMW_QUERY_ENDPOINT", $endPoint)
     workingDirectory: '.\ginkgo-e2e\wtdTest'
 
@@ -71,7 +75,7 @@ steps:
     scriptLocation: inlineScript
     inlineScript: |
       # Run Ginkgo
-      $cmd = "$([Environment]::GetEnvironmentVariable('userprofile'))\go\bin\ginkgo.exe -- -parmRuleName=$env:varRULE"
+      $cmd = "$([Environment]::GetEnvironmentVariable('userprofile'))\go\bin\ginkgo.exe -- -parmRuleName=$env:varRULE -parmAmwResourceId=$env:varAMW_RESOURCE_ID"
       "cmd - $cmd"
       "env:varAMW_QUERY_ENDPOINT - $env:varAMW_QUERY_ENDPOINT"
       [Environment]::SetEnvironmentVariable("AMW_QUERY_ENDPOINT", $env:varAMW_QUERY_ENDPOINT)

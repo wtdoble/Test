@@ -1,6 +1,7 @@
 package test_test
 
 import (
+	"context"
 	"flag"
 	"fmt"
 	"os"
@@ -9,6 +10,9 @@ import (
 
 	"prometheus-collector/otelcollector/test/utils"
 
+	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
+	"github.com/Azure/azure-sdk-for-go/sdk/azidentity"
+	"github.com/Azure/azure-sdk-for-go/sdk/monitor/azquery"
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
 	v1 "github.com/prometheus/client_golang/api/prometheus/v1"
@@ -21,6 +25,7 @@ var (
 	Cfg                   *rest.Config
 	PrometheusQueryClient v1.API
 	parmRuleName          string
+	parmAmwResourceId     string
 )
 
 const namespace = "kube-system"
@@ -35,6 +40,7 @@ func TestTest(t *testing.T) {
 
 func init() {
 	flag.StringVar(&parmRuleName, "parmRuleName", "", "Prometheus rule name to use in this test suite")
+	flag.StringVar(&parmAmwResourceId, "parmAmwResourceId", "", "AMW resource id to use in this test suite")
 }
 
 var _ = BeforeSuite(func() {
@@ -50,8 +56,11 @@ var _ = BeforeSuite(func() {
 	Expect(err).NotTo(HaveOccurred())
 	Expect(PrometheusQueryClient).NotTo(BeNil())
 
-	fmt.Printf("parmRuleName: %s", parmRuleName)
+	fmt.Printf("parmRuleName: %s\r\n", parmRuleName)
 	Expect(parmRuleName).ToNot(BeEmpty())
+
+	fmt.Printf("parmAmwResourceId: %s\r\n", parmAmwResourceId)
+	Expect(parmAmwResourceId).ToNot(BeEmpty())
 })
 
 var _ = AfterSuite(func() {
@@ -84,12 +93,20 @@ func writeLines(lines []string) int {
 	return count
 }
 
+func safeDereferenceFloatPtr(f *float64) float64 {
+	if f != nil {
+		return *f
+	}
+	return 0.0
+}
+
 var _ = Describe("Regions Suite", func() {
 
 	const mdsdErrFileName = "/opt/microsoft/linuxmonagent/mdsd.err"
 	const mdsdInfoFileName = "/opt/microsoft/linuxmonagent/mdsd.info"
 	const mdsdWarnFileName = "/opt/microsoft/linuxmonagent/mdsd.warn"
 	const metricsExtDebugLogFileName = "/MetricsExtensionConsoleDebugLog.log"
+	const metricsextension = "/etc/mdsd.d/config-cache/metricsextension"
 	const ERROR = "error"
 	const WARN = "warn"
 
@@ -127,6 +144,7 @@ var _ = Describe("Regions Suite", func() {
 
 			numErrLines := writeLines(readFile(mdsdErrFileName, podName))
 			if numErrLines > 0 {
+				fmt.Printf("%s is not empty.\r\n", mdsdErrFileName)
 				writeLines(readFile(mdsdInfoFileName, podName))
 				writeLines(readFile(mdsdWarnFileName, podName))
 			}
@@ -169,6 +187,8 @@ var _ = Describe("Regions Suite", func() {
 			}
 
 			Expect(metricsExtExists).To(BeTrue())
+
+			fmt.Printf("%s exists.\r\n", metricsextension)
 		})
 	})
 
@@ -176,7 +196,7 @@ var _ = Describe("Regions Suite", func() {
 		It("Query for a metric", func() {
 			query := "up"
 
-			fmt.Printf("Examining metrics via the query: '%s'", query)
+			fmt.Printf("Examining metrics via the query: '%s'\r\n", query)
 
 			warnings, result, err := utils.InstantQuery(PrometheusQueryClient, query)
 			Expect(err).NotTo(HaveOccurred())
@@ -205,9 +225,54 @@ var _ = Describe("Regions Suite", func() {
 			fmt.Println(result)
 		})
 
-		It("", func() {
+		It("Query Azure Monitor for AMW usage and limits metrics", func() {
+			cred, err := azidentity.NewDefaultAzureCredential(nil)
+			Expect(err).NotTo(HaveOccurred())
 
+			client, err := azquery.NewMetricsClient(cred, nil)
+			Expect(err).NotTo(HaveOccurred())
+			Expect(client).ToNot(BeNil())
+
+			var response azquery.MetricsClientQueryResourceResponse
+			timespan := azquery.TimeInterval("PT30M")
+			metricNames := "ActiveTimeSeriesLimit,ActiveTimeSeriesPercentUtilization"
+			response, err = client.QueryResource(context.Background(),
+				parmAmwResourceId,
+				&azquery.MetricsClientQueryResourceOptions{
+					Timespan:        to.Ptr(timespan),
+					Interval:        to.Ptr("PT5M"),
+					MetricNames:     &metricNames,
+					Aggregation:     to.SliceOfPtrs(azquery.AggregationTypeAverage, azquery.AggregationTypeCount),
+					Top:             nil,
+					OrderBy:         to.Ptr("Average asc"),
+					Filter:          nil,
+					ResultType:      nil,
+					MetricNamespace: nil,
+				})
+
+			Expect(err).NotTo(HaveOccurred())
+
+			fmt.Printf("%d Metrics returned\r\n", len(response.Response.Value))
+			for i, v := range response.Response.Value {
+				var a azquery.Metric = *v
+				fmt.Printf("ID[%d]: %s\r\n", i, *(a.ID))
+				fmt.Printf("Timeseries length: %d\r\n", len(a.TimeSeries))
+				for j, t := range a.TimeSeries {
+					fmt.Printf("TimeSeries #%d\r\n", j)
+
+					for k, d := range t.Data {
+						// fmt.Printf("%d - ", k)
+						// fmt.Print((*d).TimeStamp.GoString())
+						fmt.Printf("%d - %s - Average(%f); Count(%f); Max(%f); Min(%f); Total(%f);\r\n", k,
+							(*d).TimeStamp.GoString(),
+							safeDereferenceFloatPtr((*d).Average),
+							safeDereferenceFloatPtr((*d).Count),
+							safeDereferenceFloatPtr((*d).Maximum),
+							safeDereferenceFloatPtr((*d).Minimum),
+							safeDereferenceFloatPtr((*d).Total))
+					}
+				}
+			}
 		})
-
 	})
 })

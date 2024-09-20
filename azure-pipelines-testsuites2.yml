@@ -52,6 +52,7 @@ steps:
       ##[Environment]::SetEnvironmentVariable("envRULE", $rule)
 
       $amw = "$($(env:CLUSTER-NAME))-amw"
+      $amw
       $o = az resource show --resource-type "microsoft.monitor/accounts" -g ${env:RESOURCE-GROUP}  -n $amw
       $s = [string]::Join("", $o)                                                                                                      
       "microsoft.monitor/accounts - $s"

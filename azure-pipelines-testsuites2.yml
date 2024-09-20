@@ -75,7 +75,7 @@ steps:
     scriptLocation: inlineScript
     inlineScript: |
       # Run Ginkgo
-      $cmd = "$([Environment]::GetEnvironmentVariable('userprofile'))\go\bin\ginkgo.exe -- -parmRuleName ""$env:varRULE""" -parmAmwResourceId ""$env:varAMW_RESOURCE_ID"""
+      $cmd = "$([Environment]::GetEnvironmentVariable('userprofile'))\go\bin\ginkgo.exe -- -parmRuleName ""$env:varRULE"" -parmAmwResourceId ""$env:varAMW_RESOURCE_ID"""
       "cmd - $cmd"
       "env:varAMW_QUERY_ENDPOINT - $env:varAMW_QUERY_ENDPOINT"
       [Environment]::SetEnvironmentVariable("AMW_QUERY_ENDPOINT", $env:varAMW_QUERY_ENDPOINT)

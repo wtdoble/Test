@@ -51,7 +51,7 @@ steps:
       echo "##vso[task.setvariable variable=varRULE]$rule"
       ##[Environment]::SetEnvironmentVariable("envRULE", $rule)
 
-      $clusterName = ${env:RESOURCE-GROUP} 
+      $clusterName = ${env:CLUSTER-NAME} 
       $amw = "$clusterName-amw"
       $amw
       $o = az resource show --resource-type "microsoft.monitor/accounts" -g ${env:RESOURCE-GROUP}  -n $amw

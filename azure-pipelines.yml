@@ -28,7 +28,7 @@ steps:
       az --version
       az account show
       az deployment group create `
-          --resource-group wtd-test `
+          --resource-group wtd-test-neu `
           --name wtdAksTestDeployment `
           --template-file ".\wip9-final.json"
           

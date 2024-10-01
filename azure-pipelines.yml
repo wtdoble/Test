@@ -10,13 +10,13 @@ pool:
   vmImage: windows-latest
 
 steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
+# - script: echo Hello, world!
+#   displayName: 'Run a one-line script'
 
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+# - script: |
+#     echo Add other tasks to build, test, and deploy your project.
+#     echo See https://aka.ms/yaml
+#   displayName: 'Run a multi-line script'
 
 - task: AzureCLI@2
   displayName: Azure CLI
@@ -28,7 +28,8 @@ steps:
       az --version
       az account show
       az deployment group create `
-          --resource-group wtd-test-neu `
+          --resource-group ${env:RESOURCE-GROUP} `
           --name wtdAksTestDeployment `
           --template-file ".\wip9-final.json"
+          --parameters ${env:PARAMETERS}   
           

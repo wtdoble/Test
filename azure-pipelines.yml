@@ -30,6 +30,6 @@ steps:
       az deployment group create `
           --resource-group ${env:RESOURCE-GROUP} `
           --name wtdAksTestDeployment `
-          --template-file ".\wip9-final.json"
+          --template-file ".\wip9-final.json" `
           --parameters ${env:PARAMETERS}   
           

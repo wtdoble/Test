@@ -9,6 +9,7 @@
             "type": "string",
             "defaultValue": "westus2",
             "allowedValues": [
+              "mexicocentral",
               "eastus2euap",
               "northcentralus",
               "eastus",

@@ -45,14 +45,16 @@
                    "westus",
                    "westus2",
                    "westus3",
+                "uaecentral",
+                "australiacentral2"
+              "usgovvirginia"
               "eastus2euap",
               "northcentralus",
               "francesouth",
               "brazilsoutheast",
               "switzerlandwest",
               "norwaywest",
-              "swedensouth",
-                "usgovvirginia"
+              "swedensouth"
             ]
         },
         "metricLabelsAllowlist": {

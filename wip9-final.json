@@ -11,6 +11,7 @@
             "allowedValues": [
                   "EastUS",
                   "AustraliaCentral",
+                  "AustraliaCentral2",
                   "AustraliaEast",
                   "AustraliaSoutheast",
                   "BrazilSouth",
@@ -38,6 +39,7 @@
                   "SwedenCentral",
                   "SwitzerlandNorth",
                   "UAENorth",
+                  "UAECentral",
                   "UKSouth",
                   "UKWest",
                   "WestCentralUS",
@@ -121,12 +123,77 @@
                 "description": "The location of the Managed Cluster resource."
             }
         },
+        "clusterApiVersion": {
+            "type": "string",
+            "defaultValue": "2024-01-01",
+            "metadata": {
+              "description": "apiVersion for Microsoft.ContainerService/managedClusters"
+            }
+        },
+
+        "availabilityZones": {
+          "type": "array",
+          "defaultValue": ["1", "2", "3"],
+          "metadata": {
+            "description":"[ 1, 2, 3 ]"
+          }
+        },
+        "agentPoolVmSize": {
+            "type": "string",
+            "defaultValue": "Standard_D4s_v3",
+            "metadata": {
+              "description": "VM size for specified agent pool"
+          }
+        },
+        "marinerVmSize": {
+          "type": "string",
+          "defaultValue": "Standard_D4s_v3",
+          "metadata": {
+            "description": "VM size for specified agent pool"
+          }
+        },
+        "arm64VmSize": {
+          "type": "string",
+          "defaultValue": "Standard_D4pds_v5",
+          "metadata": {
+            "description": "VM size for specified agent pool"
+          }
+        },
+        "marinerarm64VmSize": {
+          "type": "string",
+          "defaultValue": "Standard_D4pds_v5",
+          "metadata": {
+            "description": "VM size for specified agent pool"
+          }
+        },
+        "win22VmSize": {
+          "type": "string",
+          "defaultValue": "Standard_D2s_v3",
+          "metadata": {
+            "description": "VM size for specified agent pool"
+          }
+        },
+        "win19VmSize": {
+          "type": "string",
+          "defaultValue": "Standard_DS3_v2",
+          "metadata": {
+            "description": "VM size for specified agent pool"
+          }
+        },
+      
         "windowsAdminPassword": {
             "defaultValue": "[newGuid()]",
             "type": "SecureString",
             "metadata": {
                 "description": "The password of the Windows Admin user."
             }
+        },
+        "actionGroupId": {
+          "type": "string",
+          "defaultValue": "/subscriptions/13d371f9-5a39-46d5-8e1b-60158c49db84/resourceGroups/ContainerInsightsPrometheusCollector-Prod/providers/microsoft.insights/actiongroups/AMA-PrometheusCollectorAlertGroup",
+          "metadata": {
+            "description": "Action group used for alerts"
+          }
         }
     },
     "variables": {
@@ -160,7 +227,7 @@
         },        
         {
             "type": "Microsoft.ContainerService/managedClusters",
-            "apiVersion": "2024-01-01",
+            "apiVersion": "[parameters('clusterApiVersion')]",
             "name": "[parameters('clusterName')]",
             "location": "[parameters('clusterLocation')]",
             "identity": {
@@ -194,16 +261,12 @@
                     {
                         "name": "agentpool",
                         "count": 3,
-                        "vmSize": "Standard_D4s_v3",
+                        "vmSize": "[parameters('agentPoolVmSize')]",
                         "osDiskType": "Managed",
                         "kubeletDiskType": "OS",
                         "maxPods": 110,
                         "type": "VirtualMachineScaleSets",
-                        "availabilityZones": [
-                            "1",
-                            "2",
-                            "3"
-                        ],
+                        "availabilityZones": "[parameters('availabilityZones')]",
                         "enableAutoScaling": false,
                         "enableNodePublicIP": false,
                         "mode": "System",
@@ -214,16 +277,12 @@
                     {
                         "name": "agentpool1",
                         "count": 1,
-                        "vmSize": "Standard_D4s_v3",
+                        "vmSize": "[parameters('agentPoolVmSize')]",
                         "osDiskType": "Managed",
                         "kubeletDiskType": "OS",
                         "maxPods": 110,
                         "type": "VirtualMachineScaleSets",
-                        "availabilityZones": [
-                            "1",
-                            "2",
-                            "3"
-                        ],
+                        "availabilityZones": "[parameters('availabilityZones')]",
                         "enableAutoScaling": false,
                         "enableNodePublicIP": false,
                         "mode": "System",
@@ -234,16 +293,12 @@
                     {
                         "name": "mariner",
                         "count": 1,
-                        "vmSize": "Standard_D4s_v3",
+                        "vmSize": "[parameters('marinerVmSize')]",
                         "osDiskType": "Managed",
                         "kubeletDiskType": "OS",
                         "maxPods": 110,
                         "type": "VirtualMachineScaleSets",
-                        "availabilityZones": [
-                            "1",
-                            "2",
-                            "3"
-                        ],
+                        "availabilityZones": "[parameters('availabilityZones')]",
                         "enableAutoScaling": false,
                         "enableNodePublicIP": false,
                         "mode": "System",
@@ -254,7 +309,7 @@
                     {
                         "name": "arm64",
                         "count": 3,
-                        "vmSize": "Standard_D4pds_v5",
+                        "vmSize": "[parameters('arm64VmSize')]",
                         "osDiskType": "Ephemeral",
                         "kubeletDiskType": "OS",
                         "maxPods": 30,
@@ -269,7 +324,7 @@
                     {
                         "name": "marinerarm64",
                         "count": 3,
-                        "vmSize": "Standard_D4pds_v5",
+                        "vmSize": "[parameters('marinerarm64VmSize')]",
                         "osDiskType": "Ephemeral",
                         "kubeletDiskType": "OS",
                         "maxPods": 30,
@@ -284,7 +339,7 @@
                     {
                         "name": "win22",
                         "count": 1,
-                        "vmSize": "Standard_D2s_v3",
+                        "vmSize": "[parameters('win22VmSize')]",
                         "osDiskType": "Managed",
                         "kubeletDiskType": "OS",
                         "workloadRuntime": "OCIContainer",
@@ -304,7 +359,7 @@
                     {
                         "name": "win19",
                         "count": 2,
-                        "vmSize": "Standard_DS3_v2",
+                        "vmSize": "[parameters('win19VmSize')]",
                         "osDiskType": "Ephemeral",
                         "kubeletDiskType": "OS",
                         "maxPods": 30,
@@ -759,6 +814,263 @@
                 "expression": "sum by (namespace, pod, container) (rate(windows_container_total_runtime{}[5m]))"
               }
             ]
+          }
+        },
+
+
+        {
+          "name": "[Concat(parameters('clusterName'), '-dev-alerts')]",
+          "type": "Microsoft.AlertsManagement/prometheusRuleGroups",
+          "apiVersion": "2023-03-01",
+          "location": "[parameters('azureMonitorWorkspaceLocation')]",
+          "dependsOn": [
+            "[resourceId('microsoft.monitor/accounts/', variables('azureMonitorWorkspaceName'))]",
+            "[resourceId('Microsoft.ContainerService/managedClusters', parameters('clusterName'))]"
+          ],         
+          "properties": {
+              "description": "[Concat('Rule group for cluster', parameters('clusterName'), 'in the workspace', variables('azureMonitorWorkspaceName'))]",
+              "scopes": [
+                  "[resourceId('microsoft.monitor/accounts/', variables('azureMonitorWorkspaceName'))]",
+                  "[resourceId('Microsoft.ContainerService/managedClusters', parameters('clusterName'))]"
+              ],
+              "enabled": "false",
+              "clusterName": "[parameters('clusterName')]",
+              "rules": [
+                  {
+                      "alert": "[Concat('Amd64 metric missing in cluster', parameters('clusterName'))]",
+                      "expression": "absent(node_uname_info{machine=\"x86_64\"}) == 1 or node_uname_info{machine=\"x86_64\"} == 0",
+                      "for": "PT30M",
+                      "annotations": {
+                          "description": "[Concat('Amd64 metric missing in cluster', parameters('clusterName'))]"
+                      },
+                      "severity": 4,
+                      "resolveConfiguration": {
+                          "autoResolved": true,
+                          "timeToResolve": "PT10M"
+                      },
+                      "actions": [
+                          {
+                              "actionGroupId": "[parameters('actionGroupId')]"
+                          }
+                      ]
+                  },
+                  {
+                      "alert": "[Concat('up metric missing for target = node in cluster', parameters('clusterName'))]",
+                      "expression": "absent_over_time(up{job=\"node\"}[30m]) == 1 or count(up{job=\"node\"} == 1) == 0",
+                      "for": "PT30M",
+                      "annotations": {
+                          "description": "[Concat('up metric missing for target = node in cluster', parameters('clusterName'))]"
+                      },
+                      "severity": 4,
+                      "resolveConfiguration": {
+                          "autoResolved": true,
+                          "timeToResolve": "PT10M"
+                      },
+                      "actions": [
+                          {
+                              "actionGroupId": "[parameters('actionGroupId')]"
+                          }
+                      ]
+                  },
+                  {
+                      "alert": "[Concat('up metric missing for target = kubelet in cluster', parameters('clusterName'))]",
+                      "expression": "absent_over_time(up{job=\"kubelet\"}[30m]) == 1 or count(up{job=\"kubelet\"} == 1) == 0",
+                      "for": "PT30M",
+                      "annotations": {
+                          "description": "[Concat('up metric missing for target = kubelet in cluster', parameters('clusterName'))]"
+                      },
+                      "severity": 4,
+                      "resolveConfiguration": {
+                          "autoResolved": true,
+                          "timeToResolve": "PT10M"
+                      },
+                      "actions": [
+                          {
+                              "actionGroupId": "[parameters('actionGroupId')]"
+                          }
+                      ]
+                  },
+                  {
+                      "alert": "[Concat('up metric missing for target = windows-exporter in cluster', parameters('clusterName'))]",
+                      "expression": "absent_over_time(up{job=\"windows-exporter\"}[30m]) == 1 or count(up{job=\"windows-exporter\"} == 1) == 0",
+                      "for": "PT30M",
+                      "annotations": {
+                          "description": "[Concat('up metric missing for target = windows-exporter in cluster', parameters('clusterName'))]"
+                      },
+                      "severity": 4,
+                      "resolveConfiguration": {
+                          "autoResolved": true,
+                          "timeToResolve": "PT10M"
+                      },
+                      "actions": [
+                          {
+                              "actionGroupId": "[parameters('actionGroupId')]"
+                          }
+                      ]
+                  },
+                  {
+                      "alert": "[Concat('up metric missing for target = kube-proxy in cluster', parameters('clusterName'))]",
+                      "expression": "absent_over_time(up{job=\"kube-proxy\"}[30m]) == 1 or count(up{job=\"kube-proxy\"} == 1) == 0",
+                      "for": "PT30M",
+                      "annotations": {
+                          "description": "[Concat('up metric missing for target = kube-proxy in cluster', parameters('clusterName'))]"
+                      },
+                      "severity": 4,
+                      "resolveConfiguration": {
+                          "autoResolved": true,
+                          "timeToResolve": "PT10M"
+                      },
+                      "actions": [
+                          {
+                              "actionGroupId": "[parameters('actionGroupId')]"
+                          }
+                      ]
+                  },
+                  {
+                      "alert": "[Concat('up metric missing for target = kube-apiserver in cluster', parameters('clusterName'))]",
+                      "expression": "absent_over_time(up{job=\"kube-apiserver\"}[30m]) == 1 or count(up{job=\"kube-apiserver\"} == 1) == 0",
+                      "for": "PT30M",
+                      "annotations": {
+                          "description": "[Concat('up metric missing for target = kube-apiserver in cluster', parameters('clusterName'))]"
+                      },
+                      "severity": 4,
+                      "resolveConfiguration": {
+                          "autoResolved": true,
+                          "timeToResolve": "PT10M"
+                      },
+                      "actions": [
+                          {
+                              "actionGroupId": "[parameters('actionGroupId')]"
+                          }
+                      ]
+                  },
+                  {
+                      "alert": "[Concat('up metric missing for target = kube-proxy-windows in cluster', parameters('clusterName'))]",
+                      "expression": "absent_over_time(up{job=\"kube-proxy-windows\"}[30m]) == 1 or count(up{job=\"kube-proxy-windows\"} == 1) == 0",
+                      "for": "PT30M",
+                      "annotations": {
+                          "description": "[Concat('up metric missing for target = kube-proxy-windows in cluster', parameters('clusterName'))]"
+                      },
+                      "severity": 4,
+                      "resolveConfiguration": {
+                          "autoResolved": true,
+                          "timeToResolve": "PT10M"
+                      },
+                      "actions": [
+                          {
+                              "actionGroupId": "[parameters('actionGroupId')]"
+                          }
+                      ]
+                  },
+                  {
+                      "alert": "[Concat('up metric missing for target = kube-state-metrics in cluster', parameters('clusterName'))]",
+                      "expression": "absent_over_time(up{job=\"kube-state-metrics\"}[30m]) == 1 or count(up{job=\"kube-state-metrics\"} == 1) == 0",
+                      "for": "PT30M",
+                      "annotations": {
+                          "description": "[Concat('up metric missing for target = kube-state-metrics in cluster', parameters('clusterName'))]"
+                      },
+                      "severity": 4,
+                      "resolveConfiguration": {
+                          "autoResolved": true,
+                          "timeToResolve": "PT10M"
+                      },
+                      "actions": [
+                          {
+                              "actionGroupId": "[parameters('actionGroupId')]"
+                          }
+                      ]
+                  },
+                  {
+                      "alert": "[Concat('up metric missing for target = cadvisor in cluster', parameters('clusterName'))]",
+                      "expression": "absent_over_time(up{job=\"cadvisor\"}[30m]) == 1 or count(up{job=\"cadvisor\"} == 1) == 0",
+                      "for": "PT30M",
+                      "annotations": {
+                          "description": "[Concat('up metric missing for target = cadvisor in cluster', parameters('clusterName'))]"
+                      },
+                      "severity": 4,
+                      "resolveConfiguration": {
+                          "autoResolved": true,
+                          "timeToResolve": "PT10M"
+                      },
+                      "actions": [
+                          {
+                              "actionGroupId": "[parameters('actionGroupId')]"
+                          }
+                      ]
+                  },
+                  {
+                      "alert": "[Concat('up metric missing for target = kube-dns in cluster', parameters('clusterName'))]",
+                      "expression": "absent_over_time(up{job=\"kube-dns\"}[30m]) == 1 or count(up{job=\"kube-dns\"} == 1) == 0",
+                      "for": "PT30M",
+                      "annotations": {
+                          "description": "[Concat('up metric missing for target = kube-dns in cluster', parameters('clusterName'))]"
+                      },
+                      "severity": 4,
+                      "resolveConfiguration": {
+                          "autoResolved": true,
+                          "timeToResolve": "PT10M"
+                      },
+                      "actions": [
+                          {
+                              "actionGroupId": "[parameters('actionGroupId')]"
+                          }
+                      ]
+                  },
+                  {
+                      "alert": "Concat['CPU usage % greater than 75 for prometheus-collector on cluster', parameters('clusterName')]",
+                      "expression": "sum(sum by (cluster, namespace, pod, container) ( rate(container_cpu_usage_seconds_total{job=\"cadvisor\", image!=\"\", namespace=\"kube-system\", container=\"prometheus-collector\"}[5m]) ) * on (cluster, namespace, pod) group_left(node) topk by (cluster, namespace, pod) ( 1, max by(cluster, namespace, pod, node) (kube_pod_info{node!=\"\", namespace=\"kube-system\"}) )) by (container, pod) *100 > 75",
+                      "for": "PT3M",
+                      "annotations": {
+                          "description": "Concat['CPU usage greater than 75% for prometheus-collector on cluster', parameters('clusterName')]"
+                      },
+                      "severity": 4,
+                      "resolveConfiguration": {
+                          "autoResolved": true,
+                          "timeToResolve": "PT10M"
+                      },
+                      "actions": [
+                          {
+                              "actionGroupId": "[parameters('actionGroupId')]"
+                          }
+                      ]
+                  },
+                  {
+                      "alert": "[Concat('Memory usage greater than 75% for prometheus-collector containers on cluster', parameters('clusterName'))]",
+                      "expression": "(sum(container_memory_working_set_bytes{namespace=\"kube-system\", container=\"prometheus-collector\", image!=\"\"}) by (container, pod) / sum(kube_pod_container_resource_limits{namespace=\"kube-system\", container=\"prometheus-collector\", resource=\"memory\"}) by (container, pod)) * 100> 75",
+                      "for": "PT3M",
+                      "annotations": {
+                          "description": "[Concat('Memory usage greater than 75% for prometheus-collector containers on cluster', parameters('clusterName'))]"
+                      },
+                      "severity": 4,
+                      "resolveConfiguration": {
+                          "autoResolved": true,
+                          "timeToResolve": "PT10M"
+                      },
+                      "actions": [
+                          {
+                              "actionGroupId": "[parameters('actionGroupId')]"
+                          }
+                      ]
+                  },
+                  {
+                      "alert": "[Concat('Custom job metric missing for target = prometheus_ref_app in cluster', parameters('clusterName'))]",
+                      "expression": "absent_over_time(myapp_rainfall_histogram_sum[30m]) == 1 or count(myapp_rainfall_histogram_sum == 1) == 0",
+                      "for": "PT30M",
+                      "annotations": {
+                          "description": "[Concat('Custom job metric missing for target = prometheus_ref_app in cluster', parameters('clusterName'))]"
+                      },
+                      "severity": 4,
+                      "resolveConfiguration": {
+                          "autoResolved": true,
+                          "timeToResolve": "PT10M"
+                      },
+                      "actions": [
+                          {
+                              "actionGroupId": "[parameters('actionGroupId')]"
+                          }
+                      ]
+                  }
+              ]
           }
         }
 

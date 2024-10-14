@@ -21,7 +21,7 @@ steps:
 - task: AzureCLI@2
   displayName: Azure CLI
   inputs:
-    azureSubscription: WtdTestPlaygroundDev
+    azureSubscription:  ${env:AZURESUBSCRIPTION}
     scriptType: ps
     scriptLocation: inlineScript
     inlineScript: |
@@ -29,7 +29,7 @@ steps:
       az account show
       az deployment group create `
           --resource-group ${env:RESOURCE-GROUP} `
-          --name wtdAksTestDeployment `
+          --name Deployment `
           --template-file ".\wip9-final.json" `
           --parameters ${env:PARAMETERS}   
           

@@ -21,7 +21,7 @@ steps:
 - task: AzureCLI@2
   displayName: Azure CLI
   inputs:
-    azureSubscription:  ${env:AZURESUBSCRIPTION}
+    azureSubscription:  ContainerInsights_Dev_Grace
     scriptType: ps
     scriptLocation: inlineScript
     inlineScript: |

@@ -29,7 +29,7 @@ steps:
       az account show
       az deployment group create `
           --resource-group ${env:RESOURCE-GROUP} `
-          --name Deployment `
+          --name ClusterDeployment `
           --template-file ".\wip9-final.json" `
           --parameters ${env:PARAMETERS}   
           

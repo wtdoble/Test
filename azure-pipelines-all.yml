@@ -7,9 +7,9 @@ resources:
     - pipeline: cicdPipeline  # Name of the pipeline resource
       source: 'azure-pipelines.yml'  # Project, repository, and pipeline name
       trigger: true  # Automatically trigger the pipeline
-    # - pipeline: regionTestsSuitePipeline  # Name of the pipeline resource
-    #   source: 'azure-pipelines-testsuites.yml'  # Project, repository, and pipeline name
-    #   trigger: true  # Automatically trigger the pipeline      
+    - pipeline: regionTestsSuitePipeline  # Name of the pipeline resource
+      source: 'azure-pipelines-testsuites.yml'  # Project, repository, and pipeline name
+      trigger: true  # Automatically trigger the pipeline      
 
 stages:
   - stage: Build

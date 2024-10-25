@@ -1,18 +1,3 @@
-resources:
-  pipelines:
-    - pipeline: myPipeline  # Name of the pipeline resource
-      source: 'myProject/myRepo/myPipeline'  # Project, repository, and pipeline name
-      trigger: true  # Automatically trigger the pipeline
-
-
-      stages:
-  - stage: InvokePipeline
-    jobs:
-      - job: Invoke
-        steps:
-          - script: echo "Invoking another pipeline"
-            dependsOn: myPipeline
-
 
 trigger:
 - none
@@ -22,9 +7,9 @@ resources:
     - pipeline: cicdPipeline  # Name of the pipeline resource
       source: 'azure-pipelines.yml'  # Project, repository, and pipeline name
       trigger: true  # Automatically trigger the pipeline
-    - pipeline: regionTestsSuitePipeline  # Name of the pipeline resource
-      source: 'azure-pipelines-testsuites.yml'  # Project, repository, and pipeline name
-      trigger: true  # Automatically trigger the pipeline      
+    # - pipeline: regionTestsSuitePipeline  # Name of the pipeline resource
+    #   source: 'azure-pipelines-testsuites.yml'  # Project, repository, and pipeline name
+    #   trigger: true  # Automatically trigger the pipeline      
 
 stages:
   - stage: Build
@@ -47,6 +32,6 @@ stages:
             displayName: 'Run deploy script'
           - script: echo "Waiting for the ci-cd pipeline to complete"
             dependsOn: cicdPipeline   
-          - script: echo "Waiting for the testsuites pipeline to complete"
-            dependsOn: regionTestsSuitePipeline
+          # - script: echo "Waiting for the testsuites pipeline to complete"
+          #   dependsOn: regionTestsSuitePipeline
            

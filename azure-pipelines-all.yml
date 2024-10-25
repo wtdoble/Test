@@ -12,17 +12,7 @@ resources:
       trigger: true  # Automatically trigger the pipeline
 
 stages:
-  - stage: Build
-    jobs:
-      - job: BuildJob
-        pool:
-          vmImage: 'ubuntu-latest'
-        steps:
-          - script: echo "Building the project"
-            displayName: 'Run build script'
-
   - stage: Deploy
-    dependsOn: Build
     jobs:
       - job: DeployJob
         pool:
@@ -30,6 +20,14 @@ stages:
         steps:
           - script: echo "Deploying the project"
             displayName: 'Run deploy script'
+          - task: AzureCLI@2
+            inputs:
+              azureSubscription: ContainerInsights_Dev_Grace
+              scriptType: 'ps'
+              scriptLocation: 'inlineScript'
+              inlineScript: |
+                echo "Invoking child pipeline"
+                az pipelines run --name cicdPipeline 
           # - script: echo "Waiting for the ci-cd pipeline to complete"
           #   dependsOn: cicdPipeline
           # - script: echo "Waiting for the testsuites pipeline to complete"

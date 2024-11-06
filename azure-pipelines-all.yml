@@ -2,32 +2,41 @@
 trigger:
 - none
 
-resources:
-  pipelines:
-    - pipeline: cicdPipeline  # Name of the pipeline resource
-      source: 'Demo ci-cd-cluster'  # Project, repository, and pipeline name
-      trigger: true  # Automatically trigger the pipeline
-    - pipeline: regionTestsSuitePipeline  # Name of the pipeline resource
-      source: 'Demo Region Tests'  # Project, repository, and pipeline name
-      trigger: true  # Automatically trigger the pipeline
+# resources:
+#   pipelines:
+#     - pipeline: cicdPipeline  # Name of the pipeline resource
+#       source: 'Demo ci-cd-cluster'  # Project, repository, and pipeline name
+#       trigger: true  # Automatically trigger the pipeline
+#     - pipeline: regionTestsSuitePipeline  # Name of the pipeline resource
+#       source: 'Demo Region Tests'  # Project, repository, and pipeline name
+#       trigger: true  # Automatically trigger the pipeline
+
+pool:
+  vmImage: 'windows-latest'
 
 stages:
   - stage: Deploy
     jobs:
       - job: DeployJob
-        pool:
-          vmImage: 'windows-latest'
         steps:
           - script: echo "Deploying the project"
             displayName: 'Run deploy script'
-          - task: AzureCLI@2
-            inputs:
-              azureSubscription: ContainerInsights_Dev_Grace
-              scriptType: 'ps'
-              scriptLocation: 'inlineScript'
-              inlineScript: |
-                echo "Invoking child pipeline"
-                az pipelines run --name cicdPipeline 
+
+      - job: TestJob
+        dependsOn: DeployJob
+        steps:
+          - script: echo "Testing the project"
+            displayName: 'Run test script'
+
+          # - task: AzureCLI@2
+          #   inputs:
+          #     azureSubscription: ContainerInsights_Dev_Grace
+          #     scriptType: 'ps'
+          #     scriptLocation: 'inlineScript'
+          #     inlineScript: |
+          #       echo "Invoking child pipeline"
+          #       az pipelines run --name cicdPipeline              
+
           # - script: echo "Waiting for the ci-cd pipeline to complete"
           #   dependsOn: cicdPipeline
           # - script: echo "Waiting for the testsuites pipeline to complete"

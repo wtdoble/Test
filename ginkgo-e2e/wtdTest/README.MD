@@ -35,3 +35,41 @@ go get github.com/Azure/azure-sdk-for-go/sdk/internal
 
 
 ginkgo -- -parmRuleName=<recording rule name>
+
+
+az provider list --query "[?namespace=='<resource-provider-namespace>']" --output table
+
+az pipelines runs show --organization https://dev.azure.com/widoble0322/ --project TestPipeline  --id 388
+
+--------------
+az pipelines run --organization https://dev.azure.com/widoble0322/ --project TestPipeline --name wtdoble.Test
+
+az pipelines build definition show --organization https://dev.azure.com/widoble0322/ --project TestPipeline --name "wtdoble.Test"
+
+az pipelines runs list --organization https://dev.azure.com/widoble0322/ --project TestPipeline --pipeline-ids 1
+
+
+
+{
+    "id": "/subscriptions/B9842C7C-1A38-4385-8F39-A51314758BCF/resourceGroups/wtd-test/providers/microsoft.insights/actionGroups/wtdTestAg",
+    "type": "Microsoft.Insights/ActionGroups",
+    "name": "wtdTestAg",
+    "location": "Global",
+    "kind": null,
+    "tags": null,
+    "properties": {
+        "groupShortName": "wtdTestAg",
+        "enabled": true,
+        "emailReceivers": [],
+        "smsReceivers": [],
+        "webhookReceivers": [],
+        "eventHubReceivers": [],
+        "itsmReceivers": [],
+        "azureAppPushReceivers": [],
+        "automationRunbookReceivers": [],
+        "voiceReceivers": [],
+        "logicAppReceivers": [],
+        "azureFunctionReceivers": [],
+        "armRoleReceivers": []
+    }
+}

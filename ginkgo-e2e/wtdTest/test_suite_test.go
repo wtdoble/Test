@@ -120,6 +120,8 @@ var _ = Describe("Regions Suite", func() {
 	}
 
 	BeforeEach(func() {
+		fmt.Println("Entering BeforeEach...")
+
 		v1Pod, err := utils.GetPodsWithLabel(K8sClient, namespace, controllerLabelName, controllerLabelValue)
 		Expect(err).To(BeNil())
 		Expect(len(v1Pod)).To(BeNumerically(">", 0))
@@ -136,6 +138,9 @@ var _ = Describe("Regions Suite", func() {
 		}
 
 		Expect(podName).ToNot(BeEmpty())
+
+		fmt.Println("Entering BeforeEach...")
+
 	})
 
 	Context("Examine selected files and directories", func() {

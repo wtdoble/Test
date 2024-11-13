@@ -1,0 +1,267 @@
+[
+    {
+      "authoredBy": {
+        "descriptor": "aad.MzU2NzYxMTctNjFiNC03NjI5LTlkNzEtNjVmMWRhY2QwMGU0",
+        "directoryAlias": null,
+        "displayName": "William Doble",
+        "id": "72a806f2-5410-497b-ac00-c7c663f159cf",
+        "imageUrl": "https://dev.azure.com/widoble0322/_apis/GraphProfile/MemberAvatars/aad.MzU2NzYxMTctNjFiNC03NjI5LTlkNzEtNjVmMWRhY2QwMGU0",
+        "inactive": null,
+        "isAadIdentity": null,
+        "isContainer": null,
+        "isDeletedInOrigin": null,
+        "profileUrl": null,
+        "uniqueName": "widoble@microsoft.com",
+        "url": "https://spsprodwus31.vssps.visualstudio.com/Aee63ceed-b2b8-4aee-9a33-edca1b45d561/_apis/Identities/72a806f2-5410-497b-ac00-c7c663f159cf"
+      },
+      "createdDate": "2024-09-05T01:50:38.547000+00:00",
+      "draftOf": null,
+      "drafts": [],
+      "id": 4,
+      "latestBuild": null,
+      "latestCompletedBuild": null,
+      "metrics": null,
+      "name": "azure-pipeline-testsuites2",
+      "path": "\\",
+      "project": {
+        "abbreviation": null,
+        "defaultTeamImageUrl": null,
+        "description": null,
+        "id": "102b36ef-3c82-4bbd-8176-c0515382b7e4",
+        "lastUpdateTime": "2024-06-19T20:05:32.97Z",
+        "name": "TestPipeline",
+        "revision": 11,
+        "state": "wellFormed",
+        "url": "https://dev.azure.com/widoble0322/_apis/projects/102b36ef-3c82-4bbd-8176-c0515382b7e4",
+        "visibility": "private"
+      },
+      "quality": "definition",
+      "queue": {
+        "id": 9,
+        "name": "Azure Pipelines",
+        "pool": {
+          "id": 9,
+          "isHosted": true,
+          "name": "Azure Pipelines"
+        },
+        "url": "https://dev.azure.com/widoble0322/_apis/build/Queues/9"
+      },
+      "queueStatus": "enabled",
+      "revision": 6,
+      "type": "build",
+      "uri": "vstfs:///Build/Definition/4",
+      "url": "https://dev.azure.com/widoble0322/102b36ef-3c82-4bbd-8176-c0515382b7e4/_apis/build/Definitions/4?revision=6"
+    },
+    {
+      "authoredBy": {
+        "descriptor": "aad.MzU2NzYxMTctNjFiNC03NjI5LTlkNzEtNjVmMWRhY2QwMGU0",
+        "directoryAlias": null,
+        "displayName": "William Doble",
+        "id": "72a806f2-5410-497b-ac00-c7c663f159cf",
+        "imageUrl": "https://dev.azure.com/widoble0322/_apis/GraphProfile/MemberAvatars/aad.MzU2NzYxMTctNjFiNC03NjI5LTlkNzEtNjVmMWRhY2QwMGU0",
+        "inactive": null,
+        "isAadIdentity": null,
+        "isContainer": null,
+        "isDeletedInOrigin": null,
+        "profileUrl": null,
+        "uniqueName": "widoble@microsoft.com",
+        "url": "https://spsprodwus31.vssps.visualstudio.com/Aee63ceed-b2b8-4aee-9a33-edca1b45d561/_apis/Identities/72a806f2-5410-497b-ac00-c7c663f159cf"
+      },
+      "createdDate": "2024-08-27T18:11:33.887000+00:00",
+      "draftOf": null,
+      "drafts": [],
+      "id": 3,
+      "latestBuild": null,
+      "latestCompletedBuild": null,
+      "metrics": null,
+      "name": "azure-pipeline2",
+      "path": "\\",
+      "project": {
+        "abbreviation": null,
+        "defaultTeamImageUrl": null,
+        "description": null,
+        "id": "102b36ef-3c82-4bbd-8176-c0515382b7e4",
+        "lastUpdateTime": "2024-06-19T20:05:32.97Z",
+        "name": "TestPipeline",
+        "revision": 11,
+        "state": "wellFormed",
+        "url": "https://dev.azure.com/widoble0322/_apis/projects/102b36ef-3c82-4bbd-8176-c0515382b7e4",
+        "visibility": "private"
+      },
+      "quality": "definition",
+      "queue": {
+        "id": 9,
+        "name": "Azure Pipelines",
+        "pool": {
+          "id": 9,
+          "isHosted": true,
+          "name": "Azure Pipelines"
+        },
+        "url": "https://dev.azure.com/widoble0322/_apis/build/Queues/9"
+      },
+      "queueStatus": "enabled",
+      "revision": 13,
+      "type": "build",
+      "uri": "vstfs:///Build/Definition/3",
+      "url": "https://dev.azure.com/widoble0322/102b36ef-3c82-4bbd-8176-c0515382b7e4/_apis/build/Definitions/3?revision=13"
+    },
+    {
+      "authoredBy": {
+        "descriptor": "aad.MzU2NzYxMTctNjFiNC03NjI5LTlkNzEtNjVmMWRhY2QwMGU0",
+        "directoryAlias": null,
+        "displayName": "William Doble",
+        "id": "72a806f2-5410-497b-ac00-c7c663f159cf",
+        "imageUrl": "https://dev.azure.com/widoble0322/_apis/GraphProfile/MemberAvatars/aad.MzU2NzYxMTctNjFiNC03NjI5LTlkNzEtNjVmMWRhY2QwMGU0",
+        "inactive": null,
+        "isAadIdentity": null,
+        "isContainer": null,
+        "isDeletedInOrigin": null,
+        "profileUrl": null,
+        "uniqueName": "widoble@microsoft.com",
+        "url": "https://spsprodwus31.vssps.visualstudio.com/Aee63ceed-b2b8-4aee-9a33-edca1b45d561/_apis/Identities/72a806f2-5410-497b-ac00-c7c663f159cf"
+      },
+      "createdDate": "2024-11-06T22:10:55.243000+00:00",
+      "draftOf": null,
+      "drafts": [],
+      "id": 8,
+      "latestBuild": null,
+      "latestCompletedBuild": null,
+      "metrics": null,
+      "name": "azure-pipelines-all",
+      "path": "\\",
+      "project": {
+        "abbreviation": null,
+        "defaultTeamImageUrl": null,
+        "description": null,
+        "id": "102b36ef-3c82-4bbd-8176-c0515382b7e4",
+        "lastUpdateTime": "2024-06-19T20:05:32.97Z",
+        "name": "TestPipeline",
+        "revision": 11,
+        "state": "wellFormed",
+        "url": "https://dev.azure.com/widoble0322/_apis/projects/102b36ef-3c82-4bbd-8176-c0515382b7e4",
+        "visibility": "private"
+      },
+      "quality": "definition",
+      "queue": {
+        "id": 9,
+        "name": "Azure Pipelines",
+        "pool": {
+          "id": 9,
+          "isHosted": true,
+          "name": "Azure Pipelines"
+        },
+        "url": "https://dev.azure.com/widoble0322/_apis/build/Queues/9"
+      },
+      "queueStatus": "enabled",
+      "revision": 2,
+      "type": "build",
+      "uri": "vstfs:///Build/Definition/8",
+      "url": "https://dev.azure.com/widoble0322/102b36ef-3c82-4bbd-8176-c0515382b7e4/_apis/build/Definitions/8?revision=2"
+    },
+    {
+      "authoredBy": {
+        "descriptor": "aad.MzU2NzYxMTctNjFiNC03NjI5LTlkNzEtNjVmMWRhY2QwMGU0",
+        "directoryAlias": null,
+        "displayName": "William Doble",
+        "id": "72a806f2-5410-497b-ac00-c7c663f159cf",
+        "imageUrl": "https://dev.azure.com/widoble0322/_apis/GraphProfile/MemberAvatars/aad.MzU2NzYxMTctNjFiNC03NjI5LTlkNzEtNjVmMWRhY2QwMGU0",
+        "inactive": null,
+        "isAadIdentity": null,
+        "isContainer": null,
+        "isDeletedInOrigin": null,
+        "profileUrl": null,
+        "uniqueName": "widoble@microsoft.com",
+        "url": "https://spsprodwus31.vssps.visualstudio.com/Aee63ceed-b2b8-4aee-9a33-edca1b45d561/_apis/Identities/72a806f2-5410-497b-ac00-c7c663f159cf"
+      },
+      "createdDate": "2024-08-09T17:37:02.407000+00:00",
+      "draftOf": null,
+      "drafts": [],
+      "id": 2,
+      "latestBuild": null,
+      "latestCompletedBuild": null,
+      "metrics": null,
+      "name": "azure-pipelines-testsuites.yml",
+      "path": "\\",
+      "project": {
+        "abbreviation": null,
+        "defaultTeamImageUrl": null,
+        "description": null,
+        "id": "102b36ef-3c82-4bbd-8176-c0515382b7e4",
+        "lastUpdateTime": "2024-06-19T20:05:32.97Z",
+        "name": "TestPipeline",
+        "revision": 11,
+        "state": "wellFormed",
+        "url": "https://dev.azure.com/widoble0322/_apis/projects/102b36ef-3c82-4bbd-8176-c0515382b7e4",
+        "visibility": "private"
+      },
+      "quality": "definition",
+      "queue": {
+        "id": 9,
+        "name": "Azure Pipelines",
+        "pool": {
+          "id": 9,
+          "isHosted": true,
+          "name": "Azure Pipelines"
+        },
+        "url": "https://dev.azure.com/widoble0322/_apis/build/Queues/9"
+      },
+      "queueStatus": "enabled",
+      "revision": 2,
+      "type": "build",
+      "uri": "vstfs:///Build/Definition/2",
+      "url": "https://dev.azure.com/widoble0322/102b36ef-3c82-4bbd-8176-c0515382b7e4/_apis/build/Definitions/2?revision=2"
+    },
+    {
+      "authoredBy": {
+        "descriptor": "aad.MzU2NzYxMTctNjFiNC03NjI5LTlkNzEtNjVmMWRhY2QwMGU0",
+        "directoryAlias": null,
+        "displayName": "William Doble",
+        "id": "72a806f2-5410-497b-ac00-c7c663f159cf",
+        "imageUrl": "https://dev.azure.com/widoble0322/_apis/GraphProfile/MemberAvatars/aad.MzU2NzYxMTctNjFiNC03NjI5LTlkNzEtNjVmMWRhY2QwMGU0",
+        "inactive": null,
+        "isAadIdentity": null,
+        "isContainer": null,
+        "isDeletedInOrigin": null,
+        "profileUrl": null,
+        "uniqueName": "widoble@microsoft.com",
+        "url": "https://spsprodwus31.vssps.visualstudio.com/Aee63ceed-b2b8-4aee-9a33-edca1b45d561/_apis/Identities/72a806f2-5410-497b-ac00-c7c663f159cf"
+      },
+      "createdDate": "2024-10-03T17:41:37.973000+00:00",
+      "draftOf": null,
+      "drafts": [],
+      "id": 1,
+      "latestBuild": null,
+      "latestCompletedBuild": null,
+      "metrics": null,
+      "name": "wtdoble.Test",
+      "path": "\\azure-pipeline-aksdeploy",
+      "project": {
+        "abbreviation": null,
+        "defaultTeamImageUrl": null,
+        "description": null,
+        "id": "102b36ef-3c82-4bbd-8176-c0515382b7e4",
+        "lastUpdateTime": "2024-06-19T20:05:32.97Z",
+        "name": "TestPipeline",
+        "revision": 11,
+        "state": "wellFormed",
+        "url": "https://dev.azure.com/widoble0322/_apis/projects/102b36ef-3c82-4bbd-8176-c0515382b7e4",
+        "visibility": "private"
+      },
+      "quality": "definition",
+      "queue": {
+        "id": 9,
+        "name": "Azure Pipelines",
+        "pool": {
+          "id": 9,
+          "isHosted": true,
+          "name": "Azure Pipelines"
+        },
+        "url": "https://dev.azure.com/widoble0322/_apis/build/Queues/9"
+      },
+      "queueStatus": "enabled",
+      "revision": 7,
+      "type": "build",
+      "uri": "vstfs:///Build/Definition/1",
+      "url": "https://dev.azure.com/widoble0322/102b36ef-3c82-4bbd-8176-c0515382b7e4/_apis/build/Definitions/1?revision=7"
+    }
+  ]

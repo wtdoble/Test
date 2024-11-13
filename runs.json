@@ -1,0 +1,937 @@
+[
+    {
+      "appendCommitMessageToRunName": true,
+      "buildNumber": "20241108.1",
+      "buildNumberRevision": 1,
+      "controller": null,
+      "definition": {
+        "createdDate": null,
+        "drafts": [],
+        "id": 1,
+        "name": "wtdoble.Test",
+        "path": "\\azure-pipeline-aksdeploy",
+        "project": {
+          "abbreviation": null,
+          "defaultTeamImageUrl": null,
+          "description": null,
+          "id": "102b36ef-3c82-4bbd-8176-c0515382b7e4",
+          "lastUpdateTime": "2024-06-19T20:05:32.97Z",
+          "name": "TestPipeline",
+          "revision": 11,
+          "state": "wellFormed",
+          "url": "https://dev.azure.com/widoble0322/_apis/projects/102b36ef-3c82-4bbd-8176-c0515382b7e4",
+          "visibility": "private"
+        },
+        "queueStatus": "enabled",
+        "revision": 7,
+        "type": "build",
+        "uri": "vstfs:///Build/Definition/1",
+        "url": "https://dev.azure.com/widoble0322/102b36ef-3c82-4bbd-8176-c0515382b7e4/_apis/build/Definitions/1?revision=7"
+      },
+      "deleted": null,
+      "deletedBy": null,
+      "deletedDate": null,
+      "deletedReason": null,
+      "demands": null,
+      "finishTime": "2024-11-08T17:52:40.782346+00:00",
+      "id": 388,
+      "keepForever": false,
+      "lastChangedBy": {
+        "descriptor": "s2s.MDAwMDAwMDItMDAwMC04ODg4LTgwMDAtMDAwMDAwMDAwMDAwQDJjODk1OTA4LTA0ZTAtNDk1Mi04OWZkLTU0YjAwNDZkNjI4OA",
+        "directoryAlias": null,
+        "displayName": "Microsoft.VisualStudio.Services.TFS",
+        "id": "00000002-0000-8888-8000-000000000000",
+        "imageUrl": "https://dev.azure.com/widoble0322/_apis/GraphProfile/MemberAvatars/s2s.MDAwMDAwMDItMDAwMC04ODg4LTgwMDAtMDAwMDAwMDAwMDAwQDJjODk1OTA4LTA0ZTAtNDk1Mi04OWZkLTU0YjAwNDZkNjI4OA",
+        "inactive": null,
+        "isAadIdentity": null,
+        "isContainer": null,
+        "isDeletedInOrigin": null,
+        "profileUrl": null,
+        "uniqueName": "00000002-0000-8888-8000-000000000000@2c895908-04e0-4952-89fd-54b0046d6288",
+        "url": "https://spsprodwus31.vssps.visualstudio.com/Aee63ceed-b2b8-4aee-9a33-edca1b45d561/_apis/Identities/00000002-0000-8888-8000-000000000000"
+      },
+      "lastChangedDate": "2024-11-08T17:52:40.880000+00:00",
+      "logs": {
+        "id": 0,
+        "type": "Container",
+        "url": "https://dev.azure.com/widoble0322/102b36ef-3c82-4bbd-8176-c0515382b7e4/_apis/build/builds/388/logs"
+      },
+      "orchestrationPlan": {
+        "orchestrationType": null,
+        "planId": "35e46d65-54d9-4e2f-ba21-64a524429d29"
+      },
+      "parameters": null,
+      "plans": [
+        {
+          "orchestrationType": null,
+          "planId": "35e46d65-54d9-4e2f-ba21-64a524429d29"
+        }
+      ],
+      "priority": "normal",
+      "project": {
+        "abbreviation": null,
+        "defaultTeamImageUrl": null,
+        "description": null,
+        "id": "102b36ef-3c82-4bbd-8176-c0515382b7e4",
+        "lastUpdateTime": "2024-06-19T20:05:32.97Z",
+        "name": "TestPipeline",
+        "revision": 11,
+        "state": "wellFormed",
+        "url": "https://dev.azure.com/widoble0322/_apis/projects/102b36ef-3c82-4bbd-8176-c0515382b7e4",
+        "visibility": "private"
+      },
+      "properties": {},
+      "quality": null,
+      "queue": {
+        "id": 9,
+        "name": "Azure Pipelines",
+        "pool": {
+          "id": 9,
+          "isHosted": true,
+          "name": "Azure Pipelines"
+        },
+        "url": null
+      },
+      "queueOptions": null,
+      "queuePosition": null,
+      "queueTime": "2024-11-08T17:50:30.365632+00:00",
+      "reason": "manual",
+      "repository": {
+        "checkoutSubmodules": false,
+        "clean": null,
+        "defaultBranch": null,
+        "id": "wtdoble/Test",
+        "name": null,
+        "properties": null,
+        "rootFolder": null,
+        "type": "GitHub",
+        "url": null
+      },
+      "requestedBy": {
+        "descriptor": "aad.MzU2NzYxMTctNjFiNC03NjI5LTlkNzEtNjVmMWRhY2QwMGU0",
+        "directoryAlias": null,
+        "displayName": "William Doble",
+        "id": "72a806f2-5410-497b-ac00-c7c663f159cf",
+        "imageUrl": "https://dev.azure.com/widoble0322/_apis/GraphProfile/MemberAvatars/aad.MzU2NzYxMTctNjFiNC03NjI5LTlkNzEtNjVmMWRhY2QwMGU0",
+        "inactive": null,
+        "isAadIdentity": null,
+        "isContainer": null,
+        "isDeletedInOrigin": null,
+        "profileUrl": null,
+        "uniqueName": "widoble@microsoft.com",
+        "url": "https://spsprodwus31.vssps.visualstudio.com/Aee63ceed-b2b8-4aee-9a33-edca1b45d561/_apis/Identities/72a806f2-5410-497b-ac00-c7c663f159cf"
+      },
+      "requestedFor": {
+        "descriptor": "aad.MzU2NzYxMTctNjFiNC03NjI5LTlkNzEtNjVmMWRhY2QwMGU0",
+        "directoryAlias": null,
+        "displayName": "William Doble",
+        "id": "72a806f2-5410-497b-ac00-c7c663f159cf",
+        "imageUrl": "https://dev.azure.com/widoble0322/_apis/GraphProfile/MemberAvatars/aad.MzU2NzYxMTctNjFiNC03NjI5LTlkNzEtNjVmMWRhY2QwMGU0",
+        "inactive": null,
+        "isAadIdentity": null,
+        "isContainer": null,
+        "isDeletedInOrigin": null,
+        "profileUrl": null,
+        "uniqueName": "widoble@microsoft.com",
+        "url": "https://spsprodwus31.vssps.visualstudio.com/Aee63ceed-b2b8-4aee-9a33-edca1b45d561/_apis/Identities/72a806f2-5410-497b-ac00-c7c663f159cf"
+      },
+      "result": "failed",
+      "retainedByRelease": false,
+      "sourceBranch": "refs/heads/main",
+      "sourceVersion": "b72f8269c87c1976d56a49f1076c0ba5751e1987",
+      "startTime": "2024-11-08T17:50:41.337783+00:00",
+      "status": "completed",
+      "tags": [],
+      "triggerInfo": {},
+      "triggeredByBuild": null,
+      "uri": "vstfs:///Build/Build/388",
+      "url": "https://dev.azure.com/widoble0322/102b36ef-3c82-4bbd-8176-c0515382b7e4/_apis/build/Builds/388",
+      "validationResults": []
+    },
+    {
+      "appendCommitMessageToRunName": true,
+      "buildNumber": "371",
+      "buildNumberRevision": null,
+      "controller": null,
+      "definition": {
+        "createdDate": null,
+        "drafts": [],
+        "id": 1,
+        "name": "wtdoble.Test",
+        "path": "\\azure-pipeline-aksdeploy",
+        "project": {
+          "abbreviation": null,
+          "defaultTeamImageUrl": null,
+          "description": null,
+          "id": "102b36ef-3c82-4bbd-8176-c0515382b7e4",
+          "lastUpdateTime": "2024-06-19T20:05:32.97Z",
+          "name": "TestPipeline",
+          "revision": 11,
+          "state": "wellFormed",
+          "url": "https://dev.azure.com/widoble0322/_apis/projects/102b36ef-3c82-4bbd-8176-c0515382b7e4",
+          "visibility": "private"
+        },
+        "queueStatus": "enabled",
+        "revision": 7,
+        "type": "build",
+        "uri": "vstfs:///Build/Definition/1",
+        "url": "https://dev.azure.com/widoble0322/102b36ef-3c82-4bbd-8176-c0515382b7e4/_apis/build/Definitions/1?revision=7"
+      },
+      "deleted": null,
+      "deletedBy": null,
+      "deletedDate": null,
+      "deletedReason": null,
+      "demands": null,
+      "finishTime": "2024-11-01T20:54:10.345547+00:00",
+      "id": 371,
+      "keepForever": false,
+      "lastChangedBy": {
+        "descriptor": "s2s.MDAwMDAwMDItMDAwMC04ODg4LTgwMDAtMDAwMDAwMDAwMDAwQDJjODk1OTA4LTA0ZTAtNDk1Mi04OWZkLTU0YjAwNDZkNjI4OA",
+        "directoryAlias": null,
+        "displayName": "Microsoft.VisualStudio.Services.TFS",
+        "id": "00000002-0000-8888-8000-000000000000",
+        "imageUrl": "https://dev.azure.com/widoble0322/_apis/GraphProfile/MemberAvatars/s2s.MDAwMDAwMDItMDAwMC04ODg4LTgwMDAtMDAwMDAwMDAwMDAwQDJjODk1OTA4LTA0ZTAtNDk1Mi04OWZkLTU0YjAwNDZkNjI4OA",
+        "inactive": null,
+        "isAadIdentity": null,
+        "isContainer": null,
+        "isDeletedInOrigin": null,
+        "profileUrl": null,
+        "uniqueName": "00000002-0000-8888-8000-000000000000@2c895908-04e0-4952-89fd-54b0046d6288",
+        "url": "https://spsprodwus31.vssps.visualstudio.com/Aee63ceed-b2b8-4aee-9a33-edca1b45d561/_apis/Identities/00000002-0000-8888-8000-000000000000"
+      },
+      "lastChangedDate": "2024-11-01T20:54:17.527000+00:00",
+      "logs": {
+        "id": 0,
+        "type": "Container",
+        "url": "https://dev.azure.com/widoble0322/102b36ef-3c82-4bbd-8176-c0515382b7e4/_apis/build/builds/371/logs"
+      },
+      "orchestrationPlan": {
+        "orchestrationType": null,
+        "planId": "c297b28a-9cc7-4640-817f-d2d79bec7007"
+      },
+      "parameters": null,
+      "plans": [
+        {
+          "orchestrationType": null,
+          "planId": "c297b28a-9cc7-4640-817f-d2d79bec7007"
+        }
+      ],
+      "priority": "normal",
+      "project": {
+        "abbreviation": null,
+        "defaultTeamImageUrl": null,
+        "description": null,
+        "id": "102b36ef-3c82-4bbd-8176-c0515382b7e4",
+        "lastUpdateTime": "2024-06-19T20:05:32.97Z",
+        "name": "TestPipeline",
+        "revision": 11,
+        "state": "wellFormed",
+        "url": "https://dev.azure.com/widoble0322/_apis/projects/102b36ef-3c82-4bbd-8176-c0515382b7e4",
+        "visibility": "private"
+      },
+      "properties": {},
+      "quality": null,
+      "queue": {
+        "id": 9,
+        "name": "Azure Pipelines",
+        "pool": {
+          "id": 9,
+          "isHosted": true,
+          "name": "Azure Pipelines"
+        },
+        "url": null
+      },
+      "queueOptions": null,
+      "queuePosition": null,
+      "queueTime": "2024-11-01T20:54:10.579923+00:00",
+      "reason": "individualCI",
+      "repository": {
+        "checkoutSubmodules": false,
+        "clean": null,
+        "defaultBranch": null,
+        "id": "wtdoble/Test",
+        "name": null,
+        "properties": null,
+        "rootFolder": null,
+        "type": "GitHub",
+        "url": null
+      },
+      "requestedBy": {
+        "descriptor": "s2s.MDAwMDAwMDItMDAwMC04ODg4LTgwMDAtMDAwMDAwMDAwMDAwQDJjODk1OTA4LTA0ZTAtNDk1Mi04OWZkLTU0YjAwNDZkNjI4OA",
+        "directoryAlias": null,
+        "displayName": "Microsoft.VisualStudio.Services.TFS",
+        "id": "00000002-0000-8888-8000-000000000000",
+        "imageUrl": "https://dev.azure.com/widoble0322/_apis/GraphProfile/MemberAvatars/s2s.MDAwMDAwMDItMDAwMC04ODg4LTgwMDAtMDAwMDAwMDAwMDAwQDJjODk1OTA4LTA0ZTAtNDk1Mi04OWZkLTU0YjAwNDZkNjI4OA",
+        "inactive": null,
+        "isAadIdentity": null,
+        "isContainer": null,
+        "isDeletedInOrigin": null,
+        "profileUrl": null,
+        "uniqueName": "00000002-0000-8888-8000-000000000000@2c895908-04e0-4952-89fd-54b0046d6288",
+        "url": "https://spsprodwus31.vssps.visualstudio.com/Aee63ceed-b2b8-4aee-9a33-edca1b45d561/_apis/Identities/00000002-0000-8888-8000-000000000000"
+      },
+      "requestedFor": {
+        "descriptor": "s2s.MDAwMDAwMDItMDAwMC04ODg4LTgwMDAtMDAwMDAwMDAwMDAwQDJjODk1OTA4LTA0ZTAtNDk1Mi04OWZkLTU0YjAwNDZkNjI4OA",
+        "directoryAlias": null,
+        "displayName": "Microsoft.VisualStudio.Services.TFS",
+        "id": "00000002-0000-8888-8000-000000000000",
+        "imageUrl": "https://dev.azure.com/widoble0322/_apis/GraphProfile/MemberAvatars/s2s.MDAwMDAwMDItMDAwMC04ODg4LTgwMDAtMDAwMDAwMDAwMDAwQDJjODk1OTA4LTA0ZTAtNDk1Mi04OWZkLTU0YjAwNDZkNjI4OA",
+        "inactive": null,
+        "isAadIdentity": null,
+        "isContainer": null,
+        "isDeletedInOrigin": null,
+        "profileUrl": null,
+        "uniqueName": "00000002-0000-8888-8000-000000000000@2c895908-04e0-4952-89fd-54b0046d6288",
+        "url": "https://spsprodwus31.vssps.visualstudio.com/Aee63ceed-b2b8-4aee-9a33-edca1b45d561/_apis/Identities/00000002-0000-8888-8000-000000000000"
+      },
+      "result": "canceled",
+      "retainedByRelease": false,
+      "sourceBranch": "refs/heads/main",
+      "sourceVersion": "074f3ebcf5955f09be9e68fbc2110746ec4f29c9",
+      "startTime": "2024-11-01T20:54:10.345547+00:00",
+      "status": "completed",
+      "tags": [],
+      "triggerInfo": {
+        "ci.message": "Could not get the latest source version for repository wtdoble/Test hosted on https://github.com/ using ref 074f3ebcf5955f09be9e68fbc2110746ec4f29c9. GitHub reported the error, \"Bad credentials\"",
+        "ci.sourceBranch": "refs/heads/main",
+        "ci.sourceSha": "074f3ebcf5955f09be9e68fbc2110746ec4f29c9"
+      },
+      "triggeredByBuild": null,
+      "uri": "vstfs:///Build/Build/371",
+      "url": "https://dev.azure.com/widoble0322/102b36ef-3c82-4bbd-8176-c0515382b7e4/_apis/build/Builds/371",
+      "validationResults": [
+        {
+          "message": "Could not get the latest source version for repository wtdoble/Test hosted on https://github.com/ using ref 074f3ebcf5955f09be9e68fbc2110746ec4f29c9. GitHub reported the error, \"Bad credentials\"",
+          "result": "error"
+        },
+        {
+          "message": "Failed to post status to GitHub for repository wtdoble/Test with error: \"Bad credentials\". Verify that the GitHub credentials are still valid on the service connection. For OAuth connections, verify that Azure Pipelines is granted access to the repository's organization https://go.microsoft.com/fwlink/?linkid=2019209",
+          "result": "warning"
+        }
+      ]
+    },
+    {
+      "appendCommitMessageToRunName": true,
+      "buildNumber": "366",
+      "buildNumberRevision": null,
+      "controller": null,
+      "definition": {
+        "createdDate": null,
+        "drafts": [],
+        "id": 1,
+        "name": "wtdoble.Test",
+        "path": "\\azure-pipeline-aksdeploy",
+        "project": {
+          "abbreviation": null,
+          "defaultTeamImageUrl": null,
+          "description": null,
+          "id": "102b36ef-3c82-4bbd-8176-c0515382b7e4",
+          "lastUpdateTime": "2024-06-19T20:05:32.97Z",
+          "name": "TestPipeline",
+          "revision": 11,
+          "state": "wellFormed",
+          "url": "https://dev.azure.com/widoble0322/_apis/projects/102b36ef-3c82-4bbd-8176-c0515382b7e4",
+          "visibility": "private"
+        },
+        "queueStatus": "enabled",
+        "revision": 7,
+        "type": "build",
+        "uri": "vstfs:///Build/Definition/1",
+        "url": "https://dev.azure.com/widoble0322/102b36ef-3c82-4bbd-8176-c0515382b7e4/_apis/build/Definitions/1?revision=7"
+      },
+      "deleted": null,
+      "deletedBy": null,
+      "deletedDate": null,
+      "deletedReason": null,
+      "demands": null,
+      "finishTime": "2024-11-01T20:42:00.949590+00:00",
+      "id": 366,
+      "keepForever": false,
+      "lastChangedBy": {
+        "descriptor": "s2s.MDAwMDAwMDItMDAwMC04ODg4LTgwMDAtMDAwMDAwMDAwMDAwQDJjODk1OTA4LTA0ZTAtNDk1Mi04OWZkLTU0YjAwNDZkNjI4OA",
+        "directoryAlias": null,
+        "displayName": "Microsoft.VisualStudio.Services.TFS",
+        "id": "00000002-0000-8888-8000-000000000000",
+        "imageUrl": "https://dev.azure.com/widoble0322/_apis/GraphProfile/MemberAvatars/s2s.MDAwMDAwMDItMDAwMC04ODg4LTgwMDAtMDAwMDAwMDAwMDAwQDJjODk1OTA4LTA0ZTAtNDk1Mi04OWZkLTU0YjAwNDZkNjI4OA",
+        "inactive": null,
+        "isAadIdentity": null,
+        "isContainer": null,
+        "isDeletedInOrigin": null,
+        "profileUrl": null,
+        "uniqueName": "00000002-0000-8888-8000-000000000000@2c895908-04e0-4952-89fd-54b0046d6288",
+        "url": "https://spsprodwus31.vssps.visualstudio.com/Aee63ceed-b2b8-4aee-9a33-edca1b45d561/_apis/Identities/00000002-0000-8888-8000-000000000000"
+      },
+      "lastChangedDate": "2024-11-01T20:42:08.040000+00:00",
+      "logs": {
+        "id": 0,
+        "type": "Container",
+        "url": "https://dev.azure.com/widoble0322/102b36ef-3c82-4bbd-8176-c0515382b7e4/_apis/build/builds/366/logs"
+      },
+      "orchestrationPlan": {
+        "orchestrationType": null,
+        "planId": "30c5cfcd-1dac-4e0d-9abc-edf9c2acb253"
+      },
+      "parameters": null,
+      "plans": [
+        {
+          "orchestrationType": null,
+          "planId": "30c5cfcd-1dac-4e0d-9abc-edf9c2acb253"
+        }
+      ],
+      "priority": "normal",
+      "project": {
+        "abbreviation": null,
+        "defaultTeamImageUrl": null,
+        "description": null,
+        "id": "102b36ef-3c82-4bbd-8176-c0515382b7e4",
+        "lastUpdateTime": "2024-06-19T20:05:32.97Z",
+        "name": "TestPipeline",
+        "revision": 11,
+        "state": "wellFormed",
+        "url": "https://dev.azure.com/widoble0322/_apis/projects/102b36ef-3c82-4bbd-8176-c0515382b7e4",
+        "visibility": "private"
+      },
+      "properties": {},
+      "quality": null,
+      "queue": {
+        "id": 9,
+        "name": "Azure Pipelines",
+        "pool": {
+          "id": 9,
+          "isHosted": true,
+          "name": "Azure Pipelines"
+        },
+        "url": null
+      },
+      "queueOptions": null,
+      "queuePosition": null,
+      "queueTime": "2024-11-01T20:42:01.215204+00:00",
+      "reason": "individualCI",
+      "repository": {
+        "checkoutSubmodules": false,
+        "clean": null,
+        "defaultBranch": null,
+        "id": "wtdoble/Test",
+        "name": null,
+        "properties": null,
+        "rootFolder": null,
+        "type": "GitHub",
+        "url": null
+      },
+      "requestedBy": {
+        "descriptor": "s2s.MDAwMDAwMDItMDAwMC04ODg4LTgwMDAtMDAwMDAwMDAwMDAwQDJjODk1OTA4LTA0ZTAtNDk1Mi04OWZkLTU0YjAwNDZkNjI4OA",
+        "directoryAlias": null,
+        "displayName": "Microsoft.VisualStudio.Services.TFS",
+        "id": "00000002-0000-8888-8000-000000000000",
+        "imageUrl": "https://dev.azure.com/widoble0322/_apis/GraphProfile/MemberAvatars/s2s.MDAwMDAwMDItMDAwMC04ODg4LTgwMDAtMDAwMDAwMDAwMDAwQDJjODk1OTA4LTA0ZTAtNDk1Mi04OWZkLTU0YjAwNDZkNjI4OA",
+        "inactive": null,
+        "isAadIdentity": null,
+        "isContainer": null,
+        "isDeletedInOrigin": null,
+        "profileUrl": null,
+        "uniqueName": "00000002-0000-8888-8000-000000000000@2c895908-04e0-4952-89fd-54b0046d6288",
+        "url": "https://spsprodwus31.vssps.visualstudio.com/Aee63ceed-b2b8-4aee-9a33-edca1b45d561/_apis/Identities/00000002-0000-8888-8000-000000000000"
+      },
+      "requestedFor": {
+        "descriptor": "s2s.MDAwMDAwMDItMDAwMC04ODg4LTgwMDAtMDAwMDAwMDAwMDAwQDJjODk1OTA4LTA0ZTAtNDk1Mi04OWZkLTU0YjAwNDZkNjI4OA",
+        "directoryAlias": null,
+        "displayName": "Microsoft.VisualStudio.Services.TFS",
+        "id": "00000002-0000-8888-8000-000000000000",
+        "imageUrl": "https://dev.azure.com/widoble0322/_apis/GraphProfile/MemberAvatars/s2s.MDAwMDAwMDItMDAwMC04ODg4LTgwMDAtMDAwMDAwMDAwMDAwQDJjODk1OTA4LTA0ZTAtNDk1Mi04OWZkLTU0YjAwNDZkNjI4OA",
+        "inactive": null,
+        "isAadIdentity": null,
+        "isContainer": null,
+        "isDeletedInOrigin": null,
+        "profileUrl": null,
+        "uniqueName": "00000002-0000-8888-8000-000000000000@2c895908-04e0-4952-89fd-54b0046d6288",
+        "url": "https://spsprodwus31.vssps.visualstudio.com/Aee63ceed-b2b8-4aee-9a33-edca1b45d561/_apis/Identities/00000002-0000-8888-8000-000000000000"
+      },
+      "result": "canceled",
+      "retainedByRelease": false,
+      "sourceBranch": "refs/heads/main",
+      "sourceVersion": "2903bdf6054fd2f074d148d5e1daf63091402a54",
+      "startTime": "2024-11-01T20:42:00.949590+00:00",
+      "status": "completed",
+      "tags": [],
+      "triggerInfo": {
+        "ci.message": "Could not get the latest source version for repository wtdoble/Test hosted on https://github.com/ using ref 2903bdf6054fd2f074d148d5e1daf63091402a54. GitHub reported the error, \"Bad credentials\"",
+        "ci.sourceBranch": "refs/heads/main",
+        "ci.sourceSha": "2903bdf6054fd2f074d148d5e1daf63091402a54"
+      },
+      "triggeredByBuild": null,
+      "uri": "vstfs:///Build/Build/366",
+      "url": "https://dev.azure.com/widoble0322/102b36ef-3c82-4bbd-8176-c0515382b7e4/_apis/build/Builds/366",
+      "validationResults": [
+        {
+          "message": "Could not get the latest source version for repository wtdoble/Test hosted on https://github.com/ using ref 2903bdf6054fd2f074d148d5e1daf63091402a54. GitHub reported the error, \"Bad credentials\"",
+          "result": "error"
+        },
+        {
+          "message": "Failed to post status to GitHub for repository wtdoble/Test with error: \"Bad credentials\". Verify that the GitHub credentials are still valid on the service connection. For OAuth connections, verify that Azure Pipelines is granted access to the repository's organization https://go.microsoft.com/fwlink/?linkid=2019209",
+          "result": "warning"
+        }
+      ]
+    },
+    {
+      "appendCommitMessageToRunName": true,
+      "buildNumber": "20240916.4",
+      "buildNumberRevision": 4,
+      "controller": null,
+      "definition": {
+        "createdDate": null,
+        "drafts": [],
+        "id": 1,
+        "name": "wtdoble.Test",
+        "path": "\\azure-pipeline-aksdeploy",
+        "project": {
+          "abbreviation": null,
+          "defaultTeamImageUrl": null,
+          "description": null,
+          "id": "102b36ef-3c82-4bbd-8176-c0515382b7e4",
+          "lastUpdateTime": "2024-06-19T20:05:32.97Z",
+          "name": "TestPipeline",
+          "revision": 11,
+          "state": "wellFormed",
+          "url": "https://dev.azure.com/widoble0322/_apis/projects/102b36ef-3c82-4bbd-8176-c0515382b7e4",
+          "visibility": "private"
+        },
+        "queueStatus": "enabled",
+        "revision": 2,
+        "type": "build",
+        "uri": "vstfs:///Build/Definition/1",
+        "url": "https://dev.azure.com/widoble0322/102b36ef-3c82-4bbd-8176-c0515382b7e4/_apis/build/Definitions/1?revision=2"
+      },
+      "deleted": null,
+      "deletedBy": null,
+      "deletedDate": null,
+      "deletedReason": null,
+      "demands": null,
+      "finishTime": "2024-09-16T20:41:37.535877+00:00",
+      "id": 304,
+      "keepForever": true,
+      "lastChangedBy": {
+        "descriptor": "s2s.MDAwMDAwMDItMDAwMC04ODg4LTgwMDAtMDAwMDAwMDAwMDAwQDJjODk1OTA4LTA0ZTAtNDk1Mi04OWZkLTU0YjAwNDZkNjI4OA",
+        "directoryAlias": null,
+        "displayName": "Microsoft.VisualStudio.Services.TFS",
+        "id": "00000002-0000-8888-8000-000000000000",
+        "imageUrl": "https://dev.azure.com/widoble0322/_apis/GraphProfile/MemberAvatars/s2s.MDAwMDAwMDItMDAwMC04ODg4LTgwMDAtMDAwMDAwMDAwMDAwQDJjODk1OTA4LTA0ZTAtNDk1Mi04OWZkLTU0YjAwNDZkNjI4OA",
+        "inactive": null,
+        "isAadIdentity": null,
+        "isContainer": null,
+        "isDeletedInOrigin": null,
+        "profileUrl": null,
+        "uniqueName": "00000002-0000-8888-8000-000000000000@2c895908-04e0-4952-89fd-54b0046d6288",
+        "url": "https://spsprodwus31.vssps.visualstudio.com/Aee63ceed-b2b8-4aee-9a33-edca1b45d561/_apis/Identities/00000002-0000-8888-8000-000000000000"
+      },
+      "lastChangedDate": "2024-09-16T20:41:37.673000+00:00",
+      "logs": {
+        "id": 0,
+        "type": "Container",
+        "url": "https://dev.azure.com/widoble0322/102b36ef-3c82-4bbd-8176-c0515382b7e4/_apis/build/builds/304/logs"
+      },
+      "orchestrationPlan": {
+        "orchestrationType": null,
+        "planId": "0d4c691a-b6dc-44df-a66d-2bdecabd297a"
+      },
+      "parameters": null,
+      "plans": [
+        {
+          "orchestrationType": null,
+          "planId": "0d4c691a-b6dc-44df-a66d-2bdecabd297a"
+        }
+      ],
+      "priority": "normal",
+      "project": {
+        "abbreviation": null,
+        "defaultTeamImageUrl": null,
+        "description": null,
+        "id": "102b36ef-3c82-4bbd-8176-c0515382b7e4",
+        "lastUpdateTime": "2024-06-19T20:05:32.97Z",
+        "name": "TestPipeline",
+        "revision": 11,
+        "state": "wellFormed",
+        "url": "https://dev.azure.com/widoble0322/_apis/projects/102b36ef-3c82-4bbd-8176-c0515382b7e4",
+        "visibility": "private"
+      },
+      "properties": {},
+      "quality": null,
+      "queue": {
+        "id": 9,
+        "name": "Azure Pipelines",
+        "pool": {
+          "id": 9,
+          "isHosted": true,
+          "name": "Azure Pipelines"
+        },
+        "url": null
+      },
+      "queueOptions": null,
+      "queuePosition": null,
+      "queueTime": "2024-09-16T20:22:06.165798+00:00",
+      "reason": "individualCI",
+      "repository": {
+        "checkoutSubmodules": false,
+        "clean": null,
+        "defaultBranch": null,
+        "id": "wtdoble/Test",
+        "name": null,
+        "properties": null,
+        "rootFolder": null,
+        "type": "GitHub",
+        "url": null
+      },
+      "requestedBy": {
+        "descriptor": "s2s.MDAwMDAwMDItMDAwMC04ODg4LTgwMDAtMDAwMDAwMDAwMDAwQDJjODk1OTA4LTA0ZTAtNDk1Mi04OWZkLTU0YjAwNDZkNjI4OA",
+        "directoryAlias": null,
+        "displayName": "Microsoft.VisualStudio.Services.TFS",
+        "id": "00000002-0000-8888-8000-000000000000",
+        "imageUrl": "https://dev.azure.com/widoble0322/_apis/GraphProfile/MemberAvatars/s2s.MDAwMDAwMDItMDAwMC04ODg4LTgwMDAtMDAwMDAwMDAwMDAwQDJjODk1OTA4LTA0ZTAtNDk1Mi04OWZkLTU0YjAwNDZkNjI4OA",
+        "inactive": null,
+        "isAadIdentity": null,
+        "isContainer": null,
+        "isDeletedInOrigin": null,
+        "profileUrl": null,
+        "uniqueName": "00000002-0000-8888-8000-000000000000@2c895908-04e0-4952-89fd-54b0046d6288",
+        "url": "https://spsprodwus31.vssps.visualstudio.com/Aee63ceed-b2b8-4aee-9a33-edca1b45d561/_apis/Identities/00000002-0000-8888-8000-000000000000"
+      },
+      "requestedFor": {
+        "descriptor": "s2s.MDAwMDAwMDItMDAwMC04ODg4LTgwMDAtMDAwMDAwMDAwMDAwQDJjODk1OTA4LTA0ZTAtNDk1Mi04OWZkLTU0YjAwNDZkNjI4OA",
+        "directoryAlias": null,
+        "displayName": "Microsoft.VisualStudio.Services.TFS",
+        "id": "00000002-0000-8888-8000-000000000000",
+        "imageUrl": "https://dev.azure.com/widoble0322/_apis/GraphProfile/MemberAvatars/s2s.MDAwMDAwMDItMDAwMC04ODg4LTgwMDAtMDAwMDAwMDAwMDAwQDJjODk1OTA4LTA0ZTAtNDk1Mi04OWZkLTU0YjAwNDZkNjI4OA",
+        "inactive": null,
+        "isAadIdentity": null,
+        "isContainer": null,
+        "isDeletedInOrigin": null,
+        "profileUrl": null,
+        "uniqueName": "00000002-0000-8888-8000-000000000000@2c895908-04e0-4952-89fd-54b0046d6288",
+        "url": "https://spsprodwus31.vssps.visualstudio.com/Aee63ceed-b2b8-4aee-9a33-edca1b45d561/_apis/Identities/00000002-0000-8888-8000-000000000000"
+      },
+      "result": "succeeded",
+      "retainedByRelease": false,
+      "sourceBranch": "refs/heads/main",
+      "sourceVersion": "88a74a6bc3559dedf48a28ea1639419110b18206",
+      "startTime": "2024-09-16T20:22:17.094051+00:00",
+      "status": "completed",
+      "tags": [],
+      "triggerInfo": {
+        "ci.message": "Trying to get inter task variables to work correctly",
+        "ci.sourceBranch": "refs/heads/main",
+        "ci.sourceSha": "88a74a6bc3559dedf48a28ea1639419110b18206",
+        "ci.triggerRepository": "wtdoble/Test"
+      },
+      "triggeredByBuild": null,
+      "uri": "vstfs:///Build/Build/304",
+      "url": "https://dev.azure.com/widoble0322/102b36ef-3c82-4bbd-8176-c0515382b7e4/_apis/build/Builds/304",
+      "validationResults": []
+    },
+    {
+      "appendCommitMessageToRunName": true,
+      "buildNumber": "20240916.3",
+      "buildNumberRevision": 3,
+      "controller": null,
+      "definition": {
+        "createdDate": null,
+        "drafts": [],
+        "id": 1,
+        "name": "wtdoble.Test",
+        "path": "\\azure-pipeline-aksdeploy",
+        "project": {
+          "abbreviation": null,
+          "defaultTeamImageUrl": null,
+          "description": null,
+          "id": "102b36ef-3c82-4bbd-8176-c0515382b7e4",
+          "lastUpdateTime": "2024-06-19T20:05:32.97Z",
+          "name": "TestPipeline",
+          "revision": 11,
+          "state": "wellFormed",
+          "url": "https://dev.azure.com/widoble0322/_apis/projects/102b36ef-3c82-4bbd-8176-c0515382b7e4",
+          "visibility": "private"
+        },
+        "queueStatus": "enabled",
+        "revision": 2,
+        "type": "build",
+        "uri": "vstfs:///Build/Definition/1",
+        "url": "https://dev.azure.com/widoble0322/102b36ef-3c82-4bbd-8176-c0515382b7e4/_apis/build/Definitions/1?revision=2"
+      },
+      "deleted": null,
+      "deletedBy": null,
+      "deletedDate": null,
+      "deletedReason": null,
+      "demands": null,
+      "finishTime": "2024-09-16T18:33:26.618635+00:00",
+      "id": 299,
+      "keepForever": true,
+      "lastChangedBy": {
+        "descriptor": "s2s.MDAwMDAwMDItMDAwMC04ODg4LTgwMDAtMDAwMDAwMDAwMDAwQDJjODk1OTA4LTA0ZTAtNDk1Mi04OWZkLTU0YjAwNDZkNjI4OA",
+        "directoryAlias": null,
+        "displayName": "Microsoft.VisualStudio.Services.TFS",
+        "id": "00000002-0000-8888-8000-000000000000",
+        "imageUrl": "https://dev.azure.com/widoble0322/_apis/GraphProfile/MemberAvatars/s2s.MDAwMDAwMDItMDAwMC04ODg4LTgwMDAtMDAwMDAwMDAwMDAwQDJjODk1OTA4LTA0ZTAtNDk1Mi04OWZkLTU0YjAwNDZkNjI4OA",
+        "inactive": null,
+        "isAadIdentity": null,
+        "isContainer": null,
+        "isDeletedInOrigin": null,
+        "profileUrl": null,
+        "uniqueName": "00000002-0000-8888-8000-000000000000@2c895908-04e0-4952-89fd-54b0046d6288",
+        "url": "https://spsprodwus31.vssps.visualstudio.com/Aee63ceed-b2b8-4aee-9a33-edca1b45d561/_apis/Identities/00000002-0000-8888-8000-000000000000"
+      },
+      "lastChangedDate": "2024-09-16T18:33:26.790000+00:00",
+      "logs": {
+        "id": 0,
+        "type": "Container",
+        "url": "https://dev.azure.com/widoble0322/102b36ef-3c82-4bbd-8176-c0515382b7e4/_apis/build/builds/299/logs"
+      },
+      "orchestrationPlan": {
+        "orchestrationType": null,
+        "planId": "a79f7831-8e27-4893-918a-c0e3d4eaedc5"
+      },
+      "parameters": null,
+      "plans": [
+        {
+          "orchestrationType": null,
+          "planId": "a79f7831-8e27-4893-918a-c0e3d4eaedc5"
+        }
+      ],
+      "priority": "normal",
+      "project": {
+        "abbreviation": null,
+        "defaultTeamImageUrl": null,
+        "description": null,
+        "id": "102b36ef-3c82-4bbd-8176-c0515382b7e4",
+        "lastUpdateTime": "2024-06-19T20:05:32.97Z",
+        "name": "TestPipeline",
+        "revision": 11,
+        "state": "wellFormed",
+        "url": "https://dev.azure.com/widoble0322/_apis/projects/102b36ef-3c82-4bbd-8176-c0515382b7e4",
+        "visibility": "private"
+      },
+      "properties": {},
+      "quality": null,
+      "queue": {
+        "id": 9,
+        "name": "Azure Pipelines",
+        "pool": {
+          "id": 9,
+          "isHosted": true,
+          "name": "Azure Pipelines"
+        },
+        "url": null
+      },
+      "queueOptions": null,
+      "queuePosition": null,
+      "queueTime": "2024-09-16T18:14:43.230071+00:00",
+      "reason": "individualCI",
+      "repository": {
+        "checkoutSubmodules": false,
+        "clean": null,
+        "defaultBranch": null,
+        "id": "wtdoble/Test",
+        "name": null,
+        "properties": null,
+        "rootFolder": null,
+        "type": "GitHub",
+        "url": null
+      },
+      "requestedBy": {
+        "descriptor": "s2s.MDAwMDAwMDItMDAwMC04ODg4LTgwMDAtMDAwMDAwMDAwMDAwQDJjODk1OTA4LTA0ZTAtNDk1Mi04OWZkLTU0YjAwNDZkNjI4OA",
+        "directoryAlias": null,
+        "displayName": "Microsoft.VisualStudio.Services.TFS",
+        "id": "00000002-0000-8888-8000-000000000000",
+        "imageUrl": "https://dev.azure.com/widoble0322/_apis/GraphProfile/MemberAvatars/s2s.MDAwMDAwMDItMDAwMC04ODg4LTgwMDAtMDAwMDAwMDAwMDAwQDJjODk1OTA4LTA0ZTAtNDk1Mi04OWZkLTU0YjAwNDZkNjI4OA",
+        "inactive": null,
+        "isAadIdentity": null,
+        "isContainer": null,
+        "isDeletedInOrigin": null,
+        "profileUrl": null,
+        "uniqueName": "00000002-0000-8888-8000-000000000000@2c895908-04e0-4952-89fd-54b0046d6288",
+        "url": "https://spsprodwus31.vssps.visualstudio.com/Aee63ceed-b2b8-4aee-9a33-edca1b45d561/_apis/Identities/00000002-0000-8888-8000-000000000000"
+      },
+      "requestedFor": {
+        "descriptor": "s2s.MDAwMDAwMDItMDAwMC04ODg4LTgwMDAtMDAwMDAwMDAwMDAwQDJjODk1OTA4LTA0ZTAtNDk1Mi04OWZkLTU0YjAwNDZkNjI4OA",
+        "directoryAlias": null,
+        "displayName": "Microsoft.VisualStudio.Services.TFS",
+        "id": "00000002-0000-8888-8000-000000000000",
+        "imageUrl": "https://dev.azure.com/widoble0322/_apis/GraphProfile/MemberAvatars/s2s.MDAwMDAwMDItMDAwMC04ODg4LTgwMDAtMDAwMDAwMDAwMDAwQDJjODk1OTA4LTA0ZTAtNDk1Mi04OWZkLTU0YjAwNDZkNjI4OA",
+        "inactive": null,
+        "isAadIdentity": null,
+        "isContainer": null,
+        "isDeletedInOrigin": null,
+        "profileUrl": null,
+        "uniqueName": "00000002-0000-8888-8000-000000000000@2c895908-04e0-4952-89fd-54b0046d6288",
+        "url": "https://spsprodwus31.vssps.visualstudio.com/Aee63ceed-b2b8-4aee-9a33-edca1b45d561/_apis/Identities/00000002-0000-8888-8000-000000000000"
+      },
+      "result": "succeeded",
+      "retainedByRelease": false,
+      "sourceBranch": "refs/heads/main",
+      "sourceVersion": "8432220ae7cc4ce122403f526934ec2f0ac15a2b",
+      "startTime": "2024-09-16T18:14:55.058761+00:00",
+      "status": "completed",
+      "tags": [],
+      "triggerInfo": {
+        "ci.message": "added rule and amw endpoint variables",
+        "ci.sourceBranch": "refs/heads/main",
+        "ci.sourceSha": "8432220ae7cc4ce122403f526934ec2f0ac15a2b",
+        "ci.triggerRepository": "wtdoble/Test"
+      },
+      "triggeredByBuild": null,
+      "uri": "vstfs:///Build/Build/299",
+      "url": "https://dev.azure.com/widoble0322/102b36ef-3c82-4bbd-8176-c0515382b7e4/_apis/build/Builds/299",
+      "validationResults": []
+    },
+    {
+      "appendCommitMessageToRunName": true,
+      "buildNumber": "20240916.2",
+      "buildNumberRevision": 2,
+      "controller": null,
+      "definition": {
+        "createdDate": null,
+        "drafts": [],
+        "id": 1,
+        "name": "wtdoble.Test",
+        "path": "\\azure-pipeline-aksdeploy",
+        "project": {
+          "abbreviation": null,
+          "defaultTeamImageUrl": null,
+          "description": null,
+          "id": "102b36ef-3c82-4bbd-8176-c0515382b7e4",
+          "lastUpdateTime": "2024-06-19T20:05:32.97Z",
+          "name": "TestPipeline",
+          "revision": 11,
+          "state": "wellFormed",
+          "url": "https://dev.azure.com/widoble0322/_apis/projects/102b36ef-3c82-4bbd-8176-c0515382b7e4",
+          "visibility": "private"
+        },
+        "queueStatus": "enabled",
+        "revision": 2,
+        "type": "build",
+        "uri": "vstfs:///Build/Definition/1",
+        "url": "https://dev.azure.com/widoble0322/102b36ef-3c82-4bbd-8176-c0515382b7e4/_apis/build/Definitions/1?revision=2"
+      },
+      "deleted": null,
+      "deletedBy": null,
+      "deletedDate": null,
+      "deletedReason": null,
+      "demands": null,
+      "finishTime": "2024-09-16T17:21:10.219304+00:00",
+      "id": 293,
+      "keepForever": true,
+      "lastChangedBy": {
+        "descriptor": "s2s.MDAwMDAwMDItMDAwMC04ODg4LTgwMDAtMDAwMDAwMDAwMDAwQDJjODk1OTA4LTA0ZTAtNDk1Mi04OWZkLTU0YjAwNDZkNjI4OA",
+        "directoryAlias": null,
+        "displayName": "Microsoft.VisualStudio.Services.TFS",
+        "id": "00000002-0000-8888-8000-000000000000",
+        "imageUrl": "https://dev.azure.com/widoble0322/_apis/GraphProfile/MemberAvatars/s2s.MDAwMDAwMDItMDAwMC04ODg4LTgwMDAtMDAwMDAwMDAwMDAwQDJjODk1OTA4LTA0ZTAtNDk1Mi04OWZkLTU0YjAwNDZkNjI4OA",
+        "inactive": null,
+        "isAadIdentity": null,
+        "isContainer": null,
+        "isDeletedInOrigin": null,
+        "profileUrl": null,
+        "uniqueName": "00000002-0000-8888-8000-000000000000@2c895908-04e0-4952-89fd-54b0046d6288",
+        "url": "https://spsprodwus31.vssps.visualstudio.com/Aee63ceed-b2b8-4aee-9a33-edca1b45d561/_apis/Identities/00000002-0000-8888-8000-000000000000"
+      },
+      "lastChangedDate": "2024-09-16T17:21:10.367000+00:00",
+      "logs": {
+        "id": 0,
+        "type": "Container",
+        "url": "https://dev.azure.com/widoble0322/102b36ef-3c82-4bbd-8176-c0515382b7e4/_apis/build/builds/293/logs"
+      },
+      "orchestrationPlan": {
+        "orchestrationType": null,
+        "planId": "40204c66-5788-4c8e-8293-536034eb16cd"
+      },
+      "parameters": null,
+      "plans": [
+        {
+          "orchestrationType": null,
+          "planId": "40204c66-5788-4c8e-8293-536034eb16cd"
+        }
+      ],
+      "priority": "normal",
+      "project": {
+        "abbreviation": null,
+        "defaultTeamImageUrl": null,
+        "description": null,
+        "id": "102b36ef-3c82-4bbd-8176-c0515382b7e4",
+        "lastUpdateTime": "2024-06-19T20:05:32.97Z",
+        "name": "TestPipeline",
+        "revision": 11,
+        "state": "wellFormed",
+        "url": "https://dev.azure.com/widoble0322/_apis/projects/102b36ef-3c82-4bbd-8176-c0515382b7e4",
+        "visibility": "private"
+      },
+      "properties": {},
+      "quality": null,
+      "queue": {
+        "id": 9,
+        "name": "Azure Pipelines",
+        "pool": {
+          "id": 9,
+          "isHosted": true,
+          "name": "Azure Pipelines"
+        },
+        "url": null
+      },
+      "queueOptions": null,
+      "queuePosition": null,
+      "queueTime": "2024-09-16T16:45:01.900282+00:00",
+      "reason": "individualCI",
+      "repository": {
+        "checkoutSubmodules": false,
+        "clean": null,
+        "defaultBranch": null,
+        "id": "wtdoble/Test",
+        "name": null,
+        "properties": null,
+        "rootFolder": null,
+        "type": "GitHub",
+        "url": null
+      },
+      "requestedBy": {
+        "descriptor": "s2s.MDAwMDAwMDItMDAwMC04ODg4LTgwMDAtMDAwMDAwMDAwMDAwQDJjODk1OTA4LTA0ZTAtNDk1Mi04OWZkLTU0YjAwNDZkNjI4OA",
+        "directoryAlias": null,
+        "displayName": "Microsoft.VisualStudio.Services.TFS",
+        "id": "00000002-0000-8888-8000-000000000000",
+        "imageUrl": "https://dev.azure.com/widoble0322/_apis/GraphProfile/MemberAvatars/s2s.MDAwMDAwMDItMDAwMC04ODg4LTgwMDAtMDAwMDAwMDAwMDAwQDJjODk1OTA4LTA0ZTAtNDk1Mi04OWZkLTU0YjAwNDZkNjI4OA",
+        "inactive": null,
+        "isAadIdentity": null,
+        "isContainer": null,
+        "isDeletedInOrigin": null,
+        "profileUrl": null,
+        "uniqueName": "00000002-0000-8888-8000-000000000000@2c895908-04e0-4952-89fd-54b0046d6288",
+        "url": "https://spsprodwus31.vssps.visualstudio.com/Aee63ceed-b2b8-4aee-9a33-edca1b45d561/_apis/Identities/00000002-0000-8888-8000-000000000000"
+      },
+      "requestedFor": {
+        "descriptor": "s2s.MDAwMDAwMDItMDAwMC04ODg4LTgwMDAtMDAwMDAwMDAwMDAwQDJjODk1OTA4LTA0ZTAtNDk1Mi04OWZkLTU0YjAwNDZkNjI4OA",
+        "directoryAlias": null,
+        "displayName": "Microsoft.VisualStudio.Services.TFS",
+        "id": "00000002-0000-8888-8000-000000000000",
+        "imageUrl": "https://dev.azure.com/widoble0322/_apis/GraphProfile/MemberAvatars/s2s.MDAwMDAwMDItMDAwMC04ODg4LTgwMDAtMDAwMDAwMDAwMDAwQDJjODk1OTA4LTA0ZTAtNDk1Mi04OWZkLTU0YjAwNDZkNjI4OA",
+        "inactive": null,
+        "isAadIdentity": null,
+        "isContainer": null,
+        "isDeletedInOrigin": null,
+        "profileUrl": null,
+        "uniqueName": "00000002-0000-8888-8000-000000000000@2c895908-04e0-4952-89fd-54b0046d6288",
+        "url": "https://spsprodwus31.vssps.visualstudio.com/Aee63ceed-b2b8-4aee-9a33-edca1b45d561/_apis/Identities/00000002-0000-8888-8000-000000000000"
+      },
+      "result": "succeeded",
+      "retainedByRelease": false,
+      "sourceBranch": "refs/heads/main",
+      "sourceVersion": "8ec43e5d6539963b3cc15f0a65fc0068c1ae1fb3",
+      "startTime": "2024-09-16T16:45:12.775352+00:00",
+      "status": "completed",
+      "tags": [],
+      "triggerInfo": {
+        "ci.message": "Passing variables between tasks",
+        "ci.sourceBranch": "refs/heads/main",
+        "ci.sourceSha": "8ec43e5d6539963b3cc15f0a65fc0068c1ae1fb3",
+        "ci.triggerRepository": "wtdoble/Test"
+      },
+      "triggeredByBuild": null,
+      "uri": "vstfs:///Build/Build/293",
+      "url": "https://dev.azure.com/widoble0322/102b36ef-3c82-4bbd-8176-c0515382b7e4/_apis/build/Builds/293",
+      "validationResults": []
+    }
+  ]

@@ -28,6 +28,9 @@ stages:
             scriptLocation: 'inlineScript'
             failOnStandardError: true
             inlineScript: |
+              az --version
+              az account show     
+                     
               Write-host "Finding the cluster deployment pipeline..."
               $str = az pipelines build definition show --organization https://dev.azure.com/widoble0322/ --project TestPipeline --name "wtdoble.Test"
               $str2 = [string]::Join("", $str) 

@@ -26,7 +26,7 @@ stages:
             azureSubscription: ContainerInsights_Dev_Grace
             scriptType: 'ps'
             scriptLocation: 'inlineScript'
-            failOnStderr: true
+            failOnStandardError: true
             inlineScript: |
               Write-host "Finding the cluster deployment pipeline..."
               $str = az pipelines build definition show --organization https://dev.azure.com/widoble0322/ --project TestPipeline --name "wtdoble.Test"
@@ -55,17 +55,17 @@ stages:
                 Write-Error "Deploying the AKS cluster failed."
               }
   - stage: Test
-      dependsOn: Deploy
-      jobs:
-      - job: TestJob
-          steps:
-            - script: echo "Test the deployment"
-              displayName: 'Run region tests'   
-            - task: AzureCLI@2
-              inputs:
-                azureSubscription: ContainerInsights_Dev_Grace
-                scriptType: 'ps'
-                scriptLocation: 'inlineScript'
-                inlineScript: |
-                  echo "Invoking regionTests pipeline"
-                  ##az pipelines run --name cicdPipeline      
+    dependsOn: Deploy
+    jobs:
+    - job: TestJob
+      steps:
+      - script: echo "Test the deployment"
+        displayName: 'Run region tests'   
+      - task: AzureCLI@2
+        inputs:
+          azureSubscription: ContainerInsights_Dev_Grace
+          scriptType: 'ps'
+          scriptLocation: 'inlineScript'
+          inlineScript: |
+            echo "Invoking regionTests pipeline"
+            ##az pipelines run --name cicdPipeline      

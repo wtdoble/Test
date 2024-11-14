@@ -32,13 +32,19 @@ stages:
               az upgrade --all --yes
               az --version
               az account show     
-                     
-              Write-host "Finding the cluster deployment pipeline..."
-              $str = az pipelines build definition show --organization https://dev.azure.com/widoble0322/ --project TestPipeline --name "wtdoble.Test"
+
+              echo "Deploying AKS cluster"
+
+              # Write-host "Finding the cluster deployment pipeline..."
+              # $str = az pipelines build definition show --organization https://dev.azure.com/widoble0322/ --project TestPipeline --name "wtdoble.Test"
+              # $str2 = [string]::Join("", $str) 
+              # $j = ConvertFrom-Json -InputObject $str2 
+              
+              Write-host "Running AKS cluster deployment pipeline..."
+              $str = az pipelines run --organization https://dev.azure.com/widoble0322/ --project TestPipeline --name "wtdoble.Test"
               $str2 = [string]::Join("", $str) 
               $j = ConvertFrom-Json -InputObject $str2 
 
-              echo "Deploying AKS cluster"
               do {
                 Write-host "Getting info about the pipeline's latest run..."
                 $r = az pipelines runs list --organization https://dev.azure.com/widoble0322/ --project TestPipeline --pipeline-ids $j.id

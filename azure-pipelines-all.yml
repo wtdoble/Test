@@ -18,54 +18,54 @@ stages:
   - stage: Deploy
       jobs:
         - job: DeployJob
-          steps:
-            - script: echo "Deploying the AKS cluster"
-              displayName: 'Run AKS deployment script'
-            - task: AzureCLI@2
-              inputs:
-                azureSubscription: ContainerInsights_Dev_Grace
-                scriptType: 'ps'
-                scriptLocation: 'inlineScript'
-                failOnStderr: true
-                inlineScript: |
-                  Write-host "Finding the cluster deployment pipeline..."
-                  $str = az pipelines build definition show --organization https://dev.azure.com/widoble0322/ --project TestPipeline --name "wtdoble.Test"
-                  $str2 = [string]::Join("", $str) 
-                  $j = ConvertFrom-Json -InputObject $str2 
+            steps:
+              - script: echo "Deploying the AKS cluster"
+                displayName: 'Run AKS deployment script'
+              - task: AzureCLI@2
+                inputs:
+                  azureSubscription: ContainerInsights_Dev_Grace
+                  scriptType: 'ps'
+                  scriptLocation: 'inlineScript'
+                  failOnStderr: true
+                  inlineScript: |
+                    Write-host "Finding the cluster deployment pipeline..."
+                    $str = az pipelines build definition show --organization https://dev.azure.com/widoble0322/ --project TestPipeline --name "wtdoble.Test"
+                    $str2 = [string]::Join("", $str) 
+                    $j = ConvertFrom-Json -InputObject $str2 
 
-                  echo "Deploying AKS cluster"
-                  do {
-                    Write-host "Getting info about the pipeline's latest run..."
-                    $r = az pipelines runs list --organization https://dev.azure.com/widoble0322/ --project TestPipeline --pipeline-ids $j.id
-                    $r2 = [string]::Join("", $r) 
-                    $j2 = ConvertFrom-Json -InputObject $r2
-                    $j2Latest= $j2[0]
+                    echo "Deploying AKS cluster"
+                    do {
+                      Write-host "Getting info about the pipeline's latest run..."
+                      $r = az pipelines runs list --organization https://dev.azure.com/widoble0322/ --project TestPipeline --pipeline-ids $j.id
+                      $r2 = [string]::Join("", $r) 
+                      $j2 = ConvertFrom-Json -InputObject $r2
+                      $j2Latest= $j2[0]
 
-                    Write-host "Waiting for the pipeline run to finish..."
-                    Write-host "status: $($j2latest.status); result: $($j2latest.result)"                    
-                    
-                    if ([string]::Compare($j2Latest.status, "completed", $true) -ne 0) 
-                    { 
-                        Write-host "The pipeline is not finished. Waiting..."
-                        Sleep -Seconds 60
+                      Write-host "Waiting for the pipeline run to finish..."
+                      Write-host "status: $($j2latest.status); result: $($j2latest.result)"                    
+                      
+                      if ([string]::Compare($j2Latest.status, "completed", $true) -ne 0) 
+                      { 
+                          Write-host "The pipeline is not finished. Waiting..."
+                          Sleep -Seconds 60
+                      }
+                    } while ([string]::Compare($j2Latest.status, "completed", $true) -ne 0)
+
+                    if (($j2Latest -eq $null) -or ([string]::Compare($j2latest.result, "failed", $true) -eq 0)) {
+                      Write-Error "Deploying the AKS cluster failed."
                     }
-                  } while ([string]::Compare($j2Latest.status, "completed", $true) -ne 0)
-
-                  if (($j2Latest -eq $null) -or ([string]::Compare($j2latest.result, "failed", $true) -eq 0)) {
-                    Write-Error "Deploying the AKS cluster failed."
-                  }
   - stage: Test
       dependsOn: Deploy
       jobs:
         - job: TestJob
-          steps:
-            - script: echo "Test the deployment"
-              displayName: 'Run region tests'   
-            - task: AzureCLI@2
-              inputs:
-                azureSubscription: ContainerInsights_Dev_Grace
-                scriptType: 'ps'
-                scriptLocation: 'inlineScript'
-                inlineScript: |
-                  echo "Invoking regionTests pipeline"
-                  ##az pipelines run --name cicdPipeline      
+            steps:
+              - script: echo "Test the deployment"
+                displayName: 'Run region tests'   
+              - task: AzureCLI@2
+                inputs:
+                  azureSubscription: ContainerInsights_Dev_Grace
+                  scriptType: 'ps'
+                  scriptLocation: 'inlineScript'
+                  inlineScript: |
+                    echo "Invoking regionTests pipeline"
+                    ##az pipelines run --name cicdPipeline      

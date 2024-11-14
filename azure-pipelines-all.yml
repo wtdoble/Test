@@ -28,6 +28,7 @@ stages:
             scriptLocation: 'inlineScript'
             failOnStandardError: true
             inlineScript: |
+              az upgrade
               az --version
               az account show     
                      

@@ -28,7 +28,7 @@ stages:
             scriptLocation: 'inlineScript'
             failOnStandardError: true
             inlineScript: |
-              az extension add --name azure-devops --allow-preview
+              ##az extension add --name azure-devops --allow-preview
               az upgrade --all --yes
               az --version
               az account show     

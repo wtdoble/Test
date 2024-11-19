@@ -23,7 +23,7 @@ stages:
           displayName: 'Run AKS deployment script'
         - task: AzureCLI@2
           inputs:
-            azureSubscription: ContainerInsights_Dev_Grace
+            azureSubscription: $(AZURESUBSCRIPTION)
             scriptType: 'ps'
             scriptLocation: 'inlineScript'
             ##failOnStandardError: true
@@ -74,9 +74,9 @@ stages:
         displayName: 'Run region tests'   
       - task: AzureCLI@2
         inputs:
-          azureSubscription: ContainerInsights_Dev_Grace
+          azureSubscription: $(AZURESUBSCRIPTION)
           scriptType: 'ps'
           scriptLocation: 'inlineScript'
           inlineScript: |
             echo "Invoking regionTests pipeline"
-            ##az pipelines run --name cicdPipeline      
+            az pipelines run --organization https://dev.azure.com/widoble0322/ --project TestPipeline --name "azure-pipeline-testsuites2"      

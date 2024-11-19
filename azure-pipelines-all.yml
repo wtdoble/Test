@@ -53,7 +53,9 @@ stages:
                 $j2Latest= $j2[0]
 
                 Write-host "Waiting for the pipeline run to finish..."
-                Write-host "status: $($j2latest.status); result: $($j2latest.result)"                    
+               ## Write-host "status: $($j2latest.status); result: $($j2latest.result)"                    
+                $j2latest.status
+                $j2latest.result
                 
                 if ([string]::Compare($j2Latest.status, "completed", $true) -ne 0) 
                 { 

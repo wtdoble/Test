@@ -39,9 +39,17 @@ ginkgo -- -parmRuleName=<recording rule name>
 
 az provider list --query "[?namespace=='<resource-provider-namespace>']" --output table
 
+https://learn.microsoft.com/en-us/azure/azure-monitor/containers/prometheus-metrics-scrape-default#recording-rules (see "windows-exporter")
+https://learn.microsoft.com/en-us/azure/azure-monitor/containers/kubernetes-monitoring-enable?tabs=cli#enable-windows-metrics-collection-preview
+
+https://learn.microsoft.com/en-us/azure/azure-monitor/essentials/prometheus-metrics-overview
+
+
 az pipelines runs show --organization https://dev.azure.com/widoble0322/ --project TestPipeline  --id 388
 
 --------------
+Added pipeline user (widoble0322-TestPipeline-...) to the organization and as a team member on the project.
+
 az pipelines run --organization https://dev.azure.com/widoble0322/ --project TestPipeline --name wtdoble.Test
 
 az pipelines build definition show --organization https://dev.azure.com/widoble0322/ --project TestPipeline --name "wtdoble.Test"

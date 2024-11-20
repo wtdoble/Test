@@ -1,0 +1,73 @@
+trigger:
+- none
+
+pool:
+  vmImage: 'windows-latest'
+
+stages:
+- stage: Deploy
+  jobs:
+  - job: DeployJob
+    steps:
+    - script: echo "Deploying the AKS cluster"
+      displayName: 'Run AKS deployment script'
+    - task: AzureCLI@2
+      inputs:
+        azureSubscription: $(AZURESUBSCRIPTION)
+        scriptType: 'ps'
+        scriptLocation: 'inlineScript'
+        ##failOnStandardError: true
+        inlineScript: |
+          echo "Deploying AKS cluster"
+
+          # Write-host "Finding the cluster deployment pipeline..."
+          # $str = az pipelines build definition show --organization $(ORGANIZATION) --project $(PROJECT) --name "$(DEPLOY_PIPELINE)"
+          # $str2 = [string]::Join("", $str) 
+          # $j = ConvertFrom-Json -InputObject $str2 
+
+          Write-host "Running AKS cluster deployment pipeline..."
+          $str = az pipelines run --organization $(ORGANIZATION) --project $(PROJECT) --name "$(DEPLOY_PIPELINE)"
+          $str2 = [string]::Join("", $str) 
+          $j = ConvertFrom-Json -InputObject $str2  
+
+          do {
+            Write-host "Getting info about the pipeline's latest run..."
+            $r = az pipelines runs list --organization $(ORGANIZATION) --project $(PROJECT) --pipeline-ids $j.id
+            $r2 = [string]::Join("", $r) 
+            $j2 = ConvertFrom-Json -InputObject $r2
+            $j2Latest= $j2[0]
+
+            Write-host "Waiting for the pipeline run to finish..."
+            Write-host "status: $($j2latest.status); result: $($j2latest.result)"                    
+            
+            if ([string]::Compare($j2Latest.status, "completed", $true) -ne 0) 
+            { 
+                Write-host "The pipeline is not finished. Waiting..."
+                Sleep -Seconds $(WAIT_TIME_IN_SECONDS)
+            }
+          } while ([string]::Compare($j2Latest.status, "completed", $true) -ne 0)
+
+          if (($j2Latest -eq $null) -or ([string]::Compare($j2latest.result, "failed", $true) -eq 0)) {
+            Write-Error "Deploying the AKS cluster failed."
+          }
+- stage: Test
+  dependsOn: Deploy
+  jobs:
+  - job: TestJob
+    steps:
+    - task: PowerShell@2
+      inputs:
+        targetType: 'inline'
+        script: |
+          Write-host "Wait to give the AKS cluster a chance to run before executing the tests"
+          Sleep -seconds 30  
+    - script: echo "Test the deployment"
+      displayName: 'Run region tests'
+    - task: AzureCLI@2
+      inputs:
+        azureSubscription: $(AZURESUBSCRIPTION)
+        scriptType: 'ps'
+        scriptLocation: 'inlineScript'
+        inlineScript: |
+          echo "Invoking regionTests pipeline"
+          az pipelines run --organization $(ORGANIZATION) --project $(PROJECT) --name "$(TEST_PIPELINE)"         

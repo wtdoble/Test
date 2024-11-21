@@ -10,6 +10,12 @@ pool:
   vmImage: windows-latest
 
 steps:
+- template: azure-pipelines-template.yml
+  parameters:
+    azureSubscription: $(AZURESUBSCRIPTION)
+    resourceGroup: ${env:RESOURCE-GROUP}
+    deployParameters: ${env:PARAMETERS}
+
 # - script: echo Hello, world!
 #   displayName: 'Run a one-line script'
 
@@ -18,18 +24,17 @@ steps:
 #     echo See https://aka.ms/yaml
 #   displayName: 'Run a multi-line script'
 
-- task: AzureCLI@2
-  displayName: Azure CLI
-  inputs:
-    azureSubscription: $(AZURESUBSCRIPTION)
-    scriptType: ps
-    scriptLocation: inlineScript
-    inlineScript: |
-      az --version
-      az account show
-      az deployment group create `
-          --resource-group ${env:RESOURCE-GROUP} `
-          --name  ${env:DEPLOYMENT-NAME} `
-          --template-file ".\ci-cd-cluster.json" `
-          --parameters ${env:PARAMETERS}
-          
+# - task: AzureCLI@2
+#   displayName: Azure CLI
+#   inputs:
+#     azureSubscription: $(AZURESUBSCRIPTION)
+#     scriptType: ps
+#     scriptLocation: inlineScript
+#     inlineScript: |
+#       az --version
+#       az account show
+#       az deployment group create `
+#           --resource-group ${env:RESOURCE-GROUP} `
+#           --name  ${env:DEPLOYMENT-NAME} `
+#           --template-file ".\ci-cd-cluster.json" `
+#           --parameters ${env:PARAMETERS}

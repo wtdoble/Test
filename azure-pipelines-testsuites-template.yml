@@ -9,9 +9,12 @@ parameters:
   type: string
 
 variables:
-  varRULE: ""
-  varAMW_RESOURCE_ID: ""
-  varAMW_QUERY_ENDPOINT: ""
+- name: varRULE
+  value: ''
+- name: varAMW_RESOURCE_ID
+  value: ''
+- name: varAMW_QUERY_ENDPOINT
+  value: ''
 
 steps:
 - task: Go@0

@@ -51,7 +51,7 @@ steps:
       $rule
       ##echo "##vso[task.setvariable variable=varRULE]$rule"
 
-      $clusterName = ${{ parameters.clusterName }} 
+      $clusterName = "${{ parameters.clusterName }}"
       $amw = "$clusterName-amw"
       $amw
       $o = az resource show --resource-type "microsoft.monitor/accounts" -g ${{ parameters.resourceGroup }}  -n $amw

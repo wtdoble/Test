@@ -34,7 +34,7 @@ steps:
     inlineScript: az aks get-credentials --resource-group ${{ parameters.resourceGroup }} --name ${{ parameters.clusterName }}
 
 - task: AzureCLI@2
-  displayName: "Initialize variables and run ginkgo"
+  displayName: "Run ginkgo test suite"
   inputs:
     azureSubscription: ${{ parameters.azureSubscription }}
     scriptType: ps
@@ -62,15 +62,14 @@ steps:
       $endPoint
       $resourceId = $j.id
       $resourceId
-      echo "##vso[task.setvariable variable=varAMW_QUERY_ENDPOINT]$endPoint"
+      ##echo "##vso[task.setvariable variable=varAMW_QUERY_ENDPOINT]$endPoint"
       ##echo "##vso[task.setvariable variable=varAMW_RESOURCE_ID]$resourceId"
       [Environment]::SetEnvironmentVariable("AMW_QUERY_ENDPOINT", $endPoint)
 
       # Run Ginkgo
       $cmd = "$([Environment]::GetEnvironmentVariable('userprofile'))\go\bin\ginkgo.exe -- -parmRuleName ""$rule"" -parmAmwResourceId ""$resourceId"""
       "cmd - $cmd"
-      "env:varAMW_QUERY_ENDPOINT - $env:varAMW_QUERY_ENDPOINT"
-      [Environment]::SetEnvironmentVariable("AMW_QUERY_ENDPOINT", $env:varAMW_QUERY_ENDPOINT)
+      "AMW_QUERY_ENDPOINT - $([Environment]::GetEnvironmentVariable("AMW_QUERY_ENDPOINT"))"
       Invoke-Expression -Command $cmd 
     workingDirectory: '.\ginkgo-e2e\wtdTest'
   # - task: AzureCLI@2

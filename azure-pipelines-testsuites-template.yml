@@ -10,13 +10,13 @@ parameters:
 
 jobs:
 - job: TestJob
-  variables:
-  - name: varRULE
-    value: ''
-  - name: varAMW_RESOURCE_ID
-    value: ''
-  - name: varAMW_QUERY_ENDPOINT
-    value: ''
+  # variables:
+  # - name: varRULE
+  #   value: ''
+  # - name: varAMW_RESOURCE_ID
+  #   value: ''
+  # - name: varAMW_QUERY_ENDPOINT
+  #   value: ''
   steps:
   - task: Go@0
     displayName: "go install ginkgo"
@@ -51,7 +51,7 @@ jobs:
         $j = convertfrom-json -InputObject $s  
         $rule = $j[0].rules[0].record
         $rule
-        echo "##vso[task.setvariable variable=varRULE]$rule"
+        ##echo "##vso[task.setvariable variable=varRULE]$rule"
 
         $clusterName = ${{ parameters.clusterName }} 
         $amw = "$clusterName-amw"
@@ -65,21 +65,27 @@ jobs:
         $resourceId = $j.id
         $resourceId
         echo "##vso[task.setvariable variable=varAMW_QUERY_ENDPOINT]$endPoint"
-        echo "##vso[task.setvariable variable=varAMW_RESOURCE_ID]$resourceId"
+        ##echo "##vso[task.setvariable variable=varAMW_RESOURCE_ID]$resourceId"
         [Environment]::SetEnvironmentVariable("AMW_QUERY_ENDPOINT", $endPoint)
-      workingDirectory: '.\ginkgo-e2e\wtdTest'
 
-  - task: AzureCLI@2
-    displayName: "Run RegionsTest test suite"
-    inputs:
-      azureSubscription: ${{ parameters.azureSubscription }}
-      scriptType: ps
-      scriptLocation: inlineScript
-      inlineScript: |
         # Run Ginkgo
-        $cmd = "$([Environment]::GetEnvironmentVariable('userprofile'))\go\bin\ginkgo.exe -- -parmRuleName ""$env:varRULE"" -parmAmwResourceId ""$env:varAMW_RESOURCE_ID"""
+        $cmd = "$([Environment]::GetEnvironmentVariable('userprofile'))\go\bin\ginkgo.exe -- -parmRuleName ""$rule"" -parmAmwResourceId ""$resourceId"""
         "cmd - $cmd"
         "env:varAMW_QUERY_ENDPOINT - $env:varAMW_QUERY_ENDPOINT"
         [Environment]::SetEnvironmentVariable("AMW_QUERY_ENDPOINT", $env:varAMW_QUERY_ENDPOINT)
         Invoke-Expression -Command $cmd 
       workingDirectory: '.\ginkgo-e2e\wtdTest'
+  # - task: AzureCLI@2
+  #   displayName: "Run RegionsTest test suite"
+  #   inputs:
+  #     azureSubscription: ${{ parameters.azureSubscription }}
+  #     scriptType: ps
+  #     scriptLocation: inlineScript
+  #     inlineScript: |
+  #       # Run Ginkgo
+  #       $cmd = "$([Environment]::GetEnvironmentVariable('userprofile'))\go\bin\ginkgo.exe -- -parmRuleName ""$env:varRULE"" -parmAmwResourceId ""$env:varAMW_RESOURCE_ID"""
+  #       "cmd - $cmd"
+  #       "env:varAMW_QUERY_ENDPOINT - $env:varAMW_QUERY_ENDPOINT"
+  #       [Environment]::SetEnvironmentVariable("AMW_QUERY_ENDPOINT", $env:varAMW_QUERY_ENDPOINT)
+  #       Invoke-Expression -Command $cmd 
+  #     workingDirectory: '.\ginkgo-e2e\wtdTest'

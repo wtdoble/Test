@@ -1,24 +1,26 @@
+parameters:
+- name: azureSubscription
+  type: string
+  default: 'ContainerInsights_Dev_Grace'
+- name: resourceGroup
+  type: string
+  default: 'wtd-test'
+- name: deployParameters
+  type: string
+
 steps:
-# - script: echo Hello, world!
-#   displayName: 'Run a one-line script'
-
-# - script: |
-#     echo Add other tasks to build, test, and deploy your project.
-#     echo See https://aka.ms/yaml
-#   displayName: 'Run a multi-line script'
-
 - task: AzureCLI@2
   displayName: Azure CLI
   inputs:
-    azureSubscription: ContainerInsights_Dev_Grace
+    azureSubscription: ${{ parameters.azureSubscription }}
     scriptType: ps
     scriptLocation: inlineScript
     inlineScript: |+
       az --version
       az account show
       az deployment group create `
-          --resource-group ${env:RESOURCE-GROUP} `
+          --resource-group ${{ parameters.resourceGroup }} `
           --name ClusterDeployment `
           --template-file ".\wip9-final.json" `
-          --parameters ${env:PARAMETERS}   
+          --parameters ${{ parameters.deployParameters }}  
           

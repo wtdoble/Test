@@ -17,3 +17,7 @@ stages:
   - job: DeployJob
     steps:
     - template: azure-pipelines-template.yml
+      parameters:
+        azureSubscription: $(AZURESUBSCRIPTION)
+        resourceGroup: ${env:RESOURCE-GROUP}
+        deployParameters: ${env:PARAMETERS}

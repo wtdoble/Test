@@ -16,4 +16,4 @@ stages:
   jobs:
   - job: DeployJob
     steps:
-    - template: azure-pipelines.yml
+    - template: azure-pipelines-template.yml

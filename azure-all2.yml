@@ -19,5 +19,16 @@ stages:
     - template: azure-pipelines-template.yml
       parameters:
         azureSubscription: $(AZURESUBSCRIPTION)
-        resourceGroup: ${env:RESOURCE-GROUP}
-        deployParameters: ${env:PARAMETERS}
+        resourceGroup: $(RESOURCE-GROUP)
+        deployParameters: $(PARAMETERS)
+
+- stage: Test
+  dependsOn: Deploy
+  jobs:
+  - job: TestJob
+    steps:
+    - template: azure-pipelines-testsuites-template.yml
+      parameters:
+        azureSubscription: $(AZURESUBSCRIPTION)
+        resourceGroup: $(RESOURCE-GROUP)
+        clusterName: $(CLUSTER-NAME)

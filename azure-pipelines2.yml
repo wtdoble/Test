@@ -13,8 +13,8 @@ steps:
 - template: azure-pipelines-template.yml
   parameters:
     azureSubscription: $(AZURESUBSCRIPTION)
-    resourceGroup: ${env:RESOURCE-GROUP}
-    deployParameters: ${env:PARAMETERS}
+    resourceGroup: $(RESOURCE-GROUP)
+    deployParameters: $(PARAMETERS)
 
 # - script: echo Hello, world!
 #   displayName: 'Run a one-line script'

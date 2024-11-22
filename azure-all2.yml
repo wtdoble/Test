@@ -31,4 +31,4 @@ stages:
       parameters:
         azureSubscription: $(AZURESUBSCRIPTION)
         resourceGroup: $(RESOURCE-GROUP)
-        clusterName: $(CLUSTER-NAME)
+        clusterName: $(CLUSTERNAME)

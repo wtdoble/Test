@@ -19,7 +19,7 @@ steps:
   parameters:
     azureSubscription: $(AZURESUBSCRIPTION)
     resourceGroup: $(RESOURCE-GROUP)
-    clusterName: $(CLUSTER-NAME)
+    clusterName: $(CLUSTERNAME)
 
 # # - task: Go@0
 # #   displayName: "go install ginkgo"

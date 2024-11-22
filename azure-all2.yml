@@ -20,7 +20,7 @@ stages:
       parameters:
         azureSubscription: $(AZURESUBSCRIPTION)
         resourceGroup: $(RESOURCE-GROUP)
-        deployParameters: $(PARAMETERS)
+        deployParameters: ${env:PARAMETERS}
 
 - stage: Test
   dependsOn: Deploy

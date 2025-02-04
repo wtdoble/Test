@@ -6,7 +6,7 @@ stages:
   jobs:
   - job: BuildJob
     steps:
-    - script: git clone https://github.com/wtdoble/Test.git $(Build.ArtifactStagingDirectory)\github
+    - script: git clone https://github.com/wtdoble/Test.git $(Build.ArtifactStagingDirectory)/github
     # PowerShell v2
     # Run a PowerShell script on Linux, macOS, or Windows.
     - task: PowerShell@2
@@ -35,16 +35,16 @@ stages:
         #workingDirectory: # string. Working Directory. 
         #runScriptInSeparateScope: false # boolean. Run script in the separate scope. Default: false.
 
-    - script: echo %USERPROFILE%
-    - script: echo %GOPATH%
+    - script: echo $(USERPROFILE)
+    - script: echo $(GOPATH)
 
     # Copy files v2
     # Copy files from a source folder to a target folder using patterns matching file paths (not folder paths).
     - task: CopyFiles@2
       inputs:
-        SourceFolder: "%USERPROFILE%\\pkg\\mod" # string. Source Folder. 
+        SourceFolder: $(USERPROFILE)/pkg/mod" # string. Source Folder. 
         Contents: '**' # string. Required. Contents. Default: **.
-        TargetFolder: "$(Build.ArtifactStagingDirectory)\\go" # string. Required. Target Folder. 
+        TargetFolder: "$(Build.ArtifactStagingDirectory)/go" # string. Required. Target Folder. 
         # Advanced
         #CleanTargetFolder: false # boolean. Clean Target Folder. Default: false.
         #OverWrite: false # boolean. Overwrite. Default: false.

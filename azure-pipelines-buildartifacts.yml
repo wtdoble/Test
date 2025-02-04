@@ -6,7 +6,7 @@ stages:
   jobs:
   - job: BuildJob
     steps:
-    - script: git clone https://github.com/wtdoble/Test.git $(Build.ArtifactStagingDirectory)
+    - script: git clone https://github.com/wtdoble/Test.git $(Build.ArtifactStagingDirectory)\github
     # PowerShell v2
     # Run a PowerShell script on Linux, macOS, or Windows.
     - task: PowerShell@2
@@ -35,12 +35,34 @@ stages:
         #workingDirectory: # string. Working Directory. 
         #runScriptInSeparateScope: false # boolean. Run script in the separate scope. Default: false.
 
+    - script: |
+      echo userprofile=
+      echo %USERPROFILE%
+      echo gopath=
+      echo %GOPATH%
+
+    # Copy files v2
+    # Copy files from a source folder to a target folder using patterns matching file paths (not folder paths).
+    - task: CopyFiles@2
+      inputs:
+        SourceFolder: "%USERPROFILE%\\pkg\\mod" # string. Source Folder. 
+        Contents: '**' # string. Required. Contents. Default: **.
+        TargetFolder: "$(Build.ArtifactStagingDirectory)\\go"  # string. Required. Target Folder. 
+      # Advanced
+        #CleanTargetFolder: false # boolean. Clean Target Folder. Default: false.
+        #OverWrite: false # boolean. Overwrite. Default: false.
+        #flattenFolders: false # boolean. Flatten Folders. Default: false.
+        #preserveTimestamp: false # boolean. Preserve Target Timestamp. Default: false.
+        #retryCount: '0' # string. Retry count to copy the file. Default: 0.
+        #delayBetweenRetries: '1000' # string. Delay between two retries. Default: 1000.
+        #ignoreMakeDirErrors: false # boolean. Ignore errors during creation of target folder. Default: false.
+
         # Publish build artifacts v1
         # Publish build artifacts to Azure Pipelines or a Windows file share.
     - task: PublishBuildArtifacts@1
       inputs:
         PathtoPublish: '$(Build.ArtifactStagingDirectory)' # string. Required. Path to publish. Default: $(Build.ArtifactStagingDirectory).
-        ArtifactName: 'github' # string. Required. Artifact name. Default: drop.
+        ArtifactName: 'drop' # string. Required. Artifact name. Default: drop.
         publishLocation: 'Container' # 'Container' | 'FilePath'. Alias: ArtifactType. Required. Artifact publish location. Default: Container.
         #MaxArtifactSize: '0' # string. Max Artifact Size. Default: 0.
         #TargetPath: # string. Required when ArtifactType = FilePath. File share path. 

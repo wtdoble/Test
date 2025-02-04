@@ -35,10 +35,10 @@ stages:
         #workingDirectory: # string. Working Directory. 
         #runScriptInSeparateScope: false # boolean. Run script in the separate scope. Default: false.
 
-    - script: |
-      echo userprofile=
+    - script:
+      echo "userprofile="
       echo %USERPROFILE%
-      echo gopath=
+      echo "gopath="
       echo %GOPATH%
 
     # Copy files v2

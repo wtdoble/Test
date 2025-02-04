@@ -35,8 +35,8 @@ stages:
         #workingDirectory: # string. Working Directory. 
         #runScriptInSeparateScope: false # boolean. Run script in the separate scope. Default: false.
 
-    - script: echo $(USERPROFILE)
-    - script: echo $(GOPATH)
+    - script: echo ${env:USERPROFILE}
+    - script: echo ${env:GOPATH}
 
     - task: PowerShell@2
       inputs:
@@ -44,7 +44,7 @@ stages:
         ##filePath: # string. Required when targetType = filePath. Script Path. 
         #arguments: # string. Optional. Use when targetType = filePath. Arguments. 
         script: | # string. Required when targetType = inline. Script. 
-          Copy-Item -Path "$(USERPROFILE)/pkg/mod" -Destination "$(Build.ArtifactStagingDirectory)/go" -Recurse -Force
+          Copy-Item -Path "${env:USERPROFILE}/pkg/mod" -Destination "$(Build.ArtifactStagingDirectory)/go" -Recurse -Force
         # Preference Variables
         #errorActionPreference: 'stop' # 'default' | 'stop' | 'continue' | 'silentlyContinue'. ErrorActionPreference. Default: stop.
         #warningPreference: 'default' # 'default' | 'stop' | 'continue' | 'silentlyContinue'. WarningPreference. Default: default.

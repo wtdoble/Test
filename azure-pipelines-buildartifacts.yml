@@ -36,7 +36,7 @@ stages:
         #runScriptInSeparateScope: false # boolean. Run script in the separate scope. Default: false.
 
     - script: echo %USERPROFILE%
-      echo %GOPATH%
+    - script: echo %GOPATH%
 
     # Copy files v2
     # Copy files from a source folder to a target folder using patterns matching file paths (not folder paths).
@@ -44,8 +44,8 @@ stages:
       inputs:
         SourceFolder: "%USERPROFILE%\\pkg\\mod" # string. Source Folder. 
         Contents: '**' # string. Required. Contents. Default: **.
-        TargetFolder: "$(Build.ArtifactStagingDirectory)\\go"  # string. Required. Target Folder. 
-      # Advanced
+        TargetFolder: "$(Build.ArtifactStagingDirectory)\\go" # string. Required. Target Folder. 
+        # Advanced
         #CleanTargetFolder: false # boolean. Clean Target Folder. Default: false.
         #OverWrite: false # boolean. Overwrite. Default: false.
         #flattenFolders: false # boolean. Flatten Folders. Default: false.

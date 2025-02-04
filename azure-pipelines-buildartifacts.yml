@@ -35,8 +35,14 @@ stages:
         #workingDirectory: # string. Working Directory. 
         #runScriptInSeparateScope: false # boolean. Run script in the separate scope. Default: false.
 
-    - script: echo ${env:USERPROFILE}
-    - script: echo ${env:GOPATH}
+        # - script: echo ${env:USERPROFILE}
+        # - script: echo ${env:GOPATH}
+
+    - task: PowerShell@2
+      inputs:
+        targetType: 'inline'
+        script: |
+          Write-Host "User Profile Path: $env:USERPROFILE"
 
     - task: PowerShell@2
       inputs:

@@ -7,12 +7,40 @@ stages:
   - job: BuildJob
     steps:
     - script: git clone https://github.com/wtdoble/Test.git $(Build.ArtifactStagingDirectory)
-    # Publish build artifacts v1
-    # Publish build artifacts to Azure Pipelines or a Windows file share.
+    # PowerShell v2
+    # Run a PowerShell script on Linux, macOS, or Windows.
+    - task: PowerShell@2
+      inputs:
+        targetType: 'inline' # 'filePath' | 'inline'. Type. Default: filePath.
+        ##filePath: # string. Required when targetType = filePath. Script Path. 
+        #arguments: # string. Optional. Use when targetType = filePath. Arguments. 
+        script: | # string. Required when targetType = inline. Script. 
+          get-childitem -Recurse  -Filter *.mod | foreach {
+            $_.DirectoryName
+            cd $_.DirectoryName
+            go mod tidy
+          }
+        # Preference Variables
+        #errorActionPreference: 'stop' # 'default' | 'stop' | 'continue' | 'silentlyContinue'. ErrorActionPreference. Default: stop.
+        #warningPreference: 'default' # 'default' | 'stop' | 'continue' | 'silentlyContinue'. WarningPreference. Default: default.
+        #informationPreference: 'default' # 'default' | 'stop' | 'continue' | 'silentlyContinue'. InformationPreference. Default: default.
+        #verbosePreference: 'default' # 'default' | 'stop' | 'continue' | 'silentlyContinue'. VerbosePreference. Default: default.
+        #debugPreference: 'default' # 'default' | 'stop' | 'continue' | 'silentlyContinue'. DebugPreference. Default: default.
+        #progressPreference: 'silentlyContinue' # 'default' | 'stop' | 'continue' | 'silentlyContinue'. ProgressPreference. Default: silentlyContinue.
+        # Advanced
+        #failOnStderr: false # boolean. Fail on Standard Error. Default: false.
+        #showWarnings: false # boolean. Show warnings as Azure DevOps warnings. Default: false.
+        #ignoreLASTEXITCODE: false # boolean. Ignore $LASTEXITCODE. Default: false.
+        #pwsh: false # boolean. Use PowerShell Core. Default: false.
+        #workingDirectory: # string. Working Directory. 
+        #runScriptInSeparateScope: false # boolean. Run script in the separate scope. Default: false.
+
+        # Publish build artifacts v1
+        # Publish build artifacts to Azure Pipelines or a Windows file share.
     - task: PublishBuildArtifacts@1
       inputs:
         PathtoPublish: '$(Build.ArtifactStagingDirectory)' # string. Required. Path to publish. Default: $(Build.ArtifactStagingDirectory).
-        ArtifactName: 'drop' # string. Required. Artifact name. Default: drop.
+        ArtifactName: 'github' # string. Required. Artifact name. Default: drop.
         publishLocation: 'Container' # 'Container' | 'FilePath'. Alias: ArtifactType. Required. Artifact publish location. Default: Container.
         #MaxArtifactSize: '0' # string. Max Artifact Size. Default: 0.
         #TargetPath: # string. Required when ArtifactType = FilePath. File share path. 

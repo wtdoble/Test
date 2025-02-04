@@ -38,21 +38,28 @@ stages:
     - script: echo $(USERPROFILE)
     - script: echo $(GOPATH)
 
-    # Copy files v2
-    # Copy files from a source folder to a target folder using patterns matching file paths (not folder paths).
-    - task: CopyFiles@2
+    - task: PowerShell@2
       inputs:
-        SourceFolder: $(USERPROFILE)/pkg/mod" # string. Source Folder. 
-        Contents: '**' # string. Required. Contents. Default: **.
-        TargetFolder: "$(Build.ArtifactStagingDirectory)/go" # string. Required. Target Folder. 
+        targetType: 'inline' # 'filePath' | 'inline'. Type. Default: filePath.
+        ##filePath: # string. Required when targetType = filePath. Script Path. 
+        #arguments: # string. Optional. Use when targetType = filePath. Arguments. 
+        script: | # string. Required when targetType = inline. Script. 
+          Copy-Item -Path "$(USERPROFILE)/pkg/mod" -Destination "$(Build.ArtifactStagingDirectory)/go" -Recurse -Force
+        # Preference Variables
+        #errorActionPreference: 'stop' # 'default' | 'stop' | 'continue' | 'silentlyContinue'. ErrorActionPreference. Default: stop.
+        #warningPreference: 'default' # 'default' | 'stop' | 'continue' | 'silentlyContinue'. WarningPreference. Default: default.
+        #informationPreference: 'default' # 'default' | 'stop' | 'continue' | 'silentlyContinue'. InformationPreference. Default: default.
+        #verbosePreference: 'default' # 'default' | 'stop' | 'continue' | 'silentlyContinue'. VerbosePreference. Default: default.
+        #debugPreference: 'default' # 'default' | 'stop' | 'continue' | 'silentlyContinue'. DebugPreference. Default: default.
+        #progressPreference: 'silentlyContinue' # 'default' | 'stop' | 'continue' | 'silentlyContinue'. ProgressPreference. Default: silentlyContinue.
         # Advanced
-        #CleanTargetFolder: false # boolean. Clean Target Folder. Default: false.
-        #OverWrite: false # boolean. Overwrite. Default: false.
-        #flattenFolders: false # boolean. Flatten Folders. Default: false.
-        #preserveTimestamp: false # boolean. Preserve Target Timestamp. Default: false.
-        #retryCount: '0' # string. Retry count to copy the file. Default: 0.
-        #delayBetweenRetries: '1000' # string. Delay between two retries. Default: 1000.
-        #ignoreMakeDirErrors: false # boolean. Ignore errors during creation of target folder. Default: false.
+        #failOnStderr: false # boolean. Fail on Standard Error. Default: false.
+        #showWarnings: false # boolean. Show warnings as Azure DevOps warnings. Default: false.
+        #ignoreLASTEXITCODE: false # boolean. Ignore $LASTEXITCODE. Default: false.
+        #pwsh: false # boolean. Use PowerShell Core. Default: false.
+        #workingDirectory: # string. Working Directory. 
+        #runScriptInSeparateScope: false # boolean. Run script in the separate scope. Default: false.
+
 
         # Publish build artifacts v1
         # Publish build artifacts to Azure Pipelines or a Windows file share.

@@ -19,6 +19,12 @@ stages:
         # PowerShell v2
         # Run a PowerShell script o"n Linux, macOS, or Windows.
 
+    - script: |
+          echo ${env:GOPATH}
+          echo %GOPATH%
+          echo $(GOPATH)
+        displayName: GOPATH
+
     - task: PowerShell@2
       displayName: go mod tidy
       inputs:
@@ -47,7 +53,6 @@ stages:
         #runScriptInSeparateScope: false # boolean. Run script in the separate scope. Default: false.
 
         # - script: echo ${env:USERPROFILE}
-        # - script: echo ${env:GOPATH}
 
         # - task: PowerShell@2
         #   inputs:

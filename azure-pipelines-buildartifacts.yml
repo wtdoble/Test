@@ -9,15 +9,15 @@ stages:
     - script: git clone https://github.com/wtdoble/Test.git $(Build.ArtifactStagingDirectory)/github
 
     - task: Go@0
-      displayName: "go install ginkgo"
+      displayName: go install ginkgo
       inputs:
         command: 'install' # 'get' | 'build' | 'test' | 'custom'. Required. Command. Default: get.
         #customCommand: # string. Required when command == custom. Custom command. 
         arguments: github.com/onsi/ginkgo/v2/ginkgo@latest # string. Arguments. 
         # Advanced
-        #workingDirectory: # string. Working directory.    
+        workingDirectory: "$(Agent.WorkFolder)" # string. Working directory.    
         # PowerShell v2
-        # Run a PowerShell script on Linux, macOS, or Windows.
+        # Run a PowerShell script o"n Linux, macOS, or Windows.
 
     - task: PowerShell@2
       displayName: go mod tidy
@@ -57,10 +57,10 @@ stages:
         #     pwsh: true
 
     - task: PowerShell@2
-      displayName: Recurse system workfolder dir
+      displayName: Recurse agent workfolder dir
       inputs:
         targetType: 'inline'
-        script: 'Get-ChildItem -Recurse -Path "$(System.WorkFolder)"'
+        script: 'Get-ChildItem -Recurse -Path "$(Agent.WorkFolder)"'
 
     # - task: PowerShell@2
     #   displayName: Recurse build dir

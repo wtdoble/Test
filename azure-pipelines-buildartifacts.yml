@@ -20,6 +20,7 @@ stages:
         # Run a PowerShell script on Linux, macOS, or Windows.
 
     - task: PowerShell@2
+      displayName: go mod tidy
       inputs:
         targetType: 'inline' # 'filePath' | 'inline'. Type. Default: filePath.
         ##filePath: # string. Required when targetType = filePath. Script Path. 
@@ -62,6 +63,7 @@ stages:
         script: 'Get-ChildItem -Recurse -Path "$(Build.SourcesDirectory)"'
 
     - task: PowerShell@2
+      displayName: copy Go to staging directory
       inputs:
         targetType: 'inline' # 'filePath' | 'inline'. Type. Default: filePath.
         ##filePath: # string. Required when targetType = filePath. Script Path. 
@@ -88,6 +90,7 @@ stages:
         # Publish build artifacts v1
         # Publish build artifacts to Azure Pipelines or a Windows file share.
     - task: PublishBuildArtifacts@1
+      displayName: Publish artifacts
       inputs:
         PathtoPublish: '$(Build.ArtifactStagingDirectory)' # string. Required. Path to publish. Default: $(Build.ArtifactStagingDirectory).
         ArtifactName: 'drop' # string. Required. Artifact name. Default: drop.

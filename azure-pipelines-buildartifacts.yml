@@ -7,6 +7,7 @@ stages:
   - job: BuildJob
     steps:
     - script: git clone https://github.com/wtdoble/Test.git $(Build.ArtifactStagingDirectory)/github
+
     - task: Go@0
       displayName: "go install ginkgo"
       inputs:
@@ -17,6 +18,7 @@ stages:
         #workingDirectory: # string. Working directory.    
         # PowerShell v2
         # Run a PowerShell script on Linux, macOS, or Windows.
+
     - task: PowerShell@2
       inputs:
         targetType: 'inline' # 'filePath' | 'inline'. Type. Default: filePath.
@@ -55,11 +57,16 @@ stages:
 
     - task: PowerShell@2
       inputs:
+        targetType: 'inline'
+        script: 'Get-ChildItem -Recurse -Path "$(Build.SourcesDirectory)\your-directory"'
+
+    - task: PowerShell@2
+      inputs:
         targetType: 'inline' # 'filePath' | 'inline'. Type. Default: filePath.
         ##filePath: # string. Required when targetType = filePath. Script Path. 
         #arguments: # string. Optional. Use when targetType = filePath. Arguments. 
         script: | # string. Required when targetType = inline. Script. 
-          Copy-Item -Path "${env:USERPROFILE}/pkg/mod" -Destination "$(Build.ArtifactStagingDirectory)/go" -Recurse -Force
+          Copy-Item -Path "pkg/mod" -Destination "$(Build.ArtifactStagingDirectory)/go" -Recurse -Force
         pwsh: true
         # Preference Variables
         #errorActionPreference: 'stop' # 'default' | 'stop' | 'continue' | 'silentlyContinue'. ErrorActionPreference. Default: stop.

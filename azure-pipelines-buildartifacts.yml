@@ -20,10 +20,9 @@ stages:
         # Run a PowerShell script o"n Linux, macOS, or Windows.
 
     - script: |
-          echo ${env:GOPATH}
-          echo %GOPATH%
-          echo $(GOPATH)
-        displayName: GOPATH
+        echo ${env:GOPATH}
+        echo %GOPATH%
+        echo $(GOPATH)
 
     - task: PowerShell@2
       displayName: go mod tidy

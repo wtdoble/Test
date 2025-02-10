@@ -49,18 +49,18 @@ stages:
         # - script: echo ${env:USERPROFILE}
         # - script: echo ${env:GOPATH}
 
-    - task: PowerShell@2
-      inputs:
-        targetType: 'inline'
-        script: |
-          Write-Host "User Profile Path: $env:USERPROFILE"
-        pwsh: true
+        # - task: PowerShell@2
+        #   inputs:
+        #     targetType: 'inline'
+        #     script: |
+        #       Write-Host "User Profile Path: $env:USERPROFILE"
+        #     pwsh: true
 
     - task: PowerShell@2
-      displayName: Recurse agent workfolder dir
+      displayName: Recurse system workfolder dir
       inputs:
         targetType: 'inline'
-        script: 'Get-ChildItem -Recurse -Path "$(Agent.WorkFolder)"'
+        script: 'Get-ChildItem -Recurse -Path "$(System.WorkFolder)"'
 
     # - task: PowerShell@2
     #   displayName: Recurse build dir

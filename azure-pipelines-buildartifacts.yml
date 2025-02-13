@@ -103,10 +103,10 @@ stages:
     - task: PublishBuildArtifacts@1
       displayName: Publish artifacts
       inputs:
-        PathtoPublish: '$(Build.ArtifactStagingDirectory)' # string. Required. Path to publish. Default: $(Build.ArtifactStagingDirectory).
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)\github' # string. Required. Path to publish. Default: $(Build.ArtifactStagingDirectory).
         ArtifactName: 'drop' # string. Required. Artifact name. Default: drop.
-        publishLocation: 'Container' # 'Container' | 'FilePath'. Alias: ArtifactType. Required. Artifact publish location. Default: Container.
-        StoreAsTar: true
+        publishLocation: 'Container'
+          # 'Container' | 'FilePath'. Alias: ArtifactType. Required. Artifact publish location. Default: Container.
           # boolean. Tar the artifact before uploading. Default: false.
           #MaxArtifactSize: '0' # string. Max Artifact Size. Default: 0.
           #TargetPath: # string. Required when ArtifactType = FilePath. File share path. 

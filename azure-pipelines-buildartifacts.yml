@@ -79,7 +79,8 @@ stages:
         ##filePath: # string. Required when targetType = filePath. Script Path. 
         #arguments: # string. Optional. Use when targetType = filePath. Arguments. 
         script: | # string. Required when targetType = inline. Script.   Copy-Item -Path "C:\\Users\\VssAdministrator\\go" -Destination "$(Build.ArtifactStagingDirectory)/go" -Recurse -Force
-          Copy-Item -Path "$([Environment]::GetEnvironmentVariable('USERPROFILE'))\go" -Destination "$(Build.ArtifactStagingDirectory)/go" -Recurse -Force
+           "do nothing"
+          ##Copy-Item -Path "$([Environment]::GetEnvironmentVariable('USERPROFILE'))\go" -Destination "$(Build.ArtifactStagingDirectory)/go" -Recurse -Force
         pwsh: true
         # Preference Variables
         #errorActionPreference: 'stop' # 'default' | 'stop' | 'continue' | 'silentlyContinue'. ErrorActionPreference. Default: stop.
@@ -99,27 +100,27 @@ stages:
 
         # Publish build artifacts v1
         # Publish build artifacts to Azure Pipelines or a Windows file share.
-        # - task: PublishBuildArtifacts@1
-        #   displayName: Publish artifacts
-        #   inputs:
-        #     PathtoPublish: '$(Build.ArtifactStagingDirectory)' # string. Required. Path to publish. Default: $(Build.ArtifactStagingDirectory).
-        #     ArtifactName: 'drop' # string. Required. Artifact name. Default: drop.
-        #     publishLocation: 'Container' # 'Container' | 'FilePath'. Alias: ArtifactType. Required. Artifact publish location. Default: Container.
-        #     #MaxArtifactSize: '0' # string. Max Artifact Size. Default: 0.
-        #     #TargetPath: # string. Required when ArtifactType = FilePath. File share path. 
-        #     #Parallel: false # boolean. Optional. Use when ArtifactType = FilePath. Parallel copy. Default: false.
-        #     #ParallelCount: '8' # string. Optional. Use when ArtifactType = FilePath && Parallel = true. Parallel count. Default: 8.
-        #     # Advanced
-        #     #StoreAsTar: false # boolean. Tar the artifact before uploading. Default: false.
+        - task: PublishBuildArtifacts@1
+          displayName: Publish artifacts
+          inputs:
+            PathtoPublish: '$(Build.ArtifactStagingDirectory)' # string. Required. Path to publish. Default: $(Build.ArtifactStagingDirectory).
+            ArtifactName: 'drop' # string. Required. Artifact name. Default: drop.
+            publishLocation: 'Container' # 'Container' | 'FilePath'. Alias: ArtifactType. Required. Artifact publish location. Default: Container.
+            #MaxArtifactSize: '0' # string. Max Artifact Size. Default: 0.
+            #TargetPath: # string. Required when ArtifactType = FilePath. File share path. 
+            #Parallel: false # boolean. Optional. Use when ArtifactType = FilePath. Parallel copy. Default: false.
+            #ParallelCount: '8' # string. Optional. Use when ArtifactType = FilePath && Parallel = true. Parallel count. Default: 8.
+            # Advanced
+            StoreAsTar: true  # boolean. Tar the artifact before uploading. Default: false.
 
         # Publish Pipeline Artifacts v1
         # Publish (upload) a file or directory as a named artifact for the current run.
-    - task: PublishPipelineArtifact@1
-      inputs:
-        targetPath: '$(Pipeline.Workspace)' # string. Alias: path. Required. File or directory path. Default: $(Pipeline.Workspace).
-        artifact: drop # string. Alias: artifactName. Artifact name. 
-        publishLocation: 'pipeline' # 'pipeline' | 'filepath'. Alias: artifactType. Required. Artifact publish location. Default: pipeline.
-        #fileSharePath: # string. Required when artifactType = filepath. File share path. 
-        #parallel: false # boolean. Optional. Use when artifactType = filepath. Parallel copy. Default: false.
-        #parallelCount: '8' # string. Optional. Use when artifactType = filepath && parallel = true. Parallel count. Default: 8.
-        #properties: # string. Custom properties.
+    # - task: PublishPipelineArtifact@1
+    #   inputs:
+    #     targetPath: '$(Pipeline.Workspace)' # string. Alias: path. Required. File or directory path. Default: $(Pipeline.Workspace).
+    #     artifact: drop # string. Alias: artifactName. Artifact name. 
+    #     publishLocation: 'pipeline' # 'pipeline' | 'filepath'. Alias: artifactType. Required. Artifact publish location. Default: pipeline.
+    #     #fileSharePath: # string. Required when artifactType = filepath. File share path. 
+    #     #parallel: false # boolean. Optional. Use when artifactType = filepath. Parallel copy. Default: false.
+    #     #parallelCount: '8' # string. Optional. Use when artifactType = filepath && parallel = true. Parallel count. Default: 8.
+    #     #properties: # string. Custom properties.

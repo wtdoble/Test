@@ -9,7 +9,7 @@ stages:
   jobs:
   - job: BuildJob
     steps:
-    - script: git clone https://github.com/wtdoble/Test.git $(Build.ArtifactStagingDirectory)/github
+    - script: git clone https://github.com/wtdoble/prometheus-collector.git $(Build.ArtifactStagingDirectory)/github
 
     - task: Go@0
       displayName: go install ginkgo

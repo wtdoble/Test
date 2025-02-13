@@ -4,11 +4,25 @@ trigger:
 pool:
   vmImage: windows-latest
 
+variables:
+  GOPATHARTIFACTS: "C:\\Users\\VssAdministrator\\go"
+
 stages:
 - stage: Build
   jobs:
   - job: BuildJob
     steps:
+    - task: PowerShell@2
+      displayName: Init
+      inputs:
+        targetType: 'inline' # 'filePath' | 'inline'. Type. Default: filePath.
+        ##filePath: # string. Required when targetType = filePath. Script Path. 
+        #arguments: # string. Optional. Use when targetType = filePath. Arguments. 
+        script: | # string. Required when targetType = inline. Script. 
+          $(GOPATHARTIFACTS)
+          $(GOPATHARTIFACTS) = "$([Environment]::GetEnvironmentVariable('USERPROFILE'))\go"
+          $(GOPATHARTIFACTS)
+
     - script: git clone https://github.com/wtdoble/prometheus-collector.git $(Build.ArtifactStagingDirectory)\github
 
     - task: Go@0
@@ -106,7 +120,7 @@ stages:
         #     publishLocation: 'Container'
     - task: PublishPipelineArtifact@1
       inputs:
-        targetPath: '$(gopathartifacts)'
+        targetPath: '$(GOPATHARTIFACTS)'
         artifact: 'go'
         publishLocation: 'pipeline'
         # Publish build artifacts v1

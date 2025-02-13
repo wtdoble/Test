@@ -74,7 +74,7 @@ stages:
       displayName: Recurse agent workfolder dir
       inputs:
         targetType: 'inline'
-        script: 'Get-ChildItem -Recurse -Path "/usr/bin"'
+        script: 'Get-ChildItem -Recurse -Path "/user"'
         # - task: PowerShell@2
         #   displayName: Recurse build dir
         #   inputs:

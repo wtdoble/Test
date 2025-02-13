@@ -18,7 +18,7 @@ stages:
         #customCommand: # string. Required when command == custom. Custom command. 
         arguments: github.com/onsi/ginkgo/v2/ginkgo@latest # string. Arguments. 
         # Advanced
-        workingDirectory: "$(Agent.WorkFolder)" # string. Working directory.    
+        # workingDirectory:  # string. Working directory.    
         # PowerShell v2
         # Run a PowerShell script o"n Linux, macOS, or Windows.
 
@@ -66,7 +66,7 @@ stages:
         #     pwsh: true
 
     - task: PowerShell@2
-      displayName: Recurse agent workfolder dir
+      displayName: Recurse USERPROFILE dir
       inputs:
         targetType: 'inline'
         script: |
@@ -79,7 +79,7 @@ stages:
         ##filePath: # string. Required when targetType = filePath. Script Path. 
         #arguments: # string. Optional. Use when targetType = filePath. Arguments. 
         script: | # string. Required when targetType = inline. Script. 
-          Copy-Item -Path "pkg/mod" -Destination "$(Build.ArtifactStagingDirectory)/go" -Recurse -Force
+          Copy-Item -Path "C:\\Users\\VssAdministrator\\go" -Destination "$(Build.ArtifactStagingDirectory)/go" -Recurse -Force
         pwsh: true
         # Preference Variables
         #errorActionPreference: 'stop' # 'default' | 'stop' | 'continue' | 'silentlyContinue'. ErrorActionPreference. Default: stop.

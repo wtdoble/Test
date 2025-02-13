@@ -33,6 +33,8 @@ stages:
         targetType: 'inline' # 'filePath' | 'inline'. Type. Default: filePath.
         script: | # string. Required when targetType = inline. Script. 
           [Environment]::GetEnvironmentVariable("PATH")
+          [Environment]::GetEnvironmentVariable("USERPROFILE")
+          [Environment]::GetEnvironmentVariable("GOPATH")
 
     - task: PowerShell@2
       displayName: go mod tidy

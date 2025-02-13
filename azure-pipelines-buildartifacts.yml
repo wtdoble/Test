@@ -106,12 +106,12 @@ stages:
             PathtoPublish: '$(Build.ArtifactStagingDirectory)' # string. Required. Path to publish. Default: $(Build.ArtifactStagingDirectory).
             ArtifactName: 'drop' # string. Required. Artifact name. Default: drop.
             publishLocation: 'Container' # 'Container' | 'FilePath'. Alias: ArtifactType. Required. Artifact publish location. Default: Container.
+            StoreAsTar: true  # boolean. Tar the artifact before uploading. Default: false.
             #MaxArtifactSize: '0' # string. Max Artifact Size. Default: 0.
             #TargetPath: # string. Required when ArtifactType = FilePath. File share path. 
             #Parallel: false # boolean. Optional. Use when ArtifactType = FilePath. Parallel copy. Default: false.
             #ParallelCount: '8' # string. Optional. Use when ArtifactType = FilePath && Parallel = true. Parallel count. Default: 8.
             # Advanced
-            StoreAsTar: true  # boolean. Tar the artifact before uploading. Default: false.
 
         # Publish Pipeline Artifacts v1
         # Publish (upload) a file or directory as a named artifact for the current run.

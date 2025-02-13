@@ -65,12 +65,14 @@ stages:
         #       Write-Host "User Profile Path: $env:USERPROFILE"
         #     pwsh: true
 
-        # - task: PowerShell@2
-        #   displayName: Recurse USERPROFILE dir
-        #   inputs:
-        #     targetType: 'inline'
-        #     script: |
-        #       Get-ChildItem -Recurse -Path "C:\\Users\\VssAdministrator"
+    - task: PowerShell@2
+      displayName: DEBUG Recurse USERPROFILE\go dir
+      inputs:
+        targetType: 'inline'
+        script: |
+          $path = "$([Environment]::GetEnvironmentVariable('USERPROFILE'))\go"
+          $path
+          Get-ChildItem -Recurse -Path $path
 
     - task: PowerShell@2
       displayName: copy Go to staging directory
@@ -96,27 +98,27 @@ stages:
         #workingDirectory: # string. Working Directory. 
         #runScriptInSeparateScope: false # boolean. Run script in the separate scope. Default: false.
 
-    - task: PublishBuildArtifacts@1
-      displayName: Publish Go artifacts
-      inputs:
-        PathtoPublish: '$(Build.ArtifactStagingDirectory)\go' # string. Required. Path to publish. Default: $(Build.ArtifactStagingDirectory).
-        ArtifactName: 'go' # string. Required. Artifact name. Default: drop.
-        publishLocation: 'Container'
+        # # - task: PublishBuildArtifacts@1
+        # #   displayName: Publish Go artifacts
+        # #   inputs:
+        # #     PathtoPublish: '$(Build.ArtifactStagingDirectory)\go' # string. Required. Path to publish. Default: $(Build.ArtifactStagingDirectory).
+        # #     ArtifactName: 'go' # string. Required. Artifact name. Default: drop.
+        # #     publishLocation: 'Container'
         # Publish build artifacts v1
         # Publish build artifacts to Azure Pipelines or a Windows file share.
-    - task: PublishBuildArtifacts@1
-      displayName: Publish Github artifacts
-      inputs:
-        PathtoPublish: '$(Build.ArtifactStagingDirectory)\github' # string. Required. Path to publish. Default: $(Build.ArtifactStagingDirectory).
-        ArtifactName: 'github' # string. Required. Artifact name. Default: drop.
-        publishLocation: 'Container'
-          # 'Container' | 'FilePath'. Alias: ArtifactType. Required. Artifact publish location. Default: Container.
-          # boolean. Tar the artifact before uploading. Default: false.
-          #MaxArtifactSize: '0' # string. Max Artifact Size. Default: 0.
-          #TargetPath: # string. Required when ArtifactType = FilePath. File share path. 
-          #Parallel: false # boolean. Optional. Use when ArtifactType = FilePath. Parallel copy. Default: false.
-          #ParallelCount: '8' # string. Optional. Use when ArtifactType = FilePath && Parallel = true. Parallel count. Default: 8.
-          # Advanced
+        # # - task: PublishBuildArtifacts@1
+        # #   displayName: Publish Github artifacts
+        # #   inputs:
+        # #     PathtoPublish: '$(Build.ArtifactStagingDirectory)\github' # string. Required. Path to publish. Default: $(Build.ArtifactStagingDirectory).
+        # #     ArtifactName: 'github' # string. Required. Artifact name. Default: drop.
+        # #     publishLocation: 'Container'
+        # 'Container' | 'FilePath'. Alias: ArtifactType. Required. Artifact publish location. Default: Container.
+        # boolean. Tar the artifact before uploading. Default: false.
+        #MaxArtifactSize: '0' # string. Max Artifact Size. Default: 0.
+        #TargetPath: # string. Required when ArtifactType = FilePath. File share path. 
+        #Parallel: false # boolean. Optional. Use when ArtifactType = FilePath. Parallel copy. Default: false.
+        #ParallelCount: '8' # string. Optional. Use when ArtifactType = FilePath && Parallel = true. Parallel count. Default: 8.
+        # Advanced
         # Publish Pipeline Artifacts v1
         # Publish (upload) a file or directory as a named artifact for the current run.
         # - task: PublishPipelineArtifact@1

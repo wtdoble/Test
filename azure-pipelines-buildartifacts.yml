@@ -104,11 +104,10 @@ stages:
         #     PathtoPublish: '$(Build.ArtifactStagingDirectory)\go' # string. Required. Path to publish. Default: $(Build.ArtifactStagingDirectory).
         #     ArtifactName: 'go' # string. Required. Artifact name. Default: drop.
         #     publishLocation: 'Container'
-    - task: PublishPipelineArtifacts@1
-      displayName: Publish Go artifacts
+    - task: PublishPipelineArtifact@1
       inputs:
-        targetPath: "$([Environment]::GetEnvironmentVariable('USERPROFILE'))\\go" # string. Required. Path to publish. Default: $(Build.ArtifactStagingDirectory).
-        artifact: 'go' # string. Required. Artifact name. Default: drop.
+        targetPath: '$(gopath)'
+        artifact: 'go'
         publishLocation: 'pipeline'
         # Publish build artifacts v1
         # Publish build artifacts to Azure Pipelines or a Windows file share.

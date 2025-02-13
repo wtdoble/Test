@@ -106,7 +106,7 @@ stages:
         #     publishLocation: 'Container'
     - task: PublishPipelineArtifact@1
       inputs:
-        targetPath: '$(gopath)'
+        targetPath: '$(gopathartifacts)'
         artifact: 'go'
         publishLocation: 'pipeline'
         # Publish build artifacts v1

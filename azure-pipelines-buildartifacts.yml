@@ -9,7 +9,7 @@ stages:
   jobs:
   - job: BuildJob
     steps:
-    - script: git clone https://github.com/wtdoble/prometheus-collector.git $(Build.ArtifactStagingDirectory)/github
+    - script: git clone https://github.com/wtdoble/prometheus-collector.git $(Build.ArtifactStagingDirectory)\github
 
     - task: Go@0
       displayName: go install ginkgo
@@ -79,8 +79,7 @@ stages:
         ##filePath: # string. Required when targetType = filePath. Script Path. 
         #arguments: # string. Optional. Use when targetType = filePath. Arguments. 
         script: | # string. Required when targetType = inline. Script.   Copy-Item -Path "C:\\Users\\VssAdministrator\\go" -Destination "$(Build.ArtifactStagingDirectory)/go" -Recurse -Force
-          "do nothing"
-        ##Copy-Item -Path "$([Environment]::GetEnvironmentVariable('USERPROFILE'))\go" -Destination "$(Build.ArtifactStagingDirectory)/go" -Recurse -Force
+          Copy-Item -Path "$([Environment]::GetEnvironmentVariable('USERPROFILE'))\go" -Destination "$(Build.ArtifactStagingDirectory)\go" -Recurse -Force
         pwsh: true
         # Preference Variables
         #errorActionPreference: 'stop' # 'default' | 'stop' | 'continue' | 'silentlyContinue'. ErrorActionPreference. Default: stop.
@@ -97,14 +96,19 @@ stages:
         #workingDirectory: # string. Working Directory. 
         #runScriptInSeparateScope: false # boolean. Run script in the separate scope. Default: false.
 
-
+    - task: PublishBuildArtifacts@1
+      displayName: Publish Go artifacts
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)\go' # string. Required. Path to publish. Default: $(Build.ArtifactStagingDirectory).
+        ArtifactName: 'go' # string. Required. Artifact name. Default: drop.
+        publishLocation: 'Container'
         # Publish build artifacts v1
         # Publish build artifacts to Azure Pipelines or a Windows file share.
     - task: PublishBuildArtifacts@1
-      displayName: Publish artifacts
+      displayName: Publish Github artifacts
       inputs:
         PathtoPublish: '$(Build.ArtifactStagingDirectory)\github' # string. Required. Path to publish. Default: $(Build.ArtifactStagingDirectory).
-        ArtifactName: 'drop' # string. Required. Artifact name. Default: drop.
+        ArtifactName: 'github' # string. Required. Artifact name. Default: drop.
         publishLocation: 'Container'
           # 'Container' | 'FilePath'. Alias: ArtifactType. Required. Artifact publish location. Default: Container.
           # boolean. Tar the artifact before uploading. Default: false.

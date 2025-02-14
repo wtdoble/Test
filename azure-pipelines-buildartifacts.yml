@@ -123,6 +123,12 @@ stages:
         targetPath: '$(GOPATHARTIFACTS)'
         artifact: 'go'
         publishLocation: 'pipeline'
+
+    - task: PublishPipelineArtifact@1
+      inputs:
+        targetPath: $(Build.ArtifactStagingDirectory)\github
+        artifact: 'github'
+        publishLocation: 'pipeline'
         # Publish build artifacts v1
         # Publish build artifacts to Azure Pipelines or a Windows file share.
         # # - task: PublishBuildArtifacts@1

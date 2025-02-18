@@ -89,7 +89,7 @@ stages:
         #arguments: # string. Optional. Use when targetType = filePath. Arguments. 
         script: | # string. Required when targetType = inline. Script.   Copy-Item -Path "C:\\Users\\VssAdministrator\\go" -Destination "$(Build.ArtifactStagingDirectory)/go" -Recurse -Force
           $dir =$env:GOPATHARTIFACTS
-          Copy-Item -Path "$dir\go" -Destination "$(Build.ArtifactStagingDirectory)\go2" -Recurse -Force
+          Copy-Item -Path "$dir" -Destination "$(Build.ArtifactStagingDirectory)\go2" -Recurse -Force
         pwsh: true
         # Preference Variables
         #errorActionPreference: 'stop' # 'default' | 'stop' | 'continue' | 'silentlyContinue'. ErrorActionPreference. Default: stop.
@@ -134,7 +134,7 @@ stages:
           remove-item -path $(GOPATHARTIFACTS) -recurse -force
           [Environment]::SetEnvironmentVariable("GOPATH", "$(Build.ArtifactStagingDirectory)\go2")
           [Environment]::GetEnvironmentVariable("GOPATH")
-        pwsh: true        
+        pwsh: true
         # Publish build artifacts v1
         # Publish build artifacts to Azure Pipelines or a Windows file share.
         # # - task: PublishBuildArtifacts@1

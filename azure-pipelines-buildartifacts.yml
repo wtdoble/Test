@@ -12,7 +12,7 @@ stages:
   jobs:
   - job: BuildJob
     steps:
-    - script: git clone https://github.com/wtdoble/prometheus-collector.git $(Build.Workfolder)\github
+    - script: git clone https://github.com/wtdoble/prometheus-collector.git $(Agent.Workfolder)\github
 
     - task: Go@0
       displayName: go install ginkgo
@@ -41,7 +41,7 @@ stages:
         ##filePath: # string. Required when targetType = filePath. Script Path. 
         #arguments: # string. Optional. Use when targetType = filePath. Arguments. 
         script: | # string. Required when targetType = inline. Script. 
-          get-childitem -Recurse -path $(Build.Workfolder)/github -Filter *.mod | foreach {
+          get-childitem -Recurse -path $(Agent.Workfolder)/github -Filter *.mod | foreach {
             "DirectoryName: $($_.DirectoryName)"
             cd $_.DirectoryName
             go mod tidy
@@ -75,7 +75,7 @@ stages:
 
     - task: PublishPipelineArtifact@1
       inputs:
-        targetPath: $(Build.Workfolder)\github
+        targetPath: $(Agent.Workfolder)\github
         artifact: 'github'
         publishLocation: 'pipeline'
 
@@ -90,7 +90,7 @@ stages:
           Copy-Item -Path "$dir" -Destination "$(Agent.Workfolder)\go2" -Recurse -Force
 
           remove-item -path $(GOPATHARTIFACTS) -recurse -force
-          [Environment]::SetEnvironmentVariable("GOPATH", "$(Build.ArtifactStagingDirectory)\go2")
+          [Environment]::SetEnvironmentVariable("GOPATH", "$(Agent.Workfolder)\go2")
           [Environment]::GetEnvironmentVariable("GOPATH")
         pwsh: true
         # Publish build artifacts v1

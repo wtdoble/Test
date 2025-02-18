@@ -81,16 +81,16 @@ stages:
         #       $path
         #       Get-ChildItem -Recurse -Path $path
 
-        - task: PowerShell@2
-          displayName: copy Go to staging directory
-          inputs:
-            targetType: 'inline' # 'filePath' | 'inline'. Type. Default: filePath.
-            ##filePath: # string. Required when targetType = filePath. Script Path. 
-            #arguments: # string. Optional. Use when targetType = filePath. Arguments. 
-            script: | # string. Required when targetType = inline. Script.   Copy-Item -Path "C:\\Users\\VssAdministrator\\go" -Destination "$(Build.ArtifactStagingDirectory)/go" -Recurse -Force
-              $dir = $env:VARIABLE-NAME
-              Copy-Item -Path "$dir\go" -Destination "$(Build.ArtifactStagingDirectory)\go2" -Recurse -Force
-            pwsh: true
+    - task: PowerShell@2
+      displayName: copy Go to staging directory
+      inputs:
+        targetType: 'inline' # 'filePath' | 'inline'. Type. Default: filePath.
+        ##filePath: # string. Required when targetType = filePath. Script Path. 
+        #arguments: # string. Optional. Use when targetType = filePath. Arguments. 
+        script: | # string. Required when targetType = inline. Script.   Copy-Item -Path "C:\\Users\\VssAdministrator\\go" -Destination "$(Build.ArtifactStagingDirectory)/go" -Recurse -Force
+          $dir =$env:GOPATHARTIFACTS
+          Copy-Item -Path "$dir\go" -Destination "$(Build.ArtifactStagingDirectory)\go2" -Recurse -Force
+        pwsh: true
         # Preference Variables
         #errorActionPreference: 'stop' # 'default' | 'stop' | 'continue' | 'silentlyContinue'. ErrorActionPreference. Default: stop.
         #warningPreference: 'default' # 'default' | 'stop' | 'continue' | 'silentlyContinue'. WarningPreference. Default: default.

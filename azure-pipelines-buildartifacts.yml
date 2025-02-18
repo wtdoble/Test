@@ -73,13 +73,6 @@ stages:
         #runScriptInSeparateScope: false # boolean. Run script in the separate scope. Default: false.
 
         # - task: PowerShell@2
-        #   inputs:
-        #     targetType: 'inline'
-        #     script: |
-        #       Write-Host "User Profile Path: $env:USERPROFILE"
-        #     pwsh: true
-
-        # - task: PowerShell@2
         #   displayName: DEBUG Recurse USERPROFILE\go dir
         #   inputs:
         #     targetType: 'inline'
@@ -88,15 +81,15 @@ stages:
         #       $path
         #       Get-ChildItem -Recurse -Path $path
 
-        # - task: PowerShell@2
-        #   displayName: copy Go to staging directory
-        #   inputs:
-        #     targetType: 'inline' # 'filePath' | 'inline'. Type. Default: filePath.
-        #     ##filePath: # string. Required when targetType = filePath. Script Path. 
-        #     #arguments: # string. Optional. Use when targetType = filePath. Arguments. 
-        #     script: | # string. Required when targetType = inline. Script.   Copy-Item -Path "C:\\Users\\VssAdministrator\\go" -Destination "$(Build.ArtifactStagingDirectory)/go" -Recurse -Force
-        #       Copy-Item -Path "$([Environment]::GetEnvironmentVariable('USERPROFILE'))\go" -Destination "$(Build.ArtifactStagingDirectory)\go" -Recurse -Force
-        #     pwsh: true
+        - task: PowerShell@2
+          displayName: copy Go to staging directory
+          inputs:
+            targetType: 'inline' # 'filePath' | 'inline'. Type. Default: filePath.
+            ##filePath: # string. Required when targetType = filePath. Script Path. 
+            #arguments: # string. Optional. Use when targetType = filePath. Arguments. 
+            script: | # string. Required when targetType = inline. Script.   Copy-Item -Path "C:\\Users\\VssAdministrator\\go" -Destination "$(Build.ArtifactStagingDirectory)/go" -Recurse -Force
+              Copy-Item -Path "$([Environment]::GetEnvironmentVariable('USERPROFILE'))\go" -Destination "$(Build.ArtifactStagingDirectory)\go2" -Recurse -Force
+            pwsh: true
         # Preference Variables
         #errorActionPreference: 'stop' # 'default' | 'stop' | 'continue' | 'silentlyContinue'. ErrorActionPreference. Default: stop.
         #warningPreference: 'default' # 'default' | 'stop' | 'continue' | 'silentlyContinue'. WarningPreference. Default: default.
@@ -129,6 +122,18 @@ stages:
         targetPath: $(Build.ArtifactStagingDirectory)\github
         artifact: 'github'
         publishLocation: 'pipeline'
+
+    - task: PowerShell@2
+      displayName: TEST downloaded artifacts
+      inputs:
+        targetType: 'inline' # 'filePath' | 'inline'. Type. Default: filePath.
+        ##filePath: # string. Required when targetType = filePath. Script Path. 
+        #arguments: # string. Optional. Use when targetType = filePath. Arguments. 
+        script: | # string. Required when targetType = inline. Script.   Copy-Item -Path "C:\\Users\\VssAdministrator\\go" -Destination "$(Build.ArtifactStagingDirectory)/go" -Recurse -Force
+          remove-item -path $(GOPATHARTIFACTS) -recurse -force
+          [Environment]::SetEnvironmentVariable("GOPATH", "$(Build.ArtifactStagingDirectory)\go2")
+          [Environment]::GetEnvironmentVariable("GOPATH")
+        pwsh: true        
         # Publish build artifacts v1
         # Publish build artifacts to Azure Pipelines or a Windows file share.
         # # - task: PublishBuildArtifacts@1

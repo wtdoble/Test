@@ -88,7 +88,7 @@ stages:
             ##filePath: # string. Required when targetType = filePath. Script Path. 
             #arguments: # string. Optional. Use when targetType = filePath. Arguments. 
             script: | # string. Required when targetType = inline. Script.   Copy-Item -Path "C:\\Users\\VssAdministrator\\go" -Destination "$(Build.ArtifactStagingDirectory)/go" -Recurse -Force
-              Copy-Item -Path "$([Environment]::GetEnvironmentVariable('USERPROFILE'))\go" -Destination "$(Build.ArtifactStagingDirectory)\go2" -Recurse -Force
+              Copy-Item -Path "$('GOPATHARTIFACTS')\\go" -Destination "$(Build.ArtifactStagingDirectory)\\go2" -Recurse -Force
             pwsh: true
         # Preference Variables
         #errorActionPreference: 'stop' # 'default' | 'stop' | 'continue' | 'silentlyContinue'. ErrorActionPreference. Default: stop.

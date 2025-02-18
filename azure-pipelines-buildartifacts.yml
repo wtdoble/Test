@@ -12,18 +12,7 @@ stages:
   jobs:
   - job: BuildJob
     steps:
-    # - task: PowerShell@2
-    #   displayName: Init
-    #   inputs:
-    #     targetType: 'inline' # 'filePath' | 'inline'. Type. Default: filePath.
-    #     ##filePath: # string. Required when targetType = filePath. Script Path. 
-    #     #arguments: # string. Optional. Use when targetType = filePath. Arguments. 
-    #     script: | # string. Required when targetType = inline. Script. 
-    #       $(GOPATHARTIFACTS)
-    #       $(GOPATHARTIFACTS) = "$([Environment]::GetEnvironmentVariable('USERPROFILE'))\go"
-    #       $(GOPATHARTIFACTS)
-
-    - script: git clone https://github.com/wtdoble/prometheus-collector.git $(Build.ArtifactStagingDirectory)\github
+    - script: git clone https://github.com/wtdoble/prometheus-collector.git $(Build.Workfolder)\github
 
     - task: Go@0
       displayName: go install ginkgo
@@ -52,45 +41,11 @@ stages:
         ##filePath: # string. Required when targetType = filePath. Script Path. 
         #arguments: # string. Optional. Use when targetType = filePath. Arguments. 
         script: | # string. Required when targetType = inline. Script. 
-          get-childitem -Recurse -path $(Build.ArtifactStagingDirectory)/github -Filter *.mod | foreach {
+          get-childitem -Recurse -path $(Build.Workfolder)/github -Filter *.mod | foreach {
             "DirectoryName: $($_.DirectoryName)"
             cd $_.DirectoryName
             go mod tidy
           }
-        # Preference Variables
-        #errorActionPreference: 'stop' # 'default' | 'stop' | 'continue' | 'silentlyContinue'. ErrorActionPreference. Default: stop.
-        #warningPreference: 'default' # 'default' | 'stop' | 'continue' | 'silentlyContinue'. WarningPreference. Default: default.
-        #informationPreference: 'default' # 'default' | 'stop' | 'continue' | 'silentlyContinue'. InformationPreference. Default: default.
-        #verbosePreference: 'default' # 'default' | 'stop' | 'continue' | 'silentlyContinue'. VerbosePreference. Default: default.
-        #debugPreference: 'default' # 'default' | 'stop' | 'continue' | 'silentlyContinue'. DebugPreference. Default: default.
-        #progressPreference: 'silentlyContinue' # 'default' | 'stop' | 'continue' | 'silentlyContinue'. ProgressPreference. Default: silentlyContinue.
-        # Advanced
-        #failOnStderr: false # boolean. Fail on Standard Error. Default: false.
-        #showWarnings: false # boolean. Show warnings as Azure DevOps warnings. Default: false.
-        #ignoreLASTEXITCODE: false # boolean. Ignore $LASTEXITCODE. Default: false.
-        #pwsh: false # boolean. Use PowerShell Core. Default: false.
-        #workingDirectory: # string. Working Directory. 
-        #runScriptInSeparateScope: false # boolean. Run script in the separate scope. Default: false.
-
-        # - task: PowerShell@2
-        #   displayName: DEBUG Recurse USERPROFILE\go dir
-        #   inputs:
-        #     targetType: 'inline'
-        #     script: |
-        #       $path = "$([Environment]::GetEnvironmentVariable('USERPROFILE'))\go"
-        #       $path
-        #       Get-ChildItem -Recurse -Path $path
-
-    - task: PowerShell@2
-      displayName: copy Go to staging directory
-      inputs:
-        targetType: 'inline' # 'filePath' | 'inline'. Type. Default: filePath.
-        ##filePath: # string. Required when targetType = filePath. Script Path. 
-        #arguments: # string. Optional. Use when targetType = filePath. Arguments. 
-        script: | # string. Required when targetType = inline. Script.   Copy-Item -Path "C:\\Users\\VssAdministrator\\go" -Destination "$(Build.ArtifactStagingDirectory)/go" -Recurse -Force
-          $dir =$env:GOPATHARTIFACTS
-          Copy-Item -Path "$dir" -Destination "$(Build.ArtifactStagingDirectory)\go2" -Recurse -Force
-        pwsh: true
         # Preference Variables
         #errorActionPreference: 'stop' # 'default' | 'stop' | 'continue' | 'silentlyContinue'. ErrorActionPreference. Default: stop.
         #warningPreference: 'default' # 'default' | 'stop' | 'continue' | 'silentlyContinue'. WarningPreference. Default: default.
@@ -120,7 +75,7 @@ stages:
 
     - task: PublishPipelineArtifact@1
       inputs:
-        targetPath: $(Build.ArtifactStagingDirectory)\github
+        targetPath: $(Build.Workfolder)\github
         artifact: 'github'
         publishLocation: 'pipeline'
 
@@ -131,6 +86,9 @@ stages:
         ##filePath: # string. Required when targetType = filePath. Script Path. 
         #arguments: # string. Optional. Use when targetType = filePath. Arguments. 
         script: | # string. Required when targetType = inline. Script.   Copy-Item -Path "C:\\Users\\VssAdministrator\\go" -Destination "$(Build.ArtifactStagingDirectory)/go" -Recurse -Force
+          $dir = $env:GOPATHARTIFACTS
+          Copy-Item -Path "$dir" -Destination "$(Agent.Workfolder)\go2" -Recurse -Force
+
           remove-item -path $(GOPATHARTIFACTS) -recurse -force
           [Environment]::SetEnvironmentVariable("GOPATH", "$(Build.ArtifactStagingDirectory)\go2")
           [Environment]::GetEnvironmentVariable("GOPATH")

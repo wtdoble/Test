@@ -25,50 +25,50 @@ stages:
         # PowerShell v2
         # Run a PowerShell script o"n Linux, macOS, or Windows.
 
-    - task: PowerShell@2
-      displayName: GetEnv
-      inputs:
-        targetType: 'inline' # 'filePath' | 'inline'. Type. Default: filePath.
-        script: | # string. Required when targetType = inline. Script. 
-          [Environment]::GetEnvironmentVariable("PATH")
-          [Environment]::GetEnvironmentVariable("USERPROFILE")
-          [Environment]::GetEnvironmentVariable("GOPATH")
+        # - task: PowerShell@2
+        #   displayName: GetEnv
+        #   inputs:
+        #     targetType: 'inline' # 'filePath' | 'inline'. Type. Default: filePath.
+        #     script: | # string. Required when targetType = inline. Script. 
+        #       [Environment]::GetEnvironmentVariable("PATH")
+        #       [Environment]::GetEnvironmentVariable("USERPROFILE")
+        #       [Environment]::GetEnvironmentVariable("GOPATH")
 
-    - task: PowerShell@2
-      displayName: go mod tidy
-      inputs:
-        targetType: 'inline' # 'filePath' | 'inline'. Type. Default: filePath.
-        ##filePath: # string. Required when targetType = filePath. Script Path. 
-        #arguments: # string. Optional. Use when targetType = filePath. Arguments. 
-        script: | # string. Required when targetType = inline. Script. 
-          get-childitem -Recurse -path $(Agent.Workfolder)/github -Filter *.mod | foreach {
-            "DirectoryName: $($_.DirectoryName)"
-            cd $_.DirectoryName
-            go mod tidy
-          }
+        # - task: PowerShell@2
+        #   displayName: go mod tidy
+        #   inputs:
+        #     targetType: 'inline' # 'filePath' | 'inline'. Type. Default: filePath.
+        #     ##filePath: # string. Required when targetType = filePath. Script Path. 
+        #     #arguments: # string. Optional. Use when targetType = filePath. Arguments. 
+        #     script: | # string. Required when targetType = inline. Script. 
+        #       get-childitem -Recurse -path $(Agent.Workfolder)/github -Filter *.mod | foreach {
+        #         "DirectoryName: $($_.DirectoryName)"
+        #         cd $_.DirectoryName
+        #         go mod tidy
+        #       }
 
-    - task: PowerShell@2
-      displayName: Compress go
-      inputs:
-        targetType: 'inline' # 'filePath' | 'inline'. Type. Default: filePath.
-        ##filePath: # string. Required when targetType = filePath. Script Path. 
-        #arguments: # string. Optional. Use when targetType = filePath. Arguments. 
-        script: | # string. Required when targetType = inline. Script. 
-          compress-archive -Path "$(GOPATHARTIFACTS)" -DestinationPath "$(Agent.Workfolder)\go.zip" -compressionLevel Fastest
-        # Preference Variables
-        #errorActionPreference: 'stop' # 'default' | 'stop' | 'continue' | 'silentlyContinue'. ErrorActionPreference. Default: stop.
-        #warningPreference: 'default' # 'default' | 'stop' | 'continue' | 'silentlyContinue'. WarningPreference. Default: default.
-        #informationPreference: 'default' # 'default' | 'stop' | 'continue' | 'silentlyContinue'. InformationPreference. Default: default.
-        #verbosePreference: 'default' # 'default' | 'stop' | 'continue' | 'silentlyContinue'. VerbosePreference. Default: default.
-        #debugPreference: 'default' # 'default' | 'stop' | 'continue' | 'silentlyContinue'. DebugPreference. Default: default.
-        #progressPreference: 'silentlyContinue' # 'default' | 'stop' | 'continue' | 'silentlyContinue'. ProgressPreference. Default: silentlyContinue.
-        # Advanced
-        #failOnStderr: false # boolean. Fail on Standard Error. Default: false.
-        #showWarnings: false # boolean. Show warnings as Azure DevOps warnings. Default: false.
-        #ignoreLASTEXITCODE: false # boolean. Ignore $LASTEXITCODE. Default: false.
-        #pwsh: false # boolean. Use PowerShell Core. Default: false.
-        #workingDirectory: # string. Working Directory. 
-        #runScriptInSeparateScope: false # boolean. Run script in the separate scope. Default: false.
+        # - task: PowerShell@2
+        #   displayName: Compress go
+        #   inputs:
+        #     targetType: 'inline' # 'filePath' | 'inline'. Type. Default: filePath.
+        #     ##filePath: # string. Required when targetType = filePath. Script Path. 
+        #     #arguments: # string. Optional. Use when targetType = filePath. Arguments. 
+        #     script: | # string. Required when targetType = inline. Script. 
+        #       compress-archive -Path "$(GOPATHARTIFACTS)" -DestinationPath "$(Agent.Workfolder)\go.zip" -compressionLevel Fastest
+        #     # Preference Variables
+        #     #errorActionPreference: 'stop' # 'default' | 'stop' | 'continue' | 'silentlyContinue'. ErrorActionPreference. Default: stop.
+        #     #warningPreference: 'default' # 'default' | 'stop' | 'continue' | 'silentlyContinue'. WarningPreference. Default: default.
+        #     #informationPreference: 'default' # 'default' | 'stop' | 'continue' | 'silentlyContinue'. InformationPreference. Default: default.
+        #     #verbosePreference: 'default' # 'default' | 'stop' | 'continue' | 'silentlyContinue'. VerbosePreference. Default: default.
+        #     #debugPreference: 'default' # 'default' | 'stop' | 'continue' | 'silentlyContinue'. DebugPreference. Default: default.
+        #     #progressPreference: 'silentlyContinue' # 'default' | 'stop' | 'continue' | 'silentlyContinue'. ProgressPreference. Default: silentlyContinue.
+        #     # Advanced
+        #     #failOnStderr: false # boolean. Fail on Standard Error. Default: false.
+        #     #showWarnings: false # boolean. Show warnings as Azure DevOps warnings. Default: false.
+        #     #ignoreLASTEXITCODE: false # boolean. Ignore $LASTEXITCODE. Default: false.
+        #     #pwsh: false # boolean. Use PowerShell Core. Default: false.
+        #     #workingDirectory: # string. Working Directory. 
+        #     #runScriptInSeparateScope: false # boolean. Run script in the separate scope. Default: false.
 
         # - task: PublishBuildArtifacts@1
         #   displayName: Publish Go artifacts
@@ -78,8 +78,8 @@ stages:
         #     publishLocation: 'Container'
     - task: PublishPipelineArtifact@1
       inputs:
-        targetPath: $(Agent.Workfolder)\go.zip ##'$(GOPATHARTIFACTS)'
-        artifact: 'gozip'
+        targetPath: '$(GOPATHARTIFACTS)' ## $(Agent.Workfolder)\go.zip
+        artifact: 'go'
         publishLocation: 'pipeline'
 
     - task: PublishPipelineArtifact@1
@@ -87,21 +87,22 @@ stages:
         targetPath: $(Agent.Workfolder)\github
         artifact: 'github'
         publishLocation: 'pipeline'
+        # - task: PowerShell@2
+        #   displayName: TEST downloaded artifacts
+        #   inputs:
+        #     targetType: 'inline' # 'filePath' | 'inline'. Type. Default: filePath.
+        #     ##filePath: # string. Required when targetType = filePath. Script Path. 
+        #     #arguments: # string. Optional. Use when targetType = filePath. Arguments. 
+        #     script: | # string. Required when targetType = inline. Script.   Copy-Item -Path "C:\\Users\\VssAdministrator\\go" -Destination "$(Build.ArtifactStagingDirectory)/go" -Recurse -Force
+        #       $dir = $env:GOPATHARTIFACTS
+        #       Copy-Item -Path "$dir" -Destination "$(Agent.Workfolder)\go2" -Recurse -Force
 
-    - task: PowerShell@2
-      displayName: TEST downloaded artifacts
-      inputs:
-        targetType: 'inline' # 'filePath' | 'inline'. Type. Default: filePath.
-        ##filePath: # string. Required when targetType = filePath. Script Path. 
-        #arguments: # string. Optional. Use when targetType = filePath. Arguments. 
-        script: | # string. Required when targetType = inline. Script.   Copy-Item -Path "C:\\Users\\VssAdministrator\\go" -Destination "$(Build.ArtifactStagingDirectory)/go" -Recurse -Force
-          $dir = $env:GOPATHARTIFACTS
-          Copy-Item -Path "$dir" -Destination "$(Agent.Workfolder)\go2" -Recurse -Force
+        #       remove-item -path $(GOPATHARTIFACTS) -recurse -force
+        #       [Environment]::SetEnvironmentVariable("GOPATH", "$(Agent.Workfolder)\go2")
+        #       [Environment]::GetEnvironmentVariable("GOPATH")
+        #     pwsh: true
 
-          remove-item -path $(GOPATHARTIFACTS) -recurse -force
-          [Environment]::SetEnvironmentVariable("GOPATH", "$(Agent.Workfolder)\go2")
-          [Environment]::GetEnvironmentVariable("GOPATH")
-        pwsh: true
+
         # Publish build artifacts v1
         # Publish build artifacts to Azure Pipelines or a Windows file share.
         # # - task: PublishBuildArtifacts@1

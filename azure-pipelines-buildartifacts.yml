@@ -46,7 +46,6 @@ stages:
         #         cd $_.DirectoryName
         #         go mod tidy
         #       }
-
         # - task: PowerShell@2
         #   displayName: Compress go
         #   inputs:
@@ -76,33 +75,32 @@ stages:
         #     PathtoPublish: '$(Build.ArtifactStagingDirectory)\go' # string. Required. Path to publish. Default: $(Build.ArtifactStagingDirectory).
         #     ArtifactName: 'go' # string. Required. Artifact name. Default: drop.
         #     publishLocation: 'Container'
-    - task: PublishPipelineArtifact@1
-      inputs:
-        targetPath: '$(GOPATHARTIFACTS)' ## $(Agent.Workfolder)\go.zip
-        artifact: 'go'
-        publishLocation: 'pipeline'
-
-    - task: PublishPipelineArtifact@1
-      inputs:
-        targetPath: $(Agent.Workfolder)\github
-        artifact: 'github'
-        publishLocation: 'pipeline'
-        # - task: PowerShell@2
-        #   displayName: TEST downloaded artifacts
+        # - task: PublishPipelineArtifact@1
         #   inputs:
-        #     targetType: 'inline' # 'filePath' | 'inline'. Type. Default: filePath.
-        #     ##filePath: # string. Required when targetType = filePath. Script Path. 
-        #     #arguments: # string. Optional. Use when targetType = filePath. Arguments. 
-        #     script: | # string. Required when targetType = inline. Script.   Copy-Item -Path "C:\\Users\\VssAdministrator\\go" -Destination "$(Build.ArtifactStagingDirectory)/go" -Recurse -Force
-        #       $dir = $env:GOPATHARTIFACTS
-        #       Copy-Item -Path "$dir" -Destination "$(Agent.Workfolder)\go2" -Recurse -Force
+        #     targetPath: '$(GOPATHARTIFACTS)' ## $(Agent.Workfolder)\go.zip
+        #     artifact: 'go'
+        #     publishLocation: 'pipeline'
 
-        #       remove-item -path $(GOPATHARTIFACTS) -recurse -force
-        #       [Environment]::SetEnvironmentVariable("GOPATH", "$(Agent.Workfolder)\go2")
-        #       [Environment]::GetEnvironmentVariable("GOPATH")
-        #     pwsh: true
+        # - task: PublishPipelineArtifact@1
+        #   inputs:
+        #     targetPath: $(Agent.Workfolder)\github
+        #     artifact: 'github'
+        #     publishLocation: 'pipeline'
+    - task: PowerShell@2
+      displayName: TEST downloaded artifacts
+      inputs:
+        targetType: 'inline' # 'filePath' | 'inline'. Type. Default: filePath.
+        ##filePath: # string. Required when targetType = filePath. Script Path. 
+        #arguments: # string. Optional. Use when targetType = filePath. Arguments. 
+        script: | # string. Required when targetType = inline. Script.   Copy-Item -Path "C:\\Users\\VssAdministrator\\go" -Destination "$(Build.ArtifactStagingDirectory)/go" -Recurse -Force
+          $dir = $env:GOPATHARTIFACTS
+          $dir
 
+          [Environment]::SetEnvironmentVariable("GOPATH", "c:\temp\go")
+          [Environment]::GetEnvironmentVariable("GOPATH")
 
+          ##remove-item -path $dir -recurse -force
+        pwsh: true
         # Publish build artifacts v1
         # Publish build artifacts to Azure Pipelines or a Windows file share.
         # # - task: PublishBuildArtifacts@1

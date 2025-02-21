@@ -100,6 +100,8 @@ stages:
           [Environment]::GetEnvironmentVariable("GOPATH")
 
           ##remove-item -path $dir -recurse -force
+
+          ginkgo -h
         pwsh: true
         # Publish build artifacts v1
         # Publish build artifacts to Azure Pipelines or a Windows file share.

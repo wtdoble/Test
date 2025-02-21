@@ -99,6 +99,8 @@ stages:
           [Environment]::SetEnvironmentVariable("GOPATH", "c:\temp\go")
           [Environment]::GetEnvironmentVariable("GOPATH")
 
+          [Environment]::GetEnvironmentVariable("PATH")
+
           ##remove-item -path $dir -recurse -force
 
           ginkgo -h

@@ -99,7 +99,9 @@ stages:
           [Environment]::SetEnvironmentVariable("GOPATH", "c:\temp\go")
           [Environment]::GetEnvironmentVariable("GOPATH")
 
-          [Environment]::GetEnvironmentVariable("PATH")
+          $path = [Environment]::GetEnvironmentVariable("PATH")
+          $path = "$path;c:\temp\go\bin"
+          $path = [Environment]::SetEnvironmentVariable("PATH", $path)
 
           ##remove-item -path $dir -recurse -force
 

@@ -93,7 +93,7 @@ stages:
         ##filePath: # string. Required when targetType = filePath. Script Path. 
         #arguments: # string. Optional. Use when targetType = filePath. Arguments. 
         script: | # string. Required when targetType = inline. Script.  
-          $newGoDir = "$(Agent.Workfolder)/go"
+          $newGoDir = "$(Agent.Workfolder)\go"
           $newGoDir
           Copy-Item -Path "C:\Users\VssAdministrator\go" -Destination $newGoDir -Recurse -Force
 
@@ -108,7 +108,7 @@ stages:
           $path = [Environment]::SetEnvironmentVariable("PATH", $path)
           [Environment]::GetEnvironmentVariable("PATH")
 
-          ##remove-item -path $dir -recurse -force
+          remove-item -path $dir -recurse -force
 
           ginkgo -h
         pwsh: true

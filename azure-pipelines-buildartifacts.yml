@@ -149,4 +149,4 @@ stages:
       parameters:
         azureSubscription: "ContainerInsights_Dev_Grace"
         resourceGroup: "wtd-test"
-        deployParameters: "{\"clusterName\":{\"value\":\"wtdAksCluster\"},\"azureMonitorWorkspaceLocation\":{\"value\":\"AustraliaCentral2\"},\"clusterLocation\":{\"value\": \"WestUS2\"},\"actionGroupId\":{\"value\":\"/subscriptions/b9842c7c-1a38-4385-8f39-a51314758bcf/resourceGroups/wtd-test/providers/Microsoft.Insights/actiongroups/wtdTestAg\"}}"
+        deployParameters: ${env:PARAMETERS}

@@ -150,3 +150,14 @@ stages:
         azureSubscription: "ContainerInsights_Dev_Grace"
         resourceGroup: "wtd-test"
         deployParameters: ${env:PARAMETERS}
+
+- stage: Test
+  dependsOn: Deploy
+  jobs:
+  - job: TestJob
+    steps:
+    - template: azure-pipelines-testsuites-template.yml
+      parameters:
+        azureSubscription: "ContainerInsights_Dev_Grace"
+        resourceGroup: "wtd-test"
+        clusterName: "wtdAksCluster"

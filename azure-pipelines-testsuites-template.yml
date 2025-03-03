@@ -17,6 +17,7 @@ parameters:
 #   value: ''
 steps:
 - task: Go@0
+  condition: false ############# NEW
   displayName: "go install ginkgo"
   inputs:
     command: 'install' # 'get' | 'build' | 'test' | 'custom'. Required. Command. Default: get.
@@ -40,6 +41,14 @@ steps:
     scriptType: ps
     scriptLocation: inlineScript
     inlineScript: |
+      write-host "Checking environment variables..."
+      write-host "GOPATH"
+      [Environment]::GetEnvironmentVariable("GOPATH")
+      write-host "PATH"
+      [Environment]::GetEnvironmentVariable("PATH")
+      ginkgo -h
+
+
       az extension add --name alertsmanagement --allow-preview true                                                                    
       az alerts-management prometheus-rule-group list -g ${{ parameters.resourceGroup }}
 

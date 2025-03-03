@@ -108,6 +108,7 @@ stages:
           $path = [Environment]::SetEnvironmentVariable("PATH", $path)
           [Environment]::GetEnvironmentVariable("PATH")
 
+          write-host "removing $dir"
           remove-item -path $dir -recurse -force
 
           ginkgo -h
@@ -138,3 +139,14 @@ stages:
         #     #parallel: false # boolean. Optional. Use when artifactType = filepath. Parallel copy. Default: false.
         #     #parallelCount: '8' # string. Optional. Use when artifactType = filepath && parallel = true. Parallel count. Default: 8.
         #     #properties: # string. Custom properties.
+
+- stage: Deploy
+  dependsOn: Build
+  jobs:
+  - job: DeployJob
+    steps:
+    - template: azure-pipelines-template.yml
+      parameters:
+        azureSubscription: "ContainerInsights_Dev_Grace"
+        resourceGroup: "wtd-test"
+        deployParameters: "{\"clusterName\":{\"value\":\"wtdAksCluster\"},\"azureMonitorWorkspaceLocation\":{\"value\":\"AustraliaCentral2\"},\"clusterLocation\":{\"value\": \"WestUS2\"},\"actionGroupId\":{\"value\":\"/subscriptions/b9842c7c-1a38-4385-8f39-a51314758bcf/resourceGroups/wtd-test/providers/Microsoft.Insights/actiongroups/wtdTestAg\"}}"

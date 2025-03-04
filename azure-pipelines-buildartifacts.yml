@@ -83,10 +83,17 @@ stages:
           ginkgo -h
         pwsh: true
     - template: azure-pipelines-template.yml
+      condition: false
       parameters:
         azureSubscription: "ContainerInsights_Dev_Grace"
         resourceGroup: "wtd-test"
         deployParameters: ${env:PARAMETERS}
+    - template: azure-pipelines-testsuites-template.yml
+      parameters:
+        azureSubscription: "ContainerInsights_Dev_Grace"
+        resourceGroup: "wtd-test"
+        clusterName: "wtdAksCluster"   
+        goPath: "$(Agent.Workfolder)\\go"
         # Publish build artifacts v1
         # Publish build artifacts to Azure Pipelines or a Windows file share.
         # # - task: PublishBuildArtifacts@1

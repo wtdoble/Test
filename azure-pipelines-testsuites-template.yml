@@ -7,6 +7,9 @@ parameters:
   default: 'wtd-test'
 - name: clusterName
   type: string
+- name: goPath
+  type: string
+  default: 'c:\users\VssAdministrator\go'
 
 # variables:
 # - name: varRULE
@@ -76,7 +79,9 @@ steps:
       [Environment]::SetEnvironmentVariable("AMW_QUERY_ENDPOINT", $endPoint)
 
       # Run Ginkgo
-      $cmd = "$([Environment]::GetEnvironmentVariable('userprofile'))\go\bin\ginkgo.exe -- -parmRuleName ""$rule"" -parmAmwResourceId ""$resourceId"""
+      $goPath = ${{ parameters.goPath }}
+      ##$cmd = "$([Environment]::GetEnvironmentVariable('userprofile'))\go\bin\ginkgo.exe -- -parmRuleName ""$rule"" -parmAmwResourceId ""$resourceId"""
+      $cmd = "$goPath\bin\ginkgo.exe -- -parmRuleName ""$rule"" -parmAmwResourceId ""$resourceId"""
       "cmd - $cmd"
       "AMW_QUERY_ENDPOINT - $([Environment]::GetEnvironmentVariable("AMW_QUERY_ENDPOINT"))"
       Invoke-Expression -Command $cmd 

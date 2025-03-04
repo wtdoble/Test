@@ -101,7 +101,7 @@ stages:
         # Publish (upload) a file or directory as a named artifact for the current run.
     - task: PublishPipelineArtifact@1
       inputs:
-        targetPath: "$(Agent.Workfolder)\go" # string. Alias: path. Required. File or directory path. Default: $(Pipeline.Workspace).
+        targetPath: '$(Agent.Workfolder)\go' # string. Alias: path. Required. File or directory path. Default: $(Pipeline.Workspace).
         artifact: drop # string. Alias: artifactName. Artifact name. 
         publishLocation: 'pipeline' # 'pipeline' | 'filepath'. Alias: artifactType. Required. Artifact publish location. Default: pipeline.
         #fileSharePath: # string. Required when artifactType = filepath. File share path. 

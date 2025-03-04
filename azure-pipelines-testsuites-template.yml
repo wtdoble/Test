@@ -45,7 +45,7 @@ steps:
     scriptLocation: inlineScript
     inlineScript: |
       write-host "Checking environment variables..."
-      $goPath = ${{ parameters.goPath }}
+      $goPath = "${{ parameters.goPath }}"
       write-host "goPath = $goPath"
       write-host "ginkgo = $goPath\bin\ginkgo.exe"
       $path = [Environment]::GetEnvironmentVariable("PATH")

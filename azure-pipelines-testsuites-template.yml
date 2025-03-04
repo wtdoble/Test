@@ -49,7 +49,7 @@ steps:
       write-host "goPath = $goPath"
       write-host "ginkgo = $goPath\bin\ginkgo.exe"
       $path = [Environment]::GetEnvironmentVariable("PATH")
-      $path = "$path;$newGoDir\bin"
+      $path = "$path;$goPath\bin"
       $path = [Environment]::SetEnvironmentVariable("PATH", $path)
       [Environment]::GetEnvironmentVariable("PATH")
 

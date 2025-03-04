@@ -45,10 +45,14 @@ steps:
     scriptLocation: inlineScript
     inlineScript: |
       write-host "Checking environment variables..."
-      write-host "GOPATH"
-      [Environment]::GetEnvironmentVariable("GOPATH")
-      write-host "PATH"
+      $goPath = ${{ parameters.goPath }}
+      write-host "goPath = $goPath"
+      write-host "ginkgo = $goPath\bin\ginkgo.exe"
+      $path = [Environment]::GetEnvironmentVariable("PATH")
+      $path = "$path;$newGoDir\bin"
+      $path = [Environment]::SetEnvironmentVariable("PATH", $path)
       [Environment]::GetEnvironmentVariable("PATH")
+
       ginkgo -h
 
 
@@ -79,7 +83,6 @@ steps:
       [Environment]::SetEnvironmentVariable("AMW_QUERY_ENDPOINT", $endPoint)
 
       # Run Ginkgo
-      $goPath = ${{ parameters.goPath }}
       ##$cmd = "$([Environment]::GetEnvironmentVariable('userprofile'))\go\bin\ginkgo.exe -- -parmRuleName ""$rule"" -parmAmwResourceId ""$resourceId"""
       $cmd = "$goPath\bin\ginkgo.exe -- -parmRuleName ""$rule"" -parmAmwResourceId ""$resourceId"""
       "cmd - $cmd"

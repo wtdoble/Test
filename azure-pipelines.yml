@@ -27,7 +27,7 @@ steps:
     inlineScript: |
       $p = ${env:PARAMETERS} 
       "Parameters: $p"
-      $j = convertfrom-json $p
+      $j = $p | convertfrom-json
 
       if ([string]::IsNullOrEmpty($j.azureMonitorWorkspaceLocation)) {
          write-host "'azureMonitorWorkspaceLocation' not provided..."

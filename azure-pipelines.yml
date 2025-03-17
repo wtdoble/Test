@@ -48,9 +48,7 @@ steps:
 
       $j | fl
 
-      $p = $j | convertto-json
-      "$p"
-      $p = $p -replace "\s", ""
+      $p = $j | convertto-json -Compress
       "Final parameters: $p"
 
       az --version

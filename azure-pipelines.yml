@@ -25,11 +25,35 @@ steps:
     scriptType: ps
     scriptLocation: inlineScript
     inlineScript: |
+      $p = ${env:PARAMETERS} 
+      "Parameters: $p"
+      $j = convertto-json $p
+
+      if [string]::IsNullOrEmpty($j.azureMonitorWorkspaceLocation) {
+         write-host "'azureMonitorWorkspaceLocation' not provided..."
+
+         $rg = (az group show -g wtd-test | convertfrom-json)
+         write-host "Using $($rg.location)"
+
+        # Does the property exist?
+        if $j.azureMonitorWorkspaceLocation -eq $null {
+          Add-Member -name "azureMonitorWorkspaceLocation" -MemberType NoteProperty -value ($rg.location)
+        } else {
+          $j.azureMonitorWorkspaceLocation = $rg.location
+        }
+
+      } else {
+        write-host "'azureMonitorWorkspaceLocation' = $($j.azureMonitorWorkspaceLocation)"
+      }
+
+      $p = $j | convertto-json
+      "Final parameters: $p"
+
       az --version
       az account show
       az deployment group create `
           --resource-group ${env:RESOURCE-GROUP} `
           --name ClusterDeployment `
           --template-file ".\wip9-final.json" `
-          --parameters ${env:PARAMETERS}   
+          --parameters $p   ##${env:PARAMETERS}   
           

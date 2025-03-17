@@ -46,7 +46,10 @@ steps:
         write-host "'azureMonitorWorkspaceLocation' = $($j.azureMonitorWorkspaceLocation)"
       }
 
+      $j | fl
+
       $p = $j | convertto-json
+      "$p"
       $p = $p -replace "\s", ""
       "Final parameters: $p"
 

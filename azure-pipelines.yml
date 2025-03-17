@@ -47,6 +47,7 @@ steps:
       }
 
       $p = $j | convertto-json
+      $p = $p -replace "\s", ""
       "Final parameters: $p"
 
       az --version

@@ -53,7 +53,7 @@ steps:
           }
 
           $newBlock = @{value = $($rg.location)}
-
+ 
           # """azureMonitorWorkspaceLocation"":$n"
           # $ary += """azureMonitorWorkspaceLocation"":$n"
 

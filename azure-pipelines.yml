@@ -32,6 +32,7 @@ steps:
       $p
       $p.Substring(1, $p.Length-2)
       $ary = $p.split(",")
+      $ary
 
       if ([string]::IsNullOrEmpty($j.azureMonitorWorkspaceLocation)) {
          write-host "'azureMonitorWorkspaceLocation' not provided..."

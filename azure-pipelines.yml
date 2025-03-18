@@ -26,13 +26,17 @@ steps:
     scriptLocation: inlineScript
     inlineScript: |
       $p = ${env:PARAMETERS} 
-      "Parameters: $p"
-      $j = $p | convertfrom-json
+      "Input Parameters: $p"
 
-      $p
-      $p=$p.Substring(2, $p.Length-4)
-      $ary = $p.split(",")
-      $ary
+      $p2 = $p -replace "\\""", """"
+
+      "Conforming input parameters: $p2"
+      $j = $p2 | convertfrom-json
+
+      # $p
+      # $p=$p.Substring(2, $p.Length-4)
+      # $ary = $p.split(",")
+      # $ary
 
       if ([string]::IsNullOrEmpty($j.azureMonitorWorkspaceLocation)) {
          write-host "'azureMonitorWorkspaceLocation' not provided..."
@@ -43,25 +47,32 @@ steps:
         # Does the property exist?
         if ($j.azureMonitorWorkspaceLocation -eq $null) {
           write-host "Adding new 'azureMonitorWorkspaceLocation' property..."
+
+          $nestedObject = [PSCustomObject]@{
+              value = "$($rg.location)"
+          }
+
           $newBlock = @{value = $($rg.location)}
-          $n = $newblock | convertto-json -compress
 
-          """azureMonitorWorkspaceLocation"":$n"
-          $ary += """azureMonitorWorkspaceLocation"":$n"
+          # """azureMonitorWorkspaceLocation"":$n"
+          # $ary += """azureMonitorWorkspaceLocation"":$n"
 
-          ##$j | Add-Member -name "azureMonitorWorkspaceLocation" -MemberType NoteProperty -value $newBlock
+          $j | Add-Member -name "azureMonitorWorkspaceLocation" -MemberType NoteProperty -value $nestedObject -PassThru
         } else {
           write-host "Updating existing 'azureMonitorWorkspaceLocation' property..."
           $j.azureMonitorWorkspaceLocation = $rg.location
         }
       } else {
          write-host "'azureMonitorWorkspaceLocation' = $($j.azureMonitorWorkspaceLocation)"
+
+         #############
       }
 
-      ##$pp = $j | convertto-json -Compress
-      $pp = [string]::join(",", $ary)
-      $pp = "'{$pp}'"
-      "Final parameters: $pp"
+      $parmFinal = $j | convertto-json -Compress
+      # $pp = [string]::join(",", $ary)
+      # $pp = "'{$pp}'"
+      $parmFinal = $parmFinal -replace """", "\"""
+      "Final parameters: $parmFinal"
 
       az --version
       az account show
@@ -69,5 +80,5 @@ steps:
           --resource-group ${env:RESOURCE-GROUP} `
           --name ClusterDeployment `
           --template-file ".\wip9-final.json" `
-          --parameters $pp  ##${env:PARAMETERS}   
+          --parameters $parmFinal  ##${env:PARAMETERS}   
           

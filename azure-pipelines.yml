@@ -65,7 +65,7 @@ steps:
       } else {
          write-host "'azureMonitorWorkspaceLocation' = $($j.azureMonitorWorkspaceLocation)"
 
-         #############
+         ###############
       }
 
       $parmFinal = $j | convertto-json -Compress

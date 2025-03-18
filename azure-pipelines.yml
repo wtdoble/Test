@@ -29,6 +29,8 @@ steps:
       "Parameters: $p"
       $j = $p | convertfrom-json
 
+      $ary = $p.split(",")
+
       if ([string]::IsNullOrEmpty($j.azureMonitorWorkspaceLocation)) {
          write-host "'azureMonitorWorkspaceLocation' not provided..."
 
@@ -40,7 +42,11 @@ steps:
           write-host "Adding new 'azureMonitorWorkspaceLocation' property..."
           $newBlock = @{value = $($rg.location)}
           $n = $newblock | convertto-json -compress
-          $j | Add-Member -name "azureMonitorWorkspaceLocation" -MemberType NoteProperty -value $n
+
+          """azureMonitorWorkspaceLocation"":$n"
+          $ary += """azureMonitorWorkspaceLocation"":$n"
+
+          $j | Add-Member -name "azureMonitorWorkspaceLocation" -MemberType NoteProperty -value $newBlock
         } else {
           write-host "Adding existing 'azureMonitorWorkspaceLocation' property..."
           $j.azureMonitorWorkspaceLocation = $rg.location
@@ -49,9 +55,8 @@ steps:
          write-host "'azureMonitorWorkspaceLocation' = $($j.azureMonitorWorkspaceLocation)"
       }
 
-      $j | fl
-
-      $p = $j | convertto-json -Compress
+      $pp = $j | convertto-json -Compress
+      ##$pp = [string]::join(",", $ary)
       "Final parameters: $p"
 
       az --version
@@ -60,5 +65,5 @@ steps:
           --resource-group ${env:RESOURCE-GROUP} `
           --name ClusterDeployment `
           --template-file ".\wip9-final.json" `
-          --parameters $($p.value)    ##${env:PARAMETERS}   
+          --parameters $pp    ##${env:PARAMETERS}   
           

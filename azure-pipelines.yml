@@ -30,7 +30,7 @@ steps:
       $j = $p | convertfrom-json
 
       $p
-      $p.Substring(1, $p.Length-2)
+      $p.Substring(2, $p.Length-4)
       $ary = $p.split(",")
       $ary
 
@@ -60,7 +60,7 @@ steps:
 
       ##$pp = $j | convertto-json -Compress
       $pp = [string]::join(",", $ary)
-      $pp = "{$pp}"
+      $pp = "'{$pp}'"
       "Final parameters: $pp"
 
       az --version

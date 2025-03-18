@@ -29,6 +29,8 @@ steps:
       "Parameters: $p"
       $j = $p | convertfrom-json
 
+      $p
+      $p.Substring(1, $p.Length-2)
       $ary = $p.split(",")
 
       if ([string]::IsNullOrEmpty($j.azureMonitorWorkspaceLocation)) {
@@ -57,6 +59,7 @@ steps:
 
       ##$pp = $j | convertto-json -Compress
       $pp = [string]::join(",", $ary)
+      $pp = "{$pp}"
       "Final parameters: $pp"
 
       az --version

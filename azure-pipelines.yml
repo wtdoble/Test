@@ -48,12 +48,10 @@ steps:
 
         $j | Add-Member -name "azureMonitorWorkspaceLocation" -MemberType NoteProperty -value $nestedObject -Force
         $j | fl
-
       } elseif ([string]::IsNullOrEmpty($j.azureMonitorWorkspaceLocation.value)) {
         write-host "'azureMonitorWorkspaceLocation.value' is provided, but it's empty."
         write-host "Updating to '$($rg.location)'.""
         $j.azureMonitorWorkspaceLocation.value = $rg.location
-
       } else {
          write-host "'azureMonitorWorkspaceLocation.value' provided: $($j.azureMonitorWorkspaceLocation.value)"
       }

@@ -33,44 +33,38 @@ steps:
       "Conforming input parameters: $p2"
       $j = $p2 | convertfrom-json
 
-      # $p
-      # $p=$p.Substring(2, $p.Length-4)
-      # $ary = $p.split(",")
-      # $ary
-
-      if ([string]::IsNullOrEmpty($j.azureMonitorWorkspaceLocation)) {
-         write-host "'azureMonitorWorkspaceLocation' not provided..."
-
-         $rg = (az group show -g ${env:RESOURCE-GROUP} | convertfrom-json)
-         write-host "Using location '$($rg.location)' from '$($rg.name)"
-
-        # Does the property exist?
-        if ($j.azureMonitorWorkspaceLocation -eq $null) {
-          write-host "Adding new 'azureMonitorWorkspaceLocation' property..."
-
-          $nestedObject = [PSCustomObject]@{
-              value = "$($rg.location)"
-          }
-
-          $newBlock = @{value = $($rg.location)}
- 
-          # """azureMonitorWorkspaceLocation"":$n"
-          # $ary += """azureMonitorWorkspaceLocation"":$n"
-
-          $j | Add-Member -name "azureMonitorWorkspaceLocation" -MemberType NoteProperty -value $nestedObject -PassThru
-        } else {
-          write-host "Updating existing 'azureMonitorWorkspaceLocation' property..."
-          $j.azureMonitorWorkspaceLocation = $rg.location
-        }
-      } else {
-         write-host "'azureMonitorWorkspaceLocation' = $($j.azureMonitorWorkspaceLocation)"
-
-         ###############
+      $rg = (az group show -g ${env:RESOURCE-GROUP} | convertfrom-json)
+      write-host "Resource group '$($rg.name)' location '$($rg.location)'."
+      $nestedObject = [PSCustomObject]@{
+          value = "$($rg.location)"
       }
 
-      $parmFinal = $j | convertto-json -Compress
-      # $pp = [string]::join(",", $ary)
-      # $pp = "'{$pp}'"
+      # Does the property exist?
+      if (($j.azureMonitorWorkspaceLocation -eq $null) -or ($j.azureMonitorWorkspaceLocation.value -eq null)) {
+        write-host "'azureMonitorWorkspaceLocation.value' not provided..."
+
+        write-host "Using location '$($rg.location)' from '$($rg.name)"
+        write-host "Adding new 'azureMonitorWorkspaceLocation' property..."
+
+        $j | Add-Member -name "azureMonitorWorkspaceLocation" -MemberType NoteProperty -value $nestedObject -Force
+        $j | fl
+
+      # # } elseif ($j.azureMonitorWorkspaceLocation.value -eq null) {  # Does "value" subproperty exist?
+      # #   write-host "'azureMonitorWorkspaceLocation' is provided, but it doesn't have a 'value' property."
+         
+      # #   $j | Add-Member -name "azureMonitorWorkspaceLocation" -MemberType NoteProperty -value $nestedObject -Force
+      # #   $j | fl
+
+      } elseif ([string]::IsNullOrEmpty($j.azureMonitorWorkspaceLocation.value)) {
+        write-host "'azureMonitorWorkspaceLocation.value' is provided, but it's empty."
+        write-host "Updating to '$($rg.location)'.""
+        $j.azureMonitorWorkspaceLocation.value = $rg.location
+
+      } else {
+         write-host "'azureMonitorWorkspaceLocation.value' provided: $($j.azureMonitorWorkspaceLocation.value)"
+      }
+
+      $parmFinal = ($j | convertto-json -Compress)
       $parmFinal = $parmFinal -replace """", "\"""
       "Final parameters: $parmFinal"
 

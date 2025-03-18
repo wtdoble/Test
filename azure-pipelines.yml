@@ -46,18 +46,18 @@ steps:
           """azureMonitorWorkspaceLocation"":$n"
           $ary += """azureMonitorWorkspaceLocation"":$n"
 
-          $j | Add-Member -name "azureMonitorWorkspaceLocation" -MemberType NoteProperty -value $newBlock
+          ##$j | Add-Member -name "azureMonitorWorkspaceLocation" -MemberType NoteProperty -value $newBlock
         } else {
-          write-host "Adding existing 'azureMonitorWorkspaceLocation' property..."
+          write-host "Updating existing 'azureMonitorWorkspaceLocation' property..."
           $j.azureMonitorWorkspaceLocation = $rg.location
         }
       } else {
          write-host "'azureMonitorWorkspaceLocation' = $($j.azureMonitorWorkspaceLocation)"
       }
 
-      $pp = $j | convertto-json -Compress
-      ##$pp = [string]::join(",", $ary)
-      "Final parameters: $p"
+      ##$pp = $j | convertto-json -Compress
+      $pp = [string]::join(",", $ary)
+      "Final parameters: $pp"
 
       az --version
       az account show

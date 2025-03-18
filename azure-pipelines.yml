@@ -37,13 +37,15 @@ steps:
 
         # Does the property exist?
         if ($j.azureMonitorWorkspaceLocation -eq $null) {
-          $j | Add-Member -name "azureMonitorWorkspaceLocation" -MemberType NoteProperty -value ($rg.location)
+          write-host "Adding new 'azureMonitorWorkspaceLocation' property..."
+          $newBlock = @{value = $($rg.location)}
+          $j = $j | Add-Member -name "azureMonitorWorkspaceLocation" -MemberType NoteProperty -value $newBlock
         } else {
+          write-host "Adding existing 'azureMonitorWorkspaceLocation' property..."
           $j.azureMonitorWorkspaceLocation = $rg.location
         }
-
       } else {
-        write-host "'azureMonitorWorkspaceLocation' = $($j.azureMonitorWorkspaceLocation)"
+         write-host "'azureMonitorWorkspaceLocation' = $($j.azureMonitorWorkspaceLocation)"
       }
 
       $j | fl

@@ -49,12 +49,6 @@ steps:
         $j | Add-Member -name "azureMonitorWorkspaceLocation" -MemberType NoteProperty -value $nestedObject -Force
         $j | fl
 
-      # # } elseif ($j.azureMonitorWorkspaceLocation.value -eq null) {  # Does "value" subproperty exist?
-      # #   write-host "'azureMonitorWorkspaceLocation' is provided, but it doesn't have a 'value' property."
-         
-      # #   $j | Add-Member -name "azureMonitorWorkspaceLocation" -MemberType NoteProperty -value $nestedObject -Force
-      # #   $j | fl
-
       } elseif ([string]::IsNullOrEmpty($j.azureMonitorWorkspaceLocation.value)) {
         write-host "'azureMonitorWorkspaceLocation.value' is provided, but it's empty."
         write-host "Updating to '$($rg.location)'.""
@@ -75,4 +69,10 @@ steps:
           --name ClusterDeployment `
           --template-file ".\wip9-final.json" `
           --parameters $parmFinal  ##${env:PARAMETERS}   
-          
+
+
+       # # } elseif ($j.azureMonitorWorkspaceLocation.value -eq null) {  # Does "value" subproperty exist?
+      # #   write-host "'azureMonitorWorkspaceLocation' is provided, but it doesn't have a 'value' property."
+         
+      # #   $j | Add-Member -name "azureMonitorWorkspaceLocation" -MemberType NoteProperty -value $nestedObject -Force
+      # #   $j | fl         

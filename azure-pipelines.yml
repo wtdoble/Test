@@ -40,7 +40,7 @@ steps:
       }
 
       # Does the property exist?
-      if (($j.azureMonitorWorkspaceLocation -eq $null) -or ($j.azureMonitorWorkspaceLocation.value -eq null)) {
+      if (($j.azureMonitorWorkspaceLocation -eq $null) -or ($j.azureMonitorWorkspaceLocation.value -eq $null)) {
         write-host "'azureMonitorWorkspaceLocation.value' not provided..."
 
         write-host "Using location '$($rg.location)' from '$($rg.name)"

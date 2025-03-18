@@ -69,5 +69,5 @@ steps:
           --resource-group ${env:RESOURCE-GROUP} `
           --name ClusterDeployment `
           --template-file ".\wip9-final.json" `
-          --parameters ${env:PARAMETERS}   
+          --parameters $pp  ##${env:PARAMETERS}   
           

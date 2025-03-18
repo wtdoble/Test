@@ -30,7 +30,7 @@ steps:
       $j = $p | convertfrom-json
 
       $p
-      $p.Substring(2, $p.Length-4)
+      $p=$p.Substring(2, $p.Length-4)
       $ary = $p.split(",")
       $ary
 

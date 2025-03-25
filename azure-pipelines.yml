@@ -75,8 +75,8 @@ steps:
       az --version
       az account show
       az deployment group create `
-          --resource-group ${env:RESOURCE-GROUP} `
+          --resource-group $resourceGroup `
           --name ClusterDeployment `
           --template-file ".\wip9-final.json" `
-          --parameters $parmFinal  ##${env:PARAMETERS}   
+          --parameters $parmFinal 
       

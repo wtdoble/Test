@@ -47,6 +47,7 @@ steps:
       if ([string]::IsNullOrEmpty($p)) {
         $p = "{}"
       }
+      "Default parameters: $p"
       $j = $p | convertfrom-json
 
       $parms = @(
@@ -62,11 +63,14 @@ steps:
       $parms | foreach {
           write-host "Name = $($_.name); Value = $($_.value)"
 
-          $n = [PSCustomObject]@{
-            value = "$($_.value)"
-          }
+          if (![string]::IsNullOrEmpty($_.value.Trim())) {
+            $n = [PSCustomObject]@{
+              value = "$($_.value)"
+            }
 
-          $j | Add-Member -name $_.name -MemberType NoteProperty -value $n -Force          
+            "Updating parameter '$($_.name)'' to '$($_.value)'"
+            $j | Add-Member -name $_.name -MemberType NoteProperty -value $n -Force          
+          }
       }
 
       $j | fl

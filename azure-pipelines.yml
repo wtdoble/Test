@@ -31,6 +31,9 @@ steps:
       $sub = $(${env:AZURESUBSCRIPTION}).Trim()
 
       $rg = (az group show -g $resourceGroup | convertfrom-json)
+      if ($rg -eq $null) {
+        throw "Resource group '$resourceGroup' not found"
+      }
       write-host "Resource group '$($rg.name)' location '$($rg.location)'."
 
       $p = $(${env:PARAMETERS}).Trim()

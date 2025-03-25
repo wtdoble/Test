@@ -25,18 +25,8 @@ steps:
     scriptType: ps
     scriptLocation: inlineScript
     inlineScript: |
-      function ValidateRequired {
-        param (
-        )
-
-        throw
-      }
-
-      ##{\"clusterName\":{\"value\":\"demoAksCluster\"},
-      ##\"actionGroupId\":{\"value\":\"/subscriptions/b9842c7c-1a38-4385-8f39-a51314758bcf/resourceGroups/wtd-test/providers/Microsoft.Insights/actiongroups/wtdTestAg\"}}
-
-      $clusterName = ${env:CLUSTER_NAME}
-      $actionGroupId = ${env:ACTION_GROUP_ID}
+      $clusterName = ${env:CLUSTERNAME}
+      $actionGroupId = ${env:ACTION-GROUP-ID}
       $resourceGroup = ${env:RESOURCE-GROUP}
       $sub = ${env:AZURESUBSCRIPTION}
 
@@ -74,33 +64,6 @@ steps:
       }
 
       $j | fl
-
-      ##$p2 = $p -replace "\\""", """"
-      ##"Conforming input parameters: $p2"
-      ##$j = $p2 | convertfrom-json
-
-      # # $rg = (az group show -g ${env:RESOURCE-GROUP} | convertfrom-json)
-      # # write-host "Resource group '$($rg.name)' location '$($rg.location)'."
-      # # $nestedObject = [PSCustomObject]@{
-      # #     value = "$($rg.location)"
-      # # }
-
-      # Does the property exist?
-      # # if (($j.azureMonitorWorkspaceLocation -eq $null) -or ($j.azureMonitorWorkspaceLocation.value -eq $null)) {
-      # #   write-host "'azureMonitorWorkspaceLocation.value' not provided..."
-
-      # #   write-host "Using location '$($rg.location)' from '$($rg.name)"
-      # #   write-host "Adding new 'azureMonitorWorkspaceLocation' property..."
-
-      # #   $j | Add-Member -name "azureMonitorWorkspaceLocation" -MemberType NoteProperty -value $nestedObject -Force
-      # #   $j | fl
-      # # } elseif ([string]::IsNullOrEmpty($j.azureMonitorWorkspaceLocation.value)) {
-      # #   write-host "'azureMonitorWorkspaceLocation.value' is provided, but it's empty."
-      # #   write-host "Updating to '$($rg.location)'."
-      # #   $j.azureMonitorWorkspaceLocation.value = $rg.location
-      # # } else {
-      # #    write-host "'azureMonitorWorkspaceLocation.value' provided: $($j.azureMonitorWorkspaceLocation.value)"
-      # # }
 
       $parmFinal = ($j | convertto-json -Compress)
       $parmFinal = $parmFinal -replace """", "\"""

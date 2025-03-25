@@ -25,15 +25,15 @@ steps:
     scriptType: ps
     scriptLocation: inlineScript
     inlineScript: |
-      $clusterName = ${env:CLUSTERNAME}
-      $actionGroupId = ${env:ACTION-GROUP-ID}
-      $resourceGroup = ${env:RESOURCE-GROUP}
-      $sub = ${env:AZURESUBSCRIPTION}
+      $clusterName = $(${env:CLUSTERNAME}).Trim()
+      $actionGroupId = $(${env:ACTION-GROUP-ID}).Trim()
+      $resourceGroup = $(${env:RESOURCE-GROUP}).Trim()
+      $sub = $(${env:AZURESUBSCRIPTION}).Trim()
 
-      $rg = (az group show -g ${env:RESOURCE-GROUP} | convertfrom-json)
+      $rg = (az group show -g $resourceGroup | convertfrom-json)
       write-host "Resource group '$($rg.name)' location '$($rg.location)'."
 
-      $p = ${env:PARAMETERS} 
+      $p = $(${env:PARAMETERS}).Trim()
       if ([string]::IsNullOrEmpty($p)) {
         $p = "{}"
       }
